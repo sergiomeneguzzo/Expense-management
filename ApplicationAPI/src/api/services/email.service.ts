@@ -21,7 +21,7 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
     attachments: [
       {
         filename: 'LogoPW1.png',
-        path: 'since2024.png',
+        path: 'MONEYTRACK.png',
         cid: 'logo',
       },
     ],
@@ -36,7 +36,7 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
       body {
         font-family: 'Inter', sans-serif;
         background-color: #1f1f1f;
-        color: #d1d5db;
+        color: #f9fafb;
         margin: 0;
         padding: 0;
       }
@@ -69,7 +69,7 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
         padding: 10px 20px;
         font-size: 18px;
         color: #f9fafb;
-        background-color: #4b5563;
+        background-color: #f97316; /* Arancione */
         text-decoration: none;
         border-radius: 6px;
         font-weight: bold;
@@ -77,7 +77,7 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
       }
 
       .btn-confirm:hover {
-        background-color: #374151;
+        background-color: #ea580c; /* Arancione scuro */
       }
 
       .footer {
@@ -121,11 +121,12 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
       <p>Se non hai richiesto questo account, puoi ignorare questa email.</p>
 
       <div class="footer">
-        <p>Grazie,<br />Il Team di FifthPocket</p>
+        <p>Grazie,<br />Il Team di MoneyTrack</p>
       </div>
     </div>
   </body>
-</html>`,
+</html>
+`,
   };
 
   await transporter.sendMail(mailOptions);

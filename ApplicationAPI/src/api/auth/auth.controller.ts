@@ -82,11 +82,17 @@ export const add = async (
 
     const newUser = await userService.add(user, credentials);
 
+    logService.add(`New user created: ${newUser.username}`, true);
+
     sendConfirmationEmail(newUser.username, newUser.id!);
 
     res.send(newUser);
   } catch (e) {
     if (e instanceof UserExistsError) {
+      logService.add(
+        `User creation failed - Username already in use: ${req.body.username}`,
+        false,
+      );
       res.status(400).json({
         error: 'UserExistsError',
         message: 'username already in use. Please try a different one.',
@@ -95,11 +101,21 @@ export const add = async (
       e instanceof Error &&
       e.message === 'Password and confirm password do not match.'
     ) {
+      logService.add(
+        `User creation failed - Password mismatch: ${req.body.username}`,
+        false,
+      );
       res.status(400).json({
         error: 'PasswordMismatch',
         message: e.message,
       });
     } else {
+      logService.add(
+        `User creation failed - Unknown error: ${
+          e instanceof Error ? e.message : 'Unknown error'
+        }`,
+        false,
+      );
       next(e);
     }
   }
