@@ -11,6 +11,7 @@ export const expenseSchema = new mongoose.Schema<iExpense>({
   },
   description: { type: String },
   date: { type: Date, default: Date.now },
+  isIncome: { type: Boolean, required: true },
 });
 
 expenseSchema.set('toJSON', {

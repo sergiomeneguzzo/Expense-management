@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import expenseService from './expense.service';
 import { Expense } from './expense.entity';
 import logService from '../services/logs/log.service';
+import { CreateExpenseDTO, UpdateExpenseDTO } from './expense.dto';
 
 export const getExpenses = async (
   req: Request,
@@ -28,11 +29,7 @@ export const getExpenses = async (
 };
 
 export const createExpense = async (
-  req: Request<
-    {},
-    {},
-    { amount: number; category: string; description?: string; date?: string }
-  >,
+  req: Request<{}, {}, CreateExpenseDTO>,
   res: Response,
   next: NextFunction,
 ) => {
@@ -42,33 +39,27 @@ export const createExpense = async (
     }
 
     const userId: string = req.user.id;
-    const { amount, category, description, date } = req.body;
+    const { amount, category, description, date, isIncome } = req.body;
+
     const expenseData = {
       userId,
       amount,
       category,
       description,
       date: date ? new Date(date) : new Date(),
+      isIncome,
     };
 
     const newExpense = await expenseService.createExpense(expenseData);
 
-    logService.add(
-      `Created new expense for user ID: ${userId}, Amount: ${amount}, Category: ${category}`,
-      true,
-    );
     res.status(201).json(newExpense);
   } catch (error) {
-    logService.add(
-      `Error fetching expenses: ${(error as Error).message}`,
-      false,
-    );
     next(error);
   }
 };
 
 export const updateExpense = async (
-  req: Request<{ id: string }, {}, Partial<Expense>>,
+  req: Request<{ id: string }, {}, UpdateExpenseDTO>,
   res: Response,
   next: NextFunction,
 ) => {
@@ -84,13 +75,8 @@ export const updateExpense = async (
       req.body,
     );
 
-    logService.add(`Updated expense ID: ${expenseId}`, true);
     res.json(updatedExpense);
   } catch (error) {
-    logService.add(
-      `Error fetching expenses: ${(error as Error).message}`,
-      false,
-    );
     next(error);
   }
 };
