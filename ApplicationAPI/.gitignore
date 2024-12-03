@@ -1,0 +1,50 @@
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Cache files
+.cache/
+dist/
+build/
+
+# TypeScript compiled output
+*.tsbuildinfo
+out/
+tsconfig.tsbuildinfo
+
+# Editor-specific files
+.vscode/
+.idea/
+*.swp
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Debug
+*.pid
+
+# Coverage directories
+coverage/
+
+# Dependency directories
+bower_components/
+
+# Temp files
+tmp/
+temp/
