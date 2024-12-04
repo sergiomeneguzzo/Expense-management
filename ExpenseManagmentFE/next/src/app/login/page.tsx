@@ -11,9 +11,10 @@ import {
 } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { useRouter } from 'next/navigation';
+import { apiUrl } from '../../../secrets';
 
 const LoginPage = () => {
-  const [email, setEmail] = useState('');
+  const [username, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
@@ -23,10 +24,10 @@ const LoginPage = () => {
     setError('');
 
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch(`${apiUrl}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ username, password }),
       });
 
       if (!response.ok) {
@@ -35,7 +36,6 @@ const LoginPage = () => {
       }
 
       const data = await response.json();
-      alert(`Welcome, ${data.username}!`);
 
       router.push('/dashboard');
     } catch (err: any) {
@@ -57,7 +57,7 @@ const LoginPage = () => {
                 id='email'
                 type='email'
                 placeholder='Enter your email'
-                value={email}
+                value={username}
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
