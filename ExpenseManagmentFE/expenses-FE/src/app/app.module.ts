@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
     ButtonModule,
     CardModule,
     MatIconModule,
+    MatListModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

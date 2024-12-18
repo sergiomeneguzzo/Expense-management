@@ -1,0 +1,77 @@
+@import "../../../styles.scss";
+@import "../../../variables.scss";
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  background-color: $primary-color;
+  color: $text-color;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  padding-top: 10px;
+
+  &.closed {
+    transform: translateX(-250px);
+  }
+
+  .sidebar-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+  }
+
+  .nav-items {
+    display: flex;
+    flex-direction: column;
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      cursor: pointer;
+      color: $text-color;
+      transition: background-color 0.3s ease;
+
+      mat-icon {
+        margin-right: 15px;
+      }
+
+      &:hover {
+        background-color: $hover-color;
+      }
+
+      span {
+        display: inline-block;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .toggle-button {
+    position: absolute;
+    top: 10px;
+    left: 100%;
+    transform: translateX(10px);
+    background-color: $secondary-color;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    color: $text-color;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: $hover-color;
+    }
+
+    mat-icon {
+      font-size: 24px;
+    }
+  }
+}

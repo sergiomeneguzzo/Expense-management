@@ -8,4 +8,33 @@
   align-items: center;
   padding: 16px 20px;
   color: $secondary-color;
+  border-radius: 10px;
+  border: 1px solid lighten($secondary-color, 40%);
+
+  .title-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: $primary-color;
+    color: white;
+    border-radius: 4px;
+
+    mat-icon {
+      font-size: 24px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .export-button {
+    display: none;
+  }
 }

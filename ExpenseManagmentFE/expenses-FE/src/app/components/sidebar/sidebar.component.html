@@ -1,1 +1,22 @@
-<p>sidebar works!</p>
+<div class="sidebar" [class.closed]="isClosed">
+  <div class="sidebar-content">
+    <div class="nav-items">
+      <div class="nav-item" [class.closed]="isClosed">
+        <mat-icon>home</mat-icon>
+        <span *ngIf="!isClosed">Home</span>
+      </div>
+      <div class="nav-item" [class.closed]="isClosed">
+        <mat-icon>person</mat-icon>
+        <span *ngIf="!isClosed">Profilo</span>
+      </div>
+      <div class="nav-item" [class.closed]="isClosed">
+        <mat-icon>settings</mat-icon>
+        <span *ngIf="!isClosed">Impostazioni</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="toggle-button" (click)="toggleSidebar()">
+    <mat-icon>{{ isClosed ? "arrow_forward" : "arrow_back" }}</mat-icon>
+  </div>
+</div>
