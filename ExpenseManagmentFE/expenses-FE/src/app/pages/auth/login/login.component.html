@@ -1,0 +1,50 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="title-container">
+      <div class="icon-container">
+        <mat-icon>bar_chart_4_bars</mat-icon>
+      </div>
+      <h2>Money Tracker</h2>
+    </div>
+    <p>Bentornato in Money Tracker - Entra col tuo Account!</p>
+
+    <hr class="separator" />
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <!-- Campo Email -->
+      <div class="form-group">
+        <label for="username">Email</label>
+        <input
+          pInputText
+          class="email-input"
+          id="username"
+          type="email"
+          placeholder="Email"
+          formControlName="username"
+        />
+      </div>
+
+      <!-- Campo Password -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <p-password
+          id="password"
+          class="p-password-input"
+          formControlName="password"
+          placeholder="Password"
+          [toggleMask]="true"
+        ></p-password>
+        <a class="forgot-link">Forgot?</a>
+      </div>
+
+      <!-- Bottone Login -->
+      <p-button label="Login" type="submit" class="submit-button"></p-button>
+    </form>
+
+    <!-- Link di Register -->
+    <p class="login-link">
+      Non hai un account?
+      <a href="/register" class="login-link-bold">Registrati</a>
+    </p>
+  </div>
+</div>

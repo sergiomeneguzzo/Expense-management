@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { User } from '../../entities/user';
 
 @Component({
   selector: 'app-sidebar',
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
   isClosed: boolean = true;
+  @Output() logout = new EventEmitter<void>();
+  @Input() user: User | null = null;
 
   toggleSidebar() {
     this.isClosed = !this.isClosed;
