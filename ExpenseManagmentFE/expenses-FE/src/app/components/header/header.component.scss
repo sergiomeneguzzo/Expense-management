@@ -17,13 +17,17 @@
     gap: 10px;
   }
 
+  .dashboard-title {
+    color: $black;
+  }
+
   .icon-container {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 40px;
     height: 40px;
-    background-color: $primary-color;
+    background-image: linear-gradient(to right, $black, $primary-color);
     color: $white;
     border-radius: 4px;
 

@@ -1,17 +1,22 @@
 <div class="login-container">
+  <!-- Card del Login -->
   <div class="login-card">
+    <div class="image-card">
+      <img src="../../../../assets/logo.png" alt="Login Image" />
+    </div>
+
+    <!-- Titolo -->
     <div class="title-container">
       <div class="icon-container">
         <mat-icon>bar_chart_4_bars</mat-icon>
       </div>
-      <h2>Money Tracker</h2>
+      <h2>Bentornato!</h2>
     </div>
     <p>Bentornato in Money Tracker - Entra col tuo Account!</p>
-
     <hr class="separator" />
 
+    <!-- Form -->
     <form [formGroup]="loginForm" (ngSubmit)="login()">
-      <!-- Campo Email -->
       <div class="form-group">
         <label for="username">Email</label>
         <input
@@ -23,8 +28,6 @@
           formControlName="username"
         />
       </div>
-
-      <!-- Campo Password -->
       <div class="form-group">
         <label for="password">Password</label>
         <p-password
@@ -36,8 +39,6 @@
         ></p-password>
         <a class="forgot-link">Forgot?</a>
       </div>
-
-      <!-- Bottone Login -->
       <p-button label="Login" type="submit" class="submit-button"></p-button>
     </form>
 

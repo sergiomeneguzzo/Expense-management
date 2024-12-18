@@ -64,7 +64,7 @@
     }
   }
   &:hover {
-    background-color: $primary-color;
+    background-image: linear-gradient(to right, $black, $primary-color);
 
     .card-header h3,
     .card-body h2,

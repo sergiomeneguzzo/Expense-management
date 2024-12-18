@@ -53,7 +53,7 @@ body {
   cursor: pointer;
   &:hover {
     transition: background-color 0.6s ease, color 0.6s ease;
-    background-color: $primary-color;
+    background-image: linear-gradient(to right, $black, $primary-color);
   }
 }
 
