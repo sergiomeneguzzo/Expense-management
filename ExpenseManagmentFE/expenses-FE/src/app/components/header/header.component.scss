@@ -1,0 +1,11 @@
+@import "../../../styles.scss";
+@import "../../../variables.scss";
+
+.header {
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  color: $secondary-color;
+}
