@@ -1,4 +1,4 @@
-$primary-color: #226b4d;
+$primary-color: #18af70;
 $secondary-color: #4b5563;
 $white: #ffffff;
 $black: #000000;
@@ -6,3 +6,6 @@ $hover-color: lighten($primary-color, 20%);
 $text-color: #ffffff;
 $color-text-dark: #212121;
 $border-color: lighten($secondary-color, 30%);
+$success-color: #00c853;
+$danger-color: #ff5252;
+$warning-color: #ffab00;

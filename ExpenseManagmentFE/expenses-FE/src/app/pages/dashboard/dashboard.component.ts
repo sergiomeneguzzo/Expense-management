@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ExpensesService } from '../../services/expenses.service';
+import { Expense } from '../../entities/expense';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +8,8 @@ import { ExpensesService } from '../../services/expenses.service';
   styleUrl: './dashboard.component.scss',
 })
 export class DashboardComponent {
-  expenses: any[] = [];
+  expenses: Expense[] = [];
+  recentExpenses: Expense[] = [];
   loading: boolean = false;
 
   constructor(private expensesService: ExpensesService) {}
@@ -21,6 +23,11 @@ export class DashboardComponent {
     this.expensesService.getExpenses().subscribe(
       (data) => {
         this.expenses = data;
+        this.recentExpenses = [...this.expenses]
+          .sort(
+            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+          )
+          .slice(0, 5);
         console.log('Spese recuperate', this.expenses);
         this.loading = false;
       },

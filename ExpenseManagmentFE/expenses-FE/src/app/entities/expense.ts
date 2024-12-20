@@ -4,7 +4,7 @@ export interface Expense {
   id?: string;
   userId: string;
   amount: number;
-  category: string | Category;
+  category: Category;
   description?: string;
   date: Date;
   isIncome: boolean;

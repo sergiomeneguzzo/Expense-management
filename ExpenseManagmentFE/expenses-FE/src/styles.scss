@@ -58,7 +58,11 @@ body {
   cursor: pointer;
   &:hover {
     transition: color 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
-    background-image: linear-gradient(to right, $black, $primary-color);
+    background-image: linear-gradient(
+      to right,
+      $black,
+      $primary-color
+    ) !important;
   }
 }
 

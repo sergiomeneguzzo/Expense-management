@@ -24,6 +24,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { DividerModule } from 'primeng/divider';
 import { AuthInterceptor } from './utils/auth.interceptor';
+import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { AuthInterceptor } from './utils/auth.interceptor';
     MessageModule,
     ToastModule,
     DividerModule,
+    TableModule,
   ],
   providers: [
     MessageService,
