@@ -2,11 +2,13 @@
 @import "../../../variables.scss";
 
 .header {
+  margin-top: 1rem;
   font-weight: 600;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 16px 20px;
+  background-color: $white;
   color: $secondary-color;
   border-radius: 10px;
   border: 1px solid lighten($secondary-color, 40%);

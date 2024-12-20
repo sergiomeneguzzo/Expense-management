@@ -7,9 +7,15 @@ html {
 
 body {
   background: $white;
-  height: 100vh;
   font-family: "Poppins", sans-serif;
   overflow-x: hidden;
+  background-image: linear-gradient(
+    to right,
+    $black,
+    $primary-color
+  ) !important;
+  margin: 0;
+  padding: 1rem;
 }
 
 .p-button {
@@ -49,7 +55,6 @@ body {
 
 .p-card {
   border-radius: 10px;
-  border: 1px solid lighten($secondary-color, 40%);
   cursor: pointer;
   &:hover {
     transition: color 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) !important;

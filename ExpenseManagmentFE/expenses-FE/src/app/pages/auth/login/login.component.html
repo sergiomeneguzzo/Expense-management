@@ -1,60 +1,68 @@
-<div class="login-container">
-  <div class="login-card">
+<div
+  class="login-container flex justify-content-center align-items-center min-h-screen"
+>
+  <div class="login-card surface-card shadow-2 border-round p-4">
     <div class="login-content">
-      <div class="login-grid">
-        <!-- Form Section -->
-        <div class="form-section">
-          <div class="title-container">
-            <div class="icon-container">
-              <mat-icon>bar_chart_4_bars</mat-icon>
-            </div>
-            <h2>Bentornato!</h2>
+      <div class="form-section text-center">
+        <div
+          class="title-container flex align-items-center justify-content-center gap-2 mb-3"
+        >
+          <div
+            class="icon-container flex align-items-center justify-content-center bg-primary border-round text-white"
+          >
+            <mat-icon>bar_chart_4_bars</mat-icon>
           </div>
-          <p>Bentornato in Money Tracker - Entra col tuo Account!</p>
-          <hr class="separator" />
-
-          <form [formGroup]="loginForm" (ngSubmit)="login()">
-            <div class="form-group">
-              <label for="username">Email</label>
-              <input
-                pInputText
-                class="email-input"
-                id="username"
-                type="email"
-                placeholder="Email"
-                formControlName="username"
-              />
-            </div>
-            <div class="form-group">
-              <label for="password">Password</label>
-              <p-password
-                id="password"
-                class="p-password-input"
-                formControlName="password"
-                placeholder="Password"
-                [toggleMask]="true"
-              ></p-password>
-              <a href="#" class="forgot-link">Dimenticata?</a>
-            </div>
-            <p-button
-              label="Login"
-              type="submit"
-              class="submit-button"
-            ></p-button>
-          </form>
-
-          <p class="login-link">
-            Non hai un account?
-            <a href="/register" class="login-link-bold">Registrati</a>
-          </p>
+          <h2>Bentornato!</h2>
         </div>
+        <p class="text-secondary">
+          Bentornato in Money Tracker - Entra col tuo Account!
+        </p>
+        <hr class="separator my-3" />
 
-        <!-- Image Section -->
-        <div class="image-section">
-          <div class="image-card">
-            <img src="/logo.png" alt="Login Image" />
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="form-group mb-4">
+            <label for="username" class="block text-left text-secondary mb-2"
+              >Email</label
+            >
+            <input
+              pInputText
+              class="email-input block w-full border-round"
+              id="username"
+              type="email"
+              placeholder="Email"
+              formControlName="username"
+            />
           </div>
-        </div>
+          <div class="form-group mb-4">
+            <label for="password" class="block text-left text-secondary mb-2"
+              >Password</label
+            >
+            <p-password
+              id="password"
+              class="p-password-input block w-full border-round"
+              formControlName="password"
+              placeholder="Password"
+              [toggleMask]="true"
+            ></p-password>
+            <a
+              href="#"
+              class="forgot-link absolute text-sm text-primary top-0 right-0"
+              >Dimenticata?</a
+            >
+          </div>
+          <p-button
+            label="Login"
+            type="submit"
+            class="submit-button w-full"
+          ></p-button>
+        </form>
+
+        <p class="login-link text-sm mt-4">
+          Non hai un account?
+          <a href="/register" class="login-link-bold font-bold text-primary"
+            >Registrati</a
+          >
+        </p>
       </div>
     </div>
   </div>

@@ -1,1 +1,111 @@
-<p>register works!</p>
+<div
+  class="register-container flex justify-content-center align-items-center min-h-screen"
+>
+  <div class="register-card surface-card shadow-2 border-round p-4">
+    <div class="register-content">
+      <div class="form-section text-center">
+        <div
+          class="title-container flex align-items-center justify-content-center gap-2 mb-3"
+        >
+          <div
+            class="icon-container flex align-items-center justify-content-center bg-primary border-round text-white"
+          >
+            <mat-icon>person_add</mat-icon>
+          </div>
+          <h2>Registrati</h2>
+        </div>
+        <p class="text-secondary">
+          Registrati su Money Tracker e inizia a tracciare le tue finanze!
+        </p>
+        <hr class="separator my-3" />
+
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+          <div class="form-group mb-4">
+            <label for="firstName" class="block text-left text-secondary mb-2"
+              >Nome</label
+            >
+            <input
+              pInputText
+              class="block email-input border-round"
+              id="firstName"
+              type="text"
+              placeholder="Nome"
+              formControlName="firstName"
+            />
+          </div>
+          <div class="form-group mb-4">
+            <label for="lastName">Cognome</label>
+            <input
+              pInputText
+              class="block email-input border-round"
+              id="lastName"
+              type="text"
+              placeholder="Cognome"
+              formControlName="lastName"
+            />
+          </div>
+          <div class="form-group mb-4">
+            <label for="picture">Immagine del profilo (URL)</label>
+            <input
+              pInputText
+              class="email-input"
+              id="picture"
+              type="text"
+              placeholder="URL Immagine"
+              formControlName="picture"
+            />
+          </div>
+          <div class="form-group mb-4">
+            <label for="username">Email</label>
+            <input
+              pInputText
+              class="email-input"
+              id="username"
+              type="email"
+              placeholder="Email"
+              formControlName="username"
+            />
+          </div>
+          <div class="form-group mb-4 relative">
+            <label for="password" class="block text-left text-secondary mb-2"
+              >Password</label
+            >
+            <p-password
+              id="password"
+              class="p-password-input ng-invalid ng-dirty"
+              formControlName="password"
+              placeholder="Password"
+              [toggleMask]="true"
+            ></p-password>
+          </div>
+          <div class="form-group mb-4 relative">
+            <label
+              for="confirmPassword"
+              class="block text-left text-secondary mb-2"
+              >Conferma Password</label
+            >
+            <p-password
+              id="confirmPassword"
+              class="p-password-input"
+              formControlName="confirmPassword"
+              placeholder="Conferma Password"
+              [toggleMask]="true"
+            ></p-password>
+          </div>
+          <p-button
+            label="Registrati"
+            type="submit"
+            class="submit-button w-full"
+          ></p-button>
+        </form>
+
+        <p class="login-link text-sm mt-4">
+          Hai già un account?
+          <a href="/login" class="login-link-bold font-bold text-primary"
+            >Accedi</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

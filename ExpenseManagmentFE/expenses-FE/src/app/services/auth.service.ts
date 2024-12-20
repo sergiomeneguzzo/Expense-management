@@ -30,7 +30,7 @@ export class AuthService {
 
   login(username: string, password: string) {
     return this.http
-      .post<{ user: User; token: string }>(`${apiUrl}/api/login`, {
+      .post<{ user: User; token: string }>(`${apiUrl}/login`, {
         username,
         password,
       })
@@ -49,7 +49,7 @@ export class AuthService {
     password: string,
     confirmPassword: string
   ) {
-    return this.http.post(`${apiUrl}/api/register`, {
+    return this.http.post(`${apiUrl}/register`, {
       firstName,
       lastName,
       username,
@@ -67,7 +67,7 @@ export class AuthService {
 
   public fetchUser() {
     this._loading$.next(true);
-    this.http.get<User>(`${apiUrl}/api/users/me`).subscribe({
+    this.http.get<User>(`${apiUrl}/users/me`).subscribe({
       next: (user) => {
         this._currentUser$.next(user);
         this._loading$.next(false);
@@ -75,6 +75,9 @@ export class AuthService {
       },
       error: (err) => {
         this._loading$.next(false);
+        if (err.status === 401) {
+          this.logout();
+        }
         console.error('Error fetching user:', err);
       },
     });
@@ -88,15 +91,15 @@ export class AuthService {
       newPassword,
       confirmPassword,
     };
-    return this.http.patch<any>(`${apiUrl}/api/users/updatePassword`, body);
+    return this.http.patch<any>(`${apiUrl}/users/updatePassword`, body);
   }
 
   confirmEmail(token: string): Observable<any> {
-    return this.http.post(`${apiUrl}/api/users/email-confirmation`, { token });
+    return this.http.post(`${apiUrl}/users/email-confirmation`, { token });
   }
 
   updateUserPicture(url: string): Observable<any> {
-    return this.http.patch(`${apiUrl}/api/users/update-profile-picture`, {
+    return this.http.patch(`${apiUrl}/users/update-profile-picture`, {
       url,
     });
   }

@@ -1,0 +1,120 @@
+@import "../../../../styles.scss";
+@import ".././../../../variables.scss";
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
+}
+
+.register-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: $white;
+}
+
+.form-section {
+  text-align: center;
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-image: linear-gradient(to right, $black, $primary-color);
+  color: $white;
+  border-radius: 4px;
+
+  mat-icon {
+    font-size: 24px;
+  }
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+
+  label {
+    display: block;
+    text-align: left;
+    color: $secondary-color;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+
+  .email-input {
+    width: 18rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+  }
+
+  .p-password-input {
+    width: 100%;
+  }
+
+  .forgot-link {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 0.8rem;
+    color: $primary-color;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.separator {
+  margin: 1.5rem 0;
+  border: none;
+  border-top: 1px solid #eee;
+}
+
+.p-button {
+  width: 100%;
+  border: none;
+  font-size: 1rem;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+.login-link {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+
+  .login-link-bold {
+    font-weight: 600;
+    text-decoration: none;
+    background: linear-gradient(to left, $black, $primary-color);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
