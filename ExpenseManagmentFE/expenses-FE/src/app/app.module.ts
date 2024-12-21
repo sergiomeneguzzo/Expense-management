@@ -27,7 +27,12 @@ import { AuthInterceptor } from './utils/auth.interceptor';
 import { TableModule } from 'primeng/table';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { ChartModule } from 'primeng/chart';
-
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { DialogService } from 'primeng/dynamicdialog';
+import { CalendarModule } from 'primeng/calendar';
+import { CheckboxModule } from 'primeng/checkbox';
+import { CustomCardsComponent } from './components/custom-cards/custom-cards.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -38,6 +43,7 @@ import { ChartModule } from 'primeng/chart';
     LoginComponent,
     RegisterComponent,
     CheckEmailComponent,
+    CustomCardsComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,6 +65,10 @@ import { ChartModule } from 'primeng/chart';
     TableModule,
     NgApexchartsModule,
     ChartModule,
+    DialogModule,
+    DropdownModule,
+    CalendarModule,
+    CheckboxModule,
   ],
   providers: [
     MessageService,
@@ -67,6 +77,7 @@ import { ChartModule } from 'primeng/chart';
       useClass: AuthInterceptor,
       multi: true,
     },
+    DialogService,
   ],
   bootstrap: [AppComponent],
 })

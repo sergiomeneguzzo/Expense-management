@@ -1,104 +1,36 @@
 <app-header></app-header>
 
 <div class="p-grid p-mt-3">
-  <!-- Card Entrate -->
+  <!-- Custom Cards -->
   <div class="p-col-12 p-md-4">
-    <p-card class="custom-card">
-      <div class="card-header">
-        <div class="icon-container">
-          <i class="material-icons">euro_symbol</i>
-        </div>
-        <h3>ENTRATE TOTALI</h3>
-      </div>
-      <div class="card-body">
-        <h2>{{ totalIncome }}€</h2>
-        <p>
-          <span
-            [ngClass]="{
-              'danger-text': incomePercentage < 0,
-              'success-text': incomePercentage > 0,
-              'warning-text': incomePercentage === 0
-            }"
-          >
-            <ng-container *ngIf="incomePercentage !== 0"> </ng-container>
-            {{
-              incomePercentage !== 0 ? (incomePercentage > 0 ? "▲" : "▼") : ""
-            }}
-            {{ incomePercentage !== 0 ? incomePercentage.toFixed(2) : "0" }}%
-          </span>
-          last 30 days
-        </p>
-      </div>
-    </p-card>
+    <app-custom-cards
+      icon="euro_symbol"
+      title="ENTRATE TOTALI"
+      [amount]="totalIncome"
+      [percentage]="incomePercentage"
+    ></app-custom-cards>
   </div>
-
-  <!-- Card Spese -->
   <div class="p-col-12 p-md-4">
-    <p-card class="custom-card expense-card">
-      <div class="card-header">
-        <div class="icon-container">
-          <i class="material-icons">toll</i>
-        </div>
-        <h3>SPESE TOTALI</h3>
-      </div>
-      <div class="card-body">
-        <h2>{{ totalExpenses }}€</h2>
-        <p>
-          <span
-            [ngClass]="{
-              'success-text': expensePercentage < 0,
-              'danger-text': expensePercentage > 0,
-              'warning-text': expensePercentage === 0
-            }"
-          >
-            <ng-container *ngIf="expensePercentage !== 0"> </ng-container>
-            {{
-              expensePercentage !== 0 ? (expensePercentage > 0 ? "▲" : "▼") : ""
-            }}
-            {{ expensePercentage !== 0 ? expensePercentage.toFixed(2) : "0" }}%
-          </span>
-          last 30 days
-        </p>
-      </div>
-    </p-card>
+    <app-custom-cards
+      icon="toll"
+      title="SPESE TOTALI"
+      [amount]="totalExpenses"
+      [percentage]="expensePercentage"
+    ></app-custom-cards>
   </div>
-
-  <!-- Card Risparmi -->
   <div class="p-col-12 p-md-4">
-    <p-card class="custom-card">
-      <div class="card-header">
-        <div class="icon-container">
-          <i class="material-icons">savings</i>
-        </div>
-        <h3>RISPARMI TOTALI</h3>
-      </div>
-      <div class="card-body">
-        <h2>{{ savings }}€</h2>
-        <p>
-          <span
-            [ngClass]="{
-              'danger-text': savingsPercentage < 0,
-              'success-text': savingsPercentage > 0,
-              'warning-text': savingsPercentage === 0
-            }"
-          >
-            <ng-container *ngIf="savingsPercentage !== 0"> </ng-container>
-            {{
-              savingsPercentage !== 0 ? (savingsPercentage > 0 ? "▲" : "▼") : ""
-            }}
-            {{ savingsPercentage !== 0 ? savingsPercentage.toFixed(2) : "0" }}%
-          </span>
-          last 30 days
-        </p>
-      </div>
-    </p-card>
+    <app-custom-cards
+      icon="savings"
+      title="RISPARMI TOTALI"
+      [amount]="savings"
+      [percentage]="savingsPercentage"
+    ></app-custom-cards>
   </div>
 </div>
 
-<!-- Card per il Grafico e Timeline sulla stessa riga -->
 <div class="p-grid p-mt-3">
-  <!-- Card per il Grafico -->
   <div class="p-col-12 p-md-6">
+    <!-- Grafico Bar Chart -->
     <div class="chart-card">
       <div class="card-header">
         <h3>ANDAMENTO SPESE</h3>
@@ -119,7 +51,6 @@
       <div class="card-header">
         <h3>SPESE RECENTI</h3>
       </div>
-      <!-- Ultime 5 Spese -->
       <div class="timeline-container">
         <div class="timeline-line"></div>
         <div class="expense-items">

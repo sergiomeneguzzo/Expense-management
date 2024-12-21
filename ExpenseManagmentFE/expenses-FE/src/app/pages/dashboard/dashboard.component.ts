@@ -1,13 +1,18 @@
 import {
   ChangeDetectorRef,
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
+  Output,
   ViewChild,
 } from '@angular/core';
 import { ExpensesService } from '../../services/expenses.service';
 import { Expense } from '../../entities/expense';
+import { Category } from '../../entities/category';
+import { DialogService } from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +22,7 @@ import { Expense } from '../../entities/expense';
 export class DashboardComponent implements OnInit, OnChanges {
   expenses: Expense[] = [];
   recentExpenses: Expense[] = [];
+  categories: Category[] = [];
 
   totalIncome: number = 0;
   totalExpenses: number = 0;
@@ -26,13 +32,16 @@ export class DashboardComponent implements OnInit, OnChanges {
   savingsPercentage: number = 0;
 
   loading: boolean = false;
+  visible: boolean = false;
 
   chartData: any;
   chartOptions: any;
 
   constructor(
     private expensesService: ExpensesService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private dialogService: DialogService,
+    private messageService: MessageService
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +53,10 @@ export class DashboardComponent implements OnInit, OnChanges {
     if (this.expenses.length > 0) {
       this.updateChart();
     }
+  }
+
+  showDialog() {
+    this.visible = true;
   }
 
   loadExpenses(): void {
@@ -71,20 +84,16 @@ export class DashboardComponent implements OnInit, OnChanges {
   private calculateTotals(): void {
     const last30Days = this.getLast30Days();
     const previous30Days = this.getPrevious30Days();
-
     // Calcola le entrate totali
     this.totalIncome = this.expenses
       .filter((expense) => expense.isIncome)
       .reduce((acc, expense) => acc + expense.amount, 0);
-
     // Calcola le spese totali
     this.totalExpenses = this.expenses
       .filter((expense) => !expense.isIncome)
       .reduce((acc, expense) => acc + expense.amount, 0);
-
     // Calcola i risparmi totali (entrate - spese)
     this.savings = this.totalIncome - this.totalExpenses;
-
     // Calcola la variazione delle entrate negli ultimi 30 giorni
     const incomeLast30 = this.calculateTotalForPeriod(last30Days, true);
     const incomePrevious30 = this.calculateTotalForPeriod(previous30Days, true);
@@ -92,18 +101,15 @@ export class DashboardComponent implements OnInit, OnChanges {
       incomeLast30,
       incomePrevious30
     );
-
     // Calcola la variazione delle spese negli ultimi 30 giorni
     const expensesLast30 = this.calculateTotalForPeriod(last30Days, false);
     const expensesPrevious30 = this.calculateTotalForPeriod(
       previous30Days,
       false
     );
-    this.expensePercentage = this.calculatePercentageChange(
-      expensesLast30,
-      expensesPrevious30
+    this.expensePercentage = -Math.abs(
+      this.calculatePercentageChange(expensesLast30, expensesPrevious30)
     );
-
     // Calcola la variazione dei risparmi negli ultimi 30 giorni
     const savingsLast30 = incomeLast30 - expensesLast30;
     const savingsPrevious30 = incomePrevious30 - expensesPrevious30;
@@ -112,7 +118,6 @@ export class DashboardComponent implements OnInit, OnChanges {
       savingsPrevious30
     );
   }
-
   // Funzione per ottenere gli ultimi 30 giorni
   private getLast30Days(): Date[] {
     const today = new Date();
@@ -124,7 +129,6 @@ export class DashboardComponent implements OnInit, OnChanges {
     }
     return last30Days;
   }
-
   // Funzione per ottenere i 30 giorni precedenti
   private getPrevious30Days(): Date[] {
     const last30Days = this.getLast30Days();
@@ -135,7 +139,6 @@ export class DashboardComponent implements OnInit, OnChanges {
     });
     return previous30Days;
   }
-
   // Funzione per calcolare il totale per un periodo (entrate o spese)
   private calculateTotalForPeriod(period: Date[], isIncome: boolean): number {
     return this.expenses
@@ -149,7 +152,6 @@ export class DashboardComponent implements OnInit, OnChanges {
       })
       .reduce((acc, expense) => acc + expense.amount, 0);
   }
-
   // Funzione per calcolare la percentuale di variazione
   private calculatePercentageChange(current: number, previous: number): number {
     if (previous === 0) return current > 0 ? 100 : 0;

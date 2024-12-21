@@ -1,0 +1,25 @@
+<p-card class="custom-card">
+  <div class="card-header">
+    <div class="icon-container">
+      <i class="material-icons">{{ icon }}</i>
+    </div>
+    <h3>{{ title }}</h3>
+  </div>
+  <div class="card-body">
+    <h2>{{ amount }}€</h2>
+    <p>
+      <span
+        [ngClass]="{
+          'danger-text': percentage < 0,
+          'success-text': percentage > 0,
+          'warning-text': percentage === 0
+        }"
+      >
+        <ng-container *ngIf="percentage !== 0"> </ng-container>
+        {{ percentage !== 0 ? (percentage > 0 ? "▲" : "▼") : "" }}
+        {{ percentage !== 0 ? percentage.toFixed(2) : "0" }}%
+      </span>
+      last 30 days
+    </p>
+  </div>
+</p-card>
