@@ -55,15 +55,15 @@ body {
 
 .p-card {
   border-radius: 10px;
-  cursor: pointer;
-  &:hover {
-    transition: color 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
-    background-image: linear-gradient(
-      to right,
-      $black,
-      $primary-color
-    ) !important;
-  }
+  //cursor: pointer;
+  // transition: background-image 1s ease-in-out, color 1s ease-in-out;
+  // &:hover {
+  //   background-image: linear-gradient(
+  //     to right,
+  //     $black,
+  //     $primary-color
+  //   ) !important;
+  // }
 }
 
 @media screen and (max-width: 600px) {

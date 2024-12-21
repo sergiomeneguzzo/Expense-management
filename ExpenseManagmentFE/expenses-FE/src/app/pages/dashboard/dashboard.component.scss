@@ -64,30 +64,76 @@
       color: $warning-color;
     }
   }
-  &:hover {
-    transition: color 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-    background-image: linear-gradient(to right, $black, $primary-color);
+  // &:hover {
+  //   transition: color 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  //   background-image: linear-gradient(to right, $black, $primary-color);
 
-    .card-header h3,
-    .card-body h2,
-    .card-body p,
-    .success-text,
-    .danger-text,
-    .warning-text {
-      color: $white !important;
+  //   .card-header h3,
+  //   .card-body h2,
+  //   .card-body p,
+  //   .success-text,
+  //   .danger-text,
+  //   .warning-text {
+  //     color: $white !important;
+  //   }
+
+  //   .icon-container {
+  //     background-color: lighten($primary-color, 10%);
+  //     color: $white;
+  //   }
+  // }
+}
+
+// BAR CHART
+.chart-card {
+  background-color: $white;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+  max-width: 53%;
+  padding: 1.5rem;
+
+  .card-header {
+    h3 {
+      font-size: 16px;
+      font-weight: 530;
+      color: lighten($secondary-color, 30%);
+      margin: 0;
     }
+  }
 
-    .icon-container {
-      background-color: lighten($primary-color, 10%);
-      color: $white;
+  .card-body {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    padding: 1rem;
+    min-height: 300px;
+  }
+
+  @media screen and (max-width: 768px) {
+    max-width: 100%;
+    padding: 1rem;
+
+    .card-body {
+      min-height: 200px;
+      padding: 0;
     }
   }
 }
 
+:host ::ng-deep .p-chart {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+:host ::ng-deep canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+// TIMELINE
 .recent-expenses-timeline {
   background-color: $white;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   padding: 1.5rem;
   margin-top: 1rem;
   max-width: 33%;
@@ -143,15 +189,15 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: white;
+    background-color: lighten($secondary-color, 65%);
     padding: 1rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     transition: box-shadow 0.3s ease;
 
-    &:hover {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+    // &:hover {
+    //   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    // }
   }
 
   .expense-details {
@@ -193,5 +239,30 @@
     .expense-item .timeline-dot {
       left: -1.5rem;
     }
+  }
+}
+// Modifica le dimensioni e l'allineamento per schermi più grandi
+.chart-card,
+.recent-expenses-timeline {
+  margin-top: 1rem;
+  border-radius: 10px;
+  padding: 1.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .chart-card,
+  .recent-expenses-timeline {
+    max-width: 100%;
+    padding: 1rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .chart-card {
+    max-width: 53%;
+  }
+
+  .recent-expenses-timeline {
+    max-width: 47%;
   }
 }

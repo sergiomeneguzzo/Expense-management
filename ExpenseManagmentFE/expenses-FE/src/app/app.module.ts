@@ -25,6 +25,8 @@ import { MessageService } from 'primeng/api';
 import { DividerModule } from 'primeng/divider';
 import { AuthInterceptor } from './utils/auth.interceptor';
 import { TableModule } from 'primeng/table';
+import { NgApexchartsModule } from 'ng-apexcharts';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { TableModule } from 'primeng/table';
     ToastModule,
     DividerModule,
     TableModule,
+    NgApexchartsModule,
+    ChartModule,
   ],
   providers: [
     MessageService,
