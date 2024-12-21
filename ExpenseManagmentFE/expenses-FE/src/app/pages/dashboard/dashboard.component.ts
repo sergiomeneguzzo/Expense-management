@@ -17,6 +17,14 @@ import { Expense } from '../../entities/expense';
 export class DashboardComponent implements OnInit, OnChanges {
   expenses: Expense[] = [];
   recentExpenses: Expense[] = [];
+
+  totalIncome: number = 0;
+  totalExpenses: number = 0;
+  savings: number = 0;
+  incomePercentage: number = 0;
+  expensePercentage: number = 0;
+  savingsPercentage: number = 0;
+
   loading: boolean = false;
 
   chartData: any;
@@ -48,6 +56,7 @@ export class DashboardComponent implements OnInit, OnChanges {
             (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
           )
           .slice(0, 4);
+        this.calculateTotals();
         this.updateChart();
         console.log('Spese recuperate', this.expenses);
         this.loading = false;
@@ -57,6 +66,94 @@ export class DashboardComponent implements OnInit, OnChanges {
         this.loading = false;
       }
     );
+  }
+
+  private calculateTotals(): void {
+    const last30Days = this.getLast30Days();
+    const previous30Days = this.getPrevious30Days();
+
+    // Calcola le entrate totali
+    this.totalIncome = this.expenses
+      .filter((expense) => expense.isIncome)
+      .reduce((acc, expense) => acc + expense.amount, 0);
+
+    // Calcola le spese totali
+    this.totalExpenses = this.expenses
+      .filter((expense) => !expense.isIncome)
+      .reduce((acc, expense) => acc + expense.amount, 0);
+
+    // Calcola i risparmi totali (entrate - spese)
+    this.savings = this.totalIncome - this.totalExpenses;
+
+    // Calcola la variazione delle entrate negli ultimi 30 giorni
+    const incomeLast30 = this.calculateTotalForPeriod(last30Days, true);
+    const incomePrevious30 = this.calculateTotalForPeriod(previous30Days, true);
+    this.incomePercentage = this.calculatePercentageChange(
+      incomeLast30,
+      incomePrevious30
+    );
+
+    // Calcola la variazione delle spese negli ultimi 30 giorni
+    const expensesLast30 = this.calculateTotalForPeriod(last30Days, false);
+    const expensesPrevious30 = this.calculateTotalForPeriod(
+      previous30Days,
+      false
+    );
+    this.expensePercentage = this.calculatePercentageChange(
+      expensesLast30,
+      expensesPrevious30
+    );
+
+    // Calcola la variazione dei risparmi negli ultimi 30 giorni
+    const savingsLast30 = incomeLast30 - expensesLast30;
+    const savingsPrevious30 = incomePrevious30 - expensesPrevious30;
+    this.savingsPercentage = this.calculatePercentageChange(
+      savingsLast30,
+      savingsPrevious30
+    );
+  }
+
+  // Funzione per ottenere gli ultimi 30 giorni
+  private getLast30Days(): Date[] {
+    const today = new Date();
+    const last30Days = [];
+    for (let i = 0; i < 30; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() - i);
+      last30Days.push(date);
+    }
+    return last30Days;
+  }
+
+  // Funzione per ottenere i 30 giorni precedenti
+  private getPrevious30Days(): Date[] {
+    const last30Days = this.getLast30Days();
+    const previous30Days = last30Days.map((date) => {
+      const prevDate = new Date(date);
+      prevDate.setDate(date.getDate() - 30);
+      return prevDate;
+    });
+    return previous30Days;
+  }
+
+  // Funzione per calcolare il totale per un periodo (entrate o spese)
+  private calculateTotalForPeriod(period: Date[], isIncome: boolean): number {
+    return this.expenses
+      .filter((expense) => {
+        const expenseDate = new Date(expense.date);
+        return (
+          period.some(
+            (date) => date.toDateString() === expenseDate.toDateString()
+          ) && expense.isIncome === isIncome
+        );
+      })
+      .reduce((acc, expense) => acc + expense.amount, 0);
+  }
+
+  // Funzione per calcolare la percentuale di variazione
+  private calculatePercentageChange(current: number, previous: number): number {
+    if (previous === 0) return current > 0 ? 100 : 0;
+    return ((current - previous) / previous) * 100;
   }
 
   private initializeChart(): void {

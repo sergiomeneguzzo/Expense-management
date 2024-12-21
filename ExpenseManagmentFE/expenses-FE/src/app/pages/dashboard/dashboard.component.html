@@ -11,8 +11,23 @@
         <h3>ENTRATE TOTALI</h3>
       </div>
       <div class="card-body">
-        <h2>0€</h2>
-        <p><span class="success-text">▲ 6%</span> vs last 30 days</p>
+        <h2>{{ totalIncome }}€</h2>
+        <p>
+          <span
+            [ngClass]="{
+              'danger-text': incomePercentage < 0,
+              'success-text': incomePercentage > 0,
+              'warning-text': incomePercentage === 0
+            }"
+          >
+            <ng-container *ngIf="incomePercentage !== 0"> </ng-container>
+            {{
+              incomePercentage !== 0 ? (incomePercentage > 0 ? "▲" : "▼") : ""
+            }}
+            {{ incomePercentage !== 0 ? incomePercentage.toFixed(2) : "0" }}%
+          </span>
+          last 30 days
+        </p>
       </div>
     </p-card>
   </div>
@@ -27,8 +42,23 @@
         <h3>SPESE TOTALI</h3>
       </div>
       <div class="card-body">
-        <h2>0€</h2>
-        <p><span class="danger-text">▼ 2% </span>vs last 30 days</p>
+        <h2>{{ totalExpenses }}€</h2>
+        <p>
+          <span
+            [ngClass]="{
+              'success-text': expensePercentage < 0,
+              'danger-text': expensePercentage > 0,
+              'warning-text': expensePercentage === 0
+            }"
+          >
+            <ng-container *ngIf="expensePercentage !== 0"> </ng-container>
+            {{
+              expensePercentage !== 0 ? (expensePercentage > 0 ? "▲" : "▼") : ""
+            }}
+            {{ expensePercentage !== 0 ? expensePercentage.toFixed(2) : "0" }}%
+          </span>
+          last 30 days
+        </p>
       </div>
     </p-card>
   </div>
@@ -43,8 +73,23 @@
         <h3>RISPARMI TOTALI</h3>
       </div>
       <div class="card-body">
-        <h2>0€</h2>
-        <p><span class="warning-text">▼ 1% </span> last 30 days</p>
+        <h2>{{ savings }}€</h2>
+        <p>
+          <span
+            [ngClass]="{
+              'danger-text': savingsPercentage < 0,
+              'success-text': savingsPercentage > 0,
+              'warning-text': savingsPercentage === 0
+            }"
+          >
+            <ng-container *ngIf="savingsPercentage !== 0"> </ng-container>
+            {{
+              savingsPercentage !== 0 ? (savingsPercentage > 0 ? "▲" : "▼") : ""
+            }}
+            {{ savingsPercentage !== 0 ? savingsPercentage.toFixed(2) : "0" }}%
+          </span>
+          last 30 days
+        </p>
       </div>
     </p-card>
   </div>
