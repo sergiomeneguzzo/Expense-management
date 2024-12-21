@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div class="p-grid p-mt-2">
+<div class="p-grid p-mt-3">
   <!-- Card Entrate -->
   <div class="p-col-12 p-md-4">
     <p-card class="custom-card">
@@ -50,56 +50,68 @@
   </div>
 </div>
 
-<!-- Card per il Grafico -->
-<div class="chart-card">
-  <div class="card-header">
-    <h3>ANDAMENTO SPESE</h3>
+<!-- Card per il Grafico e Timeline sulla stessa riga -->
+<div class="p-grid p-mt-3">
+  <!-- Card per il Grafico -->
+  <div class="p-col-12 p-md-6">
+    <div class="chart-card">
+      <div class="card-header">
+        <h3>ANDAMENTO SPESE</h3>
+      </div>
+      <div class="card-body">
+        <p-chart
+          type="bar"
+          [data]="chartData"
+          [options]="chartOptions"
+        ></p-chart>
+      </div>
+    </div>
   </div>
-  <div class="card-body">
-    <p-chart type="bar" [data]="chartData" [options]="chartOptions"></p-chart>
-  </div>
-</div>
 
-<div class="recent-expenses-timeline">
-  <div class="card-header">
-    <h3>SPESE RECENTI</h3>
-  </div>
-  <!-- Ultime 5 Spese -->
-  <div class="timeline-container">
-    <div class="timeline-line"></div>
-    <div class="expense-items">
-      @if (expenses && expenses.length) {
-      <ng-container>
-        @for (expense of expenses; track $index) {
-        <div class="expense-item">
-          <div class="timeline-dot"></div>
-
-          <div class="expense-card">
-            <div class="expense-details">
-              <h4 class="expense-title">{{ expense.description }}</h4>
-              <p class="expense-date">
-                {{ expense.date | date : "dd/MM/yyyy" }}
-              </p>
+  <!-- Card per la Timeline -->
+  <div class="p-col-12 p-md-6">
+    <div class="recent-expenses-timeline">
+      <div class="card-header">
+        <h3>SPESE RECENTI</h3>
+      </div>
+      <!-- Ultime 5 Spese -->
+      <div class="timeline-container">
+        <div class="timeline-line"></div>
+        <div class="expense-items">
+          @if (expenses && expenses.length) {
+          <ng-container>
+            @for (expense of expenses; track $index) {
+            <div class="expense-item">
+              <div class="timeline-dot"></div>
+              <div class="expense-content">
+                <div class="expense-card">
+                  <div class="expense-details">
+                    <h4 class="expense-title">{{ expense.description }}</h4>
+                    <p class="expense-date">
+                      {{ expense.date | date : "dd MMMM, yyyy" }}
+                    </p>
+                  </div>
+                  <span
+                    class="expense-amount"
+                    [ngClass]="{
+                      income: expense.isIncome,
+                      expense: !expense.isIncome
+                    }"
+                  >
+                    {{ expense.isIncome ? "+" : "-" }}€{{ expense.amount }}
+                  </span>
+                </div>
+              </div>
             </div>
-
-            <span
-              class="expense-amount"
-              [ngClass]="{
-                income: expense.isIncome,
-                expense: !expense.isIncome
-              }"
-            >
-              {{ expense.isIncome ? "+" : "-" }}€{{ expense.amount }}
-            </span>
-          </div>
+            }
+          </ng-container>
+          } @else {
+          <ng-template #noExpenses>
+            <p>Nessuna spesa trovata :(</p>
+          </ng-template>
+          }
         </div>
-        }
-      </ng-container>
-      } @else {
-      <ng-template #noExpenses>
-        <p>Nessuna spesa trovata :(</p>
-      </ng-template>
-      }
+      </div>
     </div>
   </div>
 </div>

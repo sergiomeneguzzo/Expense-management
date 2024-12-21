@@ -88,8 +88,6 @@
 .chart-card {
   background-color: $white;
   border-radius: 10px;
-  margin-top: 0.5rem;
-  max-width: 53%;
   padding: 1.5rem;
 
   .card-header {
@@ -134,12 +132,12 @@
 .recent-expenses-timeline {
   background-color: $white;
   border-radius: 10px;
-  padding: 1.5rem;
-  margin-top: 1rem;
-  max-width: 33%;
+  padding: 1rem;
+  max-height: 26.5rem;
+  overflow-y: hidden;
 
   .card-header {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 
     h3 {
       font-size: 16px;
@@ -166,19 +164,19 @@
   .expense-items {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
   }
 
   .expense-item {
     position: relative;
+    padding: 0.5rem 0;
 
     .timeline-dot {
       position: absolute;
       left: -2rem;
       top: 50%;
       transform: translateY(-50%);
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       border-radius: 50%;
       background-color: $primary-color;
       border: 2px solid white;
@@ -190,7 +188,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: lighten($secondary-color, 65%);
-    padding: 1rem;
+    padding: 0.75rem 1rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     transition: box-shadow 0.3s ease;
@@ -241,13 +239,6 @@
     }
   }
 }
-// Modifica le dimensioni e l'allineamento per schermi più grandi
-.chart-card,
-.recent-expenses-timeline {
-  margin-top: 1rem;
-  border-radius: 10px;
-  padding: 1.5rem;
-}
 
 @media screen and (max-width: 768px) {
   .chart-card,
@@ -258,11 +249,8 @@
 }
 
 @media screen and (min-width: 768px) {
-  .chart-card {
-    max-width: 53%;
-  }
-
+  .chart-card,
   .recent-expenses-timeline {
-    max-width: 47%;
+    padding: 1.5rem;
   }
 }
