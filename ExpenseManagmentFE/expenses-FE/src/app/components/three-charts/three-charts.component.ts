@@ -14,6 +14,8 @@ export class ThreeChartsComponent {
 
   pieChartData: any;
   pieChartOptions: any;
+  lineChartData: any;
+  lineChartOptions: any;
 
   constructor(private expensesService: ExpensesService) {}
 
@@ -25,6 +27,7 @@ export class ThreeChartsComponent {
   ngOnChanges(): void {
     if (this.expenses.length > 0) {
       this.updatePieChart();
+      this.updateLineChart();
     }
   }
 
@@ -74,7 +77,6 @@ export class ThreeChartsComponent {
       },
     };
   }
-
   private groupExpensesByCategory(): Record<string, number> {
     return this.expenses
       .filter((expense) => !expense.isIncome)
@@ -85,12 +87,83 @@ export class ThreeChartsComponent {
       }, {} as Record<string, number>);
   }
 
+  //GRAFICO LINEARE
+  private updateLineChart(): void {
+    const currentMonthExpenses = this.filterExpensesByCurrentMonth();
+    const daysOfMonth = Array.from({ length: 31 }, (_, i) => i + 1);
+    const dailyExpenses = daysOfMonth.map((day) => {
+      const dailyTotal = currentMonthExpenses
+        .filter((expense) => new Date(expense.date).getDate() === day)
+        .reduce((acc, expense) => acc + expense.amount, 0);
+      return dailyTotal;
+    });
+
+    const primaryColor = getComputedStyle(document.documentElement)
+      .getPropertyValue('--primary-color')
+      .trim();
+    this.lineChartData = {
+      labels: daysOfMonth.map((day) => `${day}`),
+      datasets: [
+        {
+          label: 'Spese giornaliere',
+          data: dailyExpenses,
+          fill: false,
+          borderColor: primaryColor,
+          tension: 0.1,
+        },
+      ],
+    };
+
+    this.lineChartOptions = {
+      responsive: true,
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: (context: any) => `€${context.raw}`,
+          },
+        },
+      },
+      scales: {
+        x: {
+          title: {
+            display: true,
+            text: 'Giorni',
+          },
+          grid: {
+            display: false,
+          },
+        },
+        y: {
+          title: {
+            display: true,
+            text: 'Importo (€)',
+          },
+          grid: {
+            display: false,
+          },
+        },
+      },
+    };
+  }
+  private filterExpensesByCurrentMonth(): Expense[] {
+    const currentDate = new Date();
+    return this.expenses.filter((expense) => {
+      const expenseDate = new Date(expense.date);
+      return (
+        expenseDate.getMonth() === currentDate.getMonth() &&
+        expenseDate.getFullYear() === currentDate.getFullYear() &&
+        !expense.isIncome
+      );
+    });
+  }
+
   //caricamento dati
   loadExpenses(): void {
     this.expensesService.getExpenses().subscribe(
       (data) => {
         this.expenses = data;
         this.updatePieChart();
+        this.updateLineChart();
       },
       (error) => {
         console.error('Errore nel recuperare le spese', error);
@@ -103,6 +176,7 @@ export class ThreeChartsComponent {
         this.categories = data;
         if (this.expenses.length > 0) {
           this.updatePieChart();
+          this.updateLineChart();
         }
       },
       (error) => {

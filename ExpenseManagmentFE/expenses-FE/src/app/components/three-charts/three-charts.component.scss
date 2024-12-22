@@ -5,6 +5,7 @@
   background-color: $white;
   border-radius: 10px;
   padding: 1.5rem;
+  margin-bottom: 1rem;
 
   .card-header {
     h3 {
@@ -20,7 +21,7 @@
     justify-self: center;
     align-items: center;
     padding: 1rem;
-    min-height: 300px;
+    min-height: 200px;
   }
 
   @media screen and (max-width: 768px) {
@@ -31,5 +32,42 @@
       min-height: 200px;
       padding: 0;
     }
+  }
+}
+
+.p-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  height: 100%;
+}
+
+.equal-height {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  height: 50%;
+}
+
+.pie-chart-card {
+  display: flex;
+  flex-direction: column;
+}
+
+:host ::ng-deep canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media screen and (max-width: 768px) {
+  .chart-card {
+    max-width: 100%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .chart-card {
+    padding: 1.5rem;
   }
 }

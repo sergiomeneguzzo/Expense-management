@@ -3,6 +3,9 @@
 
 :root {
   --primary-color: #0ddc86;
+  --primary-color-light: lighten(var(--primary-color), 20%);
+  --primary-color-dark: darken(var(--primary-color), 20%);
+  --primary-color-darker: darken(var(--primary-color), 40%);
 }
 
 html {
