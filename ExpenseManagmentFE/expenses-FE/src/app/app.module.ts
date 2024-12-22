@@ -35,6 +35,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { CustomCardsComponent } from './components/custom-cards/custom-cards.component';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { TimeLineComponent } from './components/time-line/time-line.component';
+import { ThreeChartsComponent } from './components/three-charts/three-charts.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +49,7 @@ import { TimeLineComponent } from './components/time-line/time-line.component';
     CustomCardsComponent,
     BarChartComponent,
     TimeLineComponent,
+    ThreeChartsComponent,
   ],
   imports: [
     BrowserModule,

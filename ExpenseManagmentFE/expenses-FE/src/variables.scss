@@ -9,3 +9,7 @@ $border-color: lighten($secondary-color, 30%);
 $success-color: #00c853;
 $danger-color: #ff5252;
 $warning-color: #ffab00;
+$primary-color-light: lighten($primary-color, 20%);
+$primary-color-dark: darken($primary-color, 10%);
+$primary-color-darker: darken($primary-color, 20%);
+$primary-color-lighter: lighten($primary-color, 10%);
