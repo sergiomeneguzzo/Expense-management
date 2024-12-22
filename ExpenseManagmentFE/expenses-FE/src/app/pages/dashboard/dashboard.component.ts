@@ -19,7 +19,7 @@ import { MessageService } from 'primeng/api';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
 })
-export class DashboardComponent implements OnInit, OnChanges {
+export class DashboardComponent implements OnInit {
   expenses: Expense[] = [];
   recentExpenses: Expense[] = [];
   categories: Category[] = [];
@@ -46,12 +46,6 @@ export class DashboardComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.loadExpenses();
     this.initializeChart();
-  }
-
-  ngOnChanges(): void {
-    if (this.expenses.length > 0) {
-      this.updateChart();
-    }
   }
 
   showDialog() {

@@ -36,6 +36,8 @@ import { CustomCardsComponent } from './components/custom-cards/custom-cards.com
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { TimeLineComponent } from './components/time-line/time-line.component';
 import { ThreeChartsComponent } from './components/three-charts/three-charts.component';
+import { ProgressBarModule } from 'primeng/progressbar';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,6 +77,7 @@ import { ThreeChartsComponent } from './components/three-charts/three-charts.com
     DropdownModule,
     CalendarModule,
     CheckboxModule,
+    ProgressBarModule,
   ],
   providers: [
     MessageService,

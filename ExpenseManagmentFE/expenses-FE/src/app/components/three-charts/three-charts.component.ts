@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Category } from '../../entities/category';
 import { Expense } from '../../entities/expense';
 import { ExpensesService } from '../../services/expenses.service';
@@ -8,9 +8,10 @@ import { ExpensesService } from '../../services/expenses.service';
   templateUrl: './three-charts.component.html',
   styleUrl: './three-charts.component.scss',
 })
-export class ThreeChartsComponent {
+export class ThreeChartsComponent implements OnInit {
   expenses: Expense[] = [];
   categories: Category[] = [];
+  salaryUsedPercentage: number = 0;
 
   pieChartData: any;
   pieChartOptions: any;
@@ -22,13 +23,6 @@ export class ThreeChartsComponent {
   ngOnInit(): void {
     this.loadExpenses();
     this.loadCategories();
-  }
-
-  ngOnChanges(): void {
-    if (this.expenses.length > 0) {
-      this.updatePieChart();
-      this.updateLineChart();
-    }
   }
 
   //GRAFICO TORTA
@@ -110,6 +104,8 @@ export class ThreeChartsComponent {
           fill: false,
           borderColor: primaryColor,
           tension: 0.1,
+          borderWidth: 3,
+          pointRadius: 0,
         },
       ],
     };
@@ -131,6 +127,10 @@ export class ThreeChartsComponent {
           },
           grid: {
             display: false,
+          },
+          ticks: {
+            maxRotation: 0,
+            minRotation: 0,
           },
         },
         y: {
@@ -157,6 +157,37 @@ export class ThreeChartsComponent {
     });
   }
 
+  //PROGRESS BAR
+  private updateSalaryUsedPercentage(): void {
+    const salaryExpenses = this.filterSalaryExpensesByMonth();
+    const totalSalary = salaryExpenses.reduce(
+      (acc, expense) => acc + expense.amount,
+      0
+    );
+    const totalExpenses = this.expenses
+      .filter((expense) => !expense.isIncome)
+      .reduce((acc, expense) => acc + expense.amount, 0);
+    if (totalSalary > 0) {
+      this.salaryUsedPercentage = (totalExpenses / totalSalary) * 100;
+      if (this.salaryUsedPercentage > 100) {
+        this.salaryUsedPercentage = 100;
+      }
+    } else {
+      this.salaryUsedPercentage = 0;
+    }
+  }
+  private filterSalaryExpensesByMonth(): Expense[] {
+    const currentDate = new Date();
+    return this.expenses.filter((expense) => {
+      const expenseDate = new Date(expense.date);
+      return (
+        expense.isIncome &&
+        expenseDate.getMonth() === currentDate.getMonth() &&
+        expenseDate.getFullYear() === currentDate.getFullYear()
+      );
+    });
+  }
+
   //caricamento dati
   loadExpenses(): void {
     this.expensesService.getExpenses().subscribe(
@@ -164,6 +195,7 @@ export class ThreeChartsComponent {
         this.expenses = data;
         this.updatePieChart();
         this.updateLineChart();
+        this.updateSalaryUsedPercentage();
       },
       (error) => {
         console.error('Errore nel recuperare le spese', error);
@@ -177,6 +209,7 @@ export class ThreeChartsComponent {
         if (this.expenses.length > 0) {
           this.updatePieChart();
           this.updateLineChart();
+          this.updateSalaryUsedPercentage();
         }
       },
       (error) => {

@@ -35,21 +35,6 @@
   }
 }
 
-.p-flex {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: stretch;
-  height: 100%;
-}
-
-.equal-height {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  height: 50%;
-}
-
 .pie-chart-card {
   display: flex;
   flex-direction: column;
@@ -69,5 +54,32 @@
 @media screen and (min-width: 768px) {
   .chart-card {
     padding: 1.5rem;
+  }
+}
+
+.progress-bar-container {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.p-mt-2 {
+  margin-left: 20px;
+  color: $secondary-color;
+  text-align: center;
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
+}
+
+.progress {
+  height: 30px;
+  width: 30rem;
+}
+
+@media screen and (max-width: 768px) {
+  .progress {
+    width: 10rem;
+    height: 20px;
   }
 }

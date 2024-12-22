@@ -25,6 +25,10 @@ body {
   padding: 1rem;
 }
 
+.p-progressbar .p-progressbar-value {
+  background-color: var(--primary-color) !important;
+}
+
 .p-button {
   background-image: linear-gradient(
     to right,
