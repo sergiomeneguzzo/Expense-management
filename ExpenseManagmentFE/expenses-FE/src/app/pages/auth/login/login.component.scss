@@ -39,7 +39,7 @@
   justify-content: center;
   width: 40px;
   height: 40px;
-  background-image: linear-gradient(to right, $black, $primary-color);
+  background-image: linear-gradient(to right, $black, var(--primary-color));
   color: $white;
   border-radius: 4px;
 
@@ -76,7 +76,7 @@
     top: 0;
     right: 0;
     font-size: 0.8rem;
-    color: $primary-color;
+    color: var(--primary-color);
     text-decoration: none;
 
     &:hover {
@@ -97,7 +97,7 @@
   font-size: 1rem;
 
   &:hover {
-    background-color: darken($primary-color, 10%);
+    background-color: darken(var(--primary-color), 10%);
   }
 }
 
@@ -108,7 +108,7 @@
   .login-link-bold {
     font-weight: 600;
     text-decoration: none;
-    background: linear-gradient(to left, $black, $primary-color);
+    background: linear-gradient(to left, $black, var(--primary-color));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

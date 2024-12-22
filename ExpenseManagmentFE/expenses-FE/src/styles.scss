@@ -16,7 +16,7 @@ body {
   background-image: linear-gradient(
     to right,
     $black,
-    $primary-color
+    var(--primary-color)
   ) !important;
   margin: 0;
   padding: 1rem;
@@ -26,9 +26,9 @@ body {
   background-image: linear-gradient(
     to right,
     $black,
-    $primary-color
+    var(--primary-color)
   ) !important;
-  border: 1px solid $primary-color !important;
+  border: 1px solid var(--primary-color) !important;
   &:focus,
   &:active {
     box-shadow: none !important;
@@ -65,7 +65,7 @@ body {
   //   background-image: linear-gradient(
   //     to right,
   //     $black,
-  //     $primary-color
+  //     var(--primary-color)
   //   ) !important;
   // }
 }

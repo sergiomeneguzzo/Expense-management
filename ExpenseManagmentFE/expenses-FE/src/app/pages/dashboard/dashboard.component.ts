@@ -183,12 +183,15 @@ export class DashboardComponent implements OnInit, OnChanges {
       }
     });
 
+    const primaryColor = getComputedStyle(document.documentElement)
+      .getPropertyValue('--primary-color')
+      .trim();
     this.chartData = {
       labels: months,
       datasets: [
         {
           label: 'Spese Mensili',
-          backgroundColor: '#0ddc86',
+          backgroundColor: [primaryColor],
           borderRadius: 5,
           data: monthlyData,
         },
