@@ -39,7 +39,6 @@ export class DashboardComponent implements OnInit, OnChanges {
 
   constructor(
     private expensesService: ExpensesService,
-    private cdr: ChangeDetectorRef,
     private dialogService: DialogService,
     private messageService: MessageService
   ) {}

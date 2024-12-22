@@ -33,6 +33,8 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { CustomCardsComponent } from './components/custom-cards/custom-cards.component';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { TimeLineComponent } from './components/time-line/time-line.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,6 +46,8 @@ import { CustomCardsComponent } from './components/custom-cards/custom-cards.com
     RegisterComponent,
     CheckEmailComponent,
     CustomCardsComponent,
+    BarChartComponent,
+    TimeLineComponent,
   ],
   imports: [
     BrowserModule,

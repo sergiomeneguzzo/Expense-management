@@ -1,7 +1,8 @@
 @import "../../../styles.scss";
 @import "../../../variables.scss";
 
-.ciao-card {
+// BAR CHART
+.chart-card {
   background-color: $white;
   border-radius: 10px;
   padding: 1.5rem;
@@ -31,5 +32,30 @@
       min-height: 200px;
       padding: 0;
     }
+  }
+}
+
+:host ::ng-deep .p-chart {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+:host ::ng-deep canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media screen and (max-width: 768px) {
+  .chart-card,
+  .recent-expenses-timeline {
+    max-width: 100%;
+    padding: 1rem;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .chart-card,
+  .recent-expenses-timeline {
+    padding: 1.5rem;
   }
 }

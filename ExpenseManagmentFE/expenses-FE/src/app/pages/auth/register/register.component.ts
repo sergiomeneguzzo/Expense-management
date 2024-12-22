@@ -109,7 +109,7 @@ export class RegisterComponent {
         });
     } else {
       this.isLoading = false;
-      this.notification.errorMessage('Please fill in all fields correctly.');
+      this.notification.errorMessage('Compila tutti i campi correttamente');
     }
   }
 
