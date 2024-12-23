@@ -27,7 +27,12 @@ export class ThreeChartsComponent implements OnInit {
 
   //GRAFICO TORTA
   private updatePieChart(): void {
-    const groupedByCategory = this.groupExpensesByCategory();
+    const currentMonthExpenses = this.filterExpensesByCurrentMonth();
+    const groupedByCategory = currentMonthExpenses.reduce((acc, expense) => {
+      const categoryId = expense.category.id!;
+      acc[categoryId] = (acc[categoryId] || 0) + expense.amount;
+      return acc;
+    }, {} as Record<string, number>);
     const topCategories = Object.entries(groupedByCategory)
       .sort(([, amountA], [, amountB]) => amountB - amountA)
       .slice(0, 4);
@@ -56,7 +61,6 @@ export class ThreeChartsComponent implements OnInit {
         },
       ],
     };
-
     this.pieChartOptions = {
       responsive: true,
       plugins: {
@@ -70,15 +74,6 @@ export class ThreeChartsComponent implements OnInit {
         },
       },
     };
-  }
-  private groupExpensesByCategory(): Record<string, number> {
-    return this.expenses
-      .filter((expense) => !expense.isIncome)
-      .reduce((acc, expense) => {
-        const categoryId = expense.category.id!;
-        acc[categoryId] = (acc[categoryId] || 0) + expense.amount;
-        return acc;
-      }, {} as Record<string, number>);
   }
 
   //GRAFICO LINEARE
@@ -117,6 +112,9 @@ export class ThreeChartsComponent implements OnInit {
           callbacks: {
             label: (context: any) => `€${context.raw}`,
           },
+        },
+        legend: {
+          display: false,
         },
       },
       scales: {

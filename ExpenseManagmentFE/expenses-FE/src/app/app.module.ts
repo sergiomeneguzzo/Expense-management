@@ -37,6 +37,7 @@ import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { TimeLineComponent } from './components/time-line/time-line.component';
 import { ThreeChartsComponent } from './components/three-charts/three-charts.component';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { TabMenuModule } from 'primeng/tabmenu';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
     DropdownModule,
     CalendarModule,
     CheckboxModule,
+    TabMenuModule,
     ProgressBarModule,
   ],
   providers: [

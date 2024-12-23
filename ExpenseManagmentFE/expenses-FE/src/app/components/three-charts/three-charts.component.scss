@@ -35,11 +35,6 @@
   }
 }
 
-.pie-chart-card {
-  display: flex;
-  flex-direction: column;
-}
-
 :host ::ng-deep canvas {
   width: 100% !important;
   height: 100% !important;
@@ -68,18 +63,27 @@
   color: $secondary-color;
   text-align: center;
   @media screen and (max-width: 768px) {
-    font-size: 12px;
+    font-size: 15px;
   }
 }
 
 .progress {
   height: 30px;
   width: 30rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.card-body-progress {
+  display: flex;
+  justify-self: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 @media screen and (max-width: 768px) {
   .progress {
-    width: 10rem;
+    width: 18rem;
     height: 20px;
   }
 }

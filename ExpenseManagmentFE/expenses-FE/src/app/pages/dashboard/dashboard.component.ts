@@ -37,6 +37,13 @@ export class DashboardComponent implements OnInit {
   chartData: any;
   chartOptions: any;
 
+  tabs = [
+    { label: 'QUADRO GENERALE' },
+    { label: 'QUESTO MESE' },
+    { label: 'ELENCO' },
+  ];
+  activeTab = 0;
+
   constructor(
     private expensesService: ExpensesService,
     private dialogService: DialogService,
@@ -50,6 +57,10 @@ export class DashboardComponent implements OnInit {
 
   showDialog() {
     this.visible = true;
+  }
+
+  selectTab(index: number): void {
+    this.activeTab = index;
   }
 
   loadExpenses(): void {
@@ -197,7 +208,7 @@ export class DashboardComponent implements OnInit {
       maintainAspectRatio: false,
       plugins: {
         legend: {
-          position: 'top',
+          display: false,
         },
         tooltip: {
           callbacks: {

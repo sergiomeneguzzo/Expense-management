@@ -1,46 +1,68 @@
 <app-header></app-header>
 
-<div class="p-grid p-mt-2">
-  <!-- Custom Cards -->
-  <div class="p-col-12 p-md-4">
-    <app-custom-cards
-      icon="euro_symbol"
-      title="ENTRATE TOTALI"
-      [amount]="totalIncome"
-      [percentage]="incomePercentage"
-    ></app-custom-cards>
+<div class="custom-tab-panel">
+  <!-- Tab Titles -->
+  <div class="tab-titles">
+    <div
+      class="tab-title"
+      *ngFor="let tab of tabs; let i = index"
+      [class.active]="activeTab === i"
+      (click)="selectTab(i)"
+    >
+      {{ tab.label }}
+    </div>
   </div>
-  <div class="p-col-12 p-md-4">
-    <app-custom-cards
-      icon="toll"
-      title="SPESE TOTALI"
-      [amount]="totalExpenses"
-      [percentage]="expensePercentage"
-    ></app-custom-cards>
+
+  <div *ngIf="activeTab === 0">
+    <div class="p-grid p-mt-2">
+      <!-- Custom Cards -->
+      <div class="p-col-12 p-md-4">
+        <app-custom-cards
+          icon="euro_symbol"
+          title="ENTRATE TOTALI"
+          [amount]="totalIncome"
+          [percentage]="incomePercentage"
+        ></app-custom-cards>
+      </div>
+      <div class="p-col-12 p-md-4">
+        <app-custom-cards
+          icon="toll"
+          title="SPESE TOTALI"
+          [amount]="totalExpenses"
+          [percentage]="expensePercentage"
+        ></app-custom-cards>
+      </div>
+      <div class="p-col-12 p-md-4">
+        <app-custom-cards
+          icon="savings"
+          title="RISPARMI TOTALI"
+          [amount]="savings"
+          [percentage]="savingsPercentage"
+        ></app-custom-cards>
+      </div>
+    </div>
+
+    <div class="p-grid p-mt-1">
+      <div class="p-col-12 p-md-6">
+        <!-- Grafico Bar Chart -->
+        <app-bar-chart
+          [chartData]="chartData"
+          [chartOptions]="chartOptions"
+        ></app-bar-chart>
+      </div>
+
+      <!-- Card per la Timeline -->
+      <div class="p-col-12 p-md-6">
+        <app-time-line [expenses]="recentExpenses"></app-time-line>
+      </div>
+    </div>
   </div>
-  <div class="p-col-12 p-md-4">
-    <app-custom-cards
-      icon="savings"
-      title="RISPARMI TOTALI"
-      [amount]="savings"
-      [percentage]="savingsPercentage"
-    ></app-custom-cards>
+
+  <div *ngIf="activeTab === 1">
+    <app-three-charts></app-three-charts>
+  </div>
+
+  <div *ngIf="activeTab === 2">
+    <!-- Sezione vuota -->
   </div>
 </div>
-
-<div class="p-grid p-mt-1">
-  <div class="p-col-12 p-md-6">
-    <!-- Grafico Bar Chart -->
-    <app-bar-chart
-      [chartData]="chartData"
-      [chartOptions]="chartOptions"
-    ></app-bar-chart>
-  </div>
-
-  <!-- Card per la Timeline -->
-  <div class="p-col-12 p-md-6">
-    <app-time-line [expenses]="recentExpenses"></app-time-line>
-  </div>
-</div>
-
-<app-three-charts></app-three-charts>
