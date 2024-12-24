@@ -6,6 +6,40 @@
   border-radius: 10px;
   padding: 1rem;
   margin-bottom: 1rem;
+  height: 100%;
+
+  .card-header {
+    h3 {
+      font-size: 16px;
+      font-weight: 530;
+      color: lighten($secondary-color, 30%);
+      margin: 0;
+    }
+  }
+
+  .card-body {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    padding: 1rem;
+    min-height: 200px;
+  }
+
+  @media screen and (max-width: 768px) {
+    max-width: 100%;
+
+    .card-body {
+      min-height: 200px;
+      padding: 0;
+    }
+  }
+}
+
+.progress-card {
+  background-color: $white;
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
 
   .card-header {
     h3 {
@@ -89,7 +123,6 @@
 
 .calendar-container {
   width: 100%;
-  max-width: 400px;
   margin: auto;
   text-align: center;
   padding: 1rem;

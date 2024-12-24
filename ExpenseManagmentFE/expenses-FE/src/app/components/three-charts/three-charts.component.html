@@ -13,7 +13,47 @@
         ></p-chart>
       </div>
     </div>
+  </div>
 
+  <!-- Pie Chart -->
+  <div class="p-col-12 p-md-4">
+    <div class="chart-card">
+      <div class="card-header">
+        <h3>DISTRIBUZIONE DELLE SPESE</h3>
+      </div>
+      <div class="card-body">
+        <p-chart
+          type="pie"
+          [data]="pieChartData"
+          [options]="pieChartOptions"
+        ></p-chart>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress Bar-->
+  <div class="p-col-12 p-md-8 sm:m-0">
+    <div class="progress-card">
+      <div class="card-header">
+        <h3>STIPENDIO UTILIZZATO QUESTO MESE</h3>
+      </div>
+      <div class="card-body-progress">
+        <div class="progress-bar-container">
+          <p-progressBar
+            [value]="salaryUsedPercentage"
+            class="progress"
+          ></p-progressBar>
+        </div>
+        <p class="p-mt-2">
+          Hai utilizzato {{ salaryUsedPercentage | number : "1.0-0" }}% del tuo
+          reddito
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calendar -->
+  <div class="p-col-12 p-md-4 sm:m-0">
     <div class="calendar-container">
       <div class="calendar-header">
         <button (click)="changeMonth(-1)">&#8249;</button>
@@ -27,43 +67,6 @@
             {{ day.amount }} €
           </span>
         </div>
-      </div>
-    </div>
-
-    <!-- Pie Chart -->
-    <div class="p-col-12 p-md-4">
-      <div class="chart-card">
-        <div class="card-header">
-          <h3>DISTRIBUZIONE DELLE SPESE</h3>
-        </div>
-        <div class="card-body">
-          <p-chart
-            type="pie"
-            [data]="pieChartData"
-            [options]="pieChartOptions"
-          ></p-chart>
-        </div>
-      </div>
-    </div>
-
-    <!-- Progress Bar-->
-    <div class="chart-card">
-      <div class="card-header">
-        <h3>STIPENDIO UTILIZZATO QUESTO MESE</h3>
-      </div>
-      <div class="card-body-progress">
-        <div class="progress-bar-container">
-          <p-progressBar
-            [value]="salaryUsedPercentage"
-            class="progress"
-          ></p-progressBar>
-        </div>
-
-        <!-- Testo -->
-        <p class="p-mt-2">
-          Hai utilizzato {{ salaryUsedPercentage | number : "1.0-0" }}% del tuo
-          reddito
-        </p>
       </div>
     </div>
   </div>
