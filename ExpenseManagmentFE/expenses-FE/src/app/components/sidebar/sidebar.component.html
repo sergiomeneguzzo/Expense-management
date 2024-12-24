@@ -1,21 +1,56 @@
 <div class="sidebar" [class.closed]="isClosed">
   <div class="sidebar-content">
+    <!-- Header con il logo -->
+    <div class="sidebar-header">
+      <div class="icon-container">
+        <mat-icon>bar_chart_4_bars</mat-icon>
+      </div>
+      <div class="logo">MoneyTracker</div>
+    </div>
+
+    <!-- Foto profilo e nome utente -->
+    <div class="user-profile" *ngIf="user">
+      <img [src]="user.picture" alt="Profile Picture" class="profile-pic" />
+      <div class="user-info">
+        <span class="user-name">{{ user.firstName }} {{ user.lastName }}</span>
+      </div>
+    </div>
+
+    <!-- Menu -->
     <div class="nav-items">
       <div class="nav-item" [class.closed]="isClosed">
         <mat-icon>home</mat-icon>
-        <span *ngIf="!isClosed">Home</span>
+        <span
+          *ngIf="!isClosed"
+          routerLink="/dashboard"
+          (click)="toggleSidebar()"
+          >Home</span
+        >
       </div>
       <div class="nav-item" [class.closed]="isClosed">
         <mat-icon>person</mat-icon>
-        <span *ngIf="!isClosed">Profilo</span>
+        <span *ngIf="!isClosed" routerLink="/profile" (click)="toggleSidebar()"
+          >Profilo</span
+        >
       </div>
       <div class="nav-item" [class.closed]="isClosed">
         <mat-icon>settings</mat-icon>
-        <span *ngIf="!isClosed">Impostazioni</span>
+        <span *ngIf="!isClosed" routerLink="settings" (click)="toggleSidebar()"
+          >Impostazioni</span
+        >
       </div>
+    </div>
+
+    <!-- Logout -->
+    <div class="logout" (click)="logout.emit()">
+      <button mat-icon-button>
+        <mat-icon>logout</mat-icon>
+      </button>
+      <span *ngIf="!isClosed">Logout</span>
     </div>
   </div>
 
+  <!-- Toggle button -->
   <div class="toggle-button" (click)="toggleSidebar()">
     <mat-icon>{{ isClosed ? "arrow_forward" : "arrow_back" }}</mat-icon>
   </div>

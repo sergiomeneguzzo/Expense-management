@@ -16,12 +16,13 @@ body {
   background: $white;
   font-family: "Poppins", sans-serif;
   overflow-x: hidden;
-  background-image: linear-gradient(
-    to right,
-    $black,
-    var(--primary-color)
-  ) !important;
+  // background-image: linear-gradient(
+  //   to right,
+  //   $black,
+  //   var(--primary-color)
+  // ) !important;
   margin: 0;
+  background-color: var(--primary-color);
   padding: 1rem;
 }
 
