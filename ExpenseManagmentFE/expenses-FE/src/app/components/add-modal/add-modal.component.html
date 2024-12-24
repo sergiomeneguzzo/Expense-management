@@ -1,0 +1,105 @@
+<div
+  class="modal-wrapper"
+  (click)="onClose()"
+  (touchstart)="onTouchStart($event)"
+  (touchend)="onTouchEnd($event)"
+>
+  <div
+    class="bottom-screen"
+    (click)="$event.stopPropagation()"
+    [class.show]="close"
+  >
+    <button class="close-button" (click)="onClose()">X</button>
+
+    <!-- Header con titolo -->
+    <div class="header">
+      <h2>NUOVA TRANSAZIONE</h2>
+    </div>
+
+    <!-- Linea separatrice -->
+    <hr />
+
+    <!-- Form per l'inserimento dei dati -->
+    <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
+      <div class="p-grid">
+        <!-- Colonna 1: Importo e Categoria -->
+        <div class="p-col-12 p-md-6">
+          <div class="form-group">
+            <label style="margin-right: 10px" for="amount">Importo(€)</label>
+            <input
+              id="amount"
+              type="number"
+              pInputText
+              formControlName="amount"
+            />
+          </div>
+        </div>
+        <div class="p-col-12 p-md-6">
+          <div class="form-group">
+            <label style="margin-right: 15px" for="category">Categoria</label>
+            <p-dropdown
+              id="category"
+              formControlName="category"
+              [options]="categories"
+              optionLabel="name"
+              placeholder="Seleziona categoria"
+            ></p-dropdown>
+          </div>
+        </div>
+
+        <!-- Colonna 2: Descrizione, Data e Tipo di Transazione -->
+        <div class="p-col-12 p-md-6">
+          <div class="form-group">
+            <label for="description" style="margin-right: 5px"
+              >Descrizione</label
+            >
+            <input
+              id="description"
+              type="text"
+              pInputText
+              formControlName="description"
+            />
+          </div>
+        </div>
+        <div class="p-col-12 p-md-6">
+          <div class="form-group">
+            <label for="date" class="data-label">Data</label>
+            <p-calendar
+              id="date"
+              formControlName="date"
+              [showTime]="true"
+              [dataType]="'date'"
+            ></p-calendar>
+          </div>
+        </div>
+        <div class="p-col-12 p-md-6">
+          <div class="form-group">
+            <label for="isIncome" style="margin-right: 10px"
+              >Tipo di Transazione</label
+            >
+            <p-dropdown
+              id="isIncome"
+              formControlName="isIncome"
+              [options]="isIncomeOptions"
+              optionLabel="label"
+              placeholder="Spesa"
+            ></p-dropdown>
+          </div>
+        </div>
+
+        <!-- Colonna 3: Pulsante di invio -->
+        <div class="p-col-12">
+          <div class="form-group">
+            <button
+              pButton
+              class="button-add"
+              type="submit"
+              label="Aggiungi Transazione"
+              [disabled]="!transactionForm.valid"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

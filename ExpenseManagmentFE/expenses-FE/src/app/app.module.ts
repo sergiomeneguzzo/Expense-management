@@ -38,6 +38,8 @@ import { TimeLineComponent } from './components/time-line/time-line.component';
 import { ThreeChartsComponent } from './components/three-charts/three-charts.component';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { AddModalComponent } from './components/add-modal/add-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
     BarChartComponent,
     TimeLineComponent,
     ThreeChartsComponent,
+    AddModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -79,6 +82,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
     CalendarModule,
     CheckboxModule,
     TabMenuModule,
+    MatDialogModule,
     ProgressBarModule,
   ],
   providers: [

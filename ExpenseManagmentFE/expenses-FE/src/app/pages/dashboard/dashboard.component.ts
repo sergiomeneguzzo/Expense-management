@@ -13,6 +13,7 @@ import { Expense } from '../../entities/expense';
 import { Category } from '../../entities/category';
 import { DialogService } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
+import { AddModalComponent } from '../../components/add-modal/add-modal.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -32,7 +33,7 @@ export class DashboardComponent implements OnInit {
   savingsPercentage: number = 0;
 
   loading: boolean = false;
-  visible: boolean = false;
+  modalVisible: boolean = false;
 
   chartData: any;
   chartOptions: any;
@@ -55,12 +56,16 @@ export class DashboardComponent implements OnInit {
     this.initializeChart();
   }
 
-  showDialog() {
-    this.visible = true;
-  }
-
   selectTab(index: number): void {
     this.activeTab = index;
+  }
+
+  onAddButtonClick(): void {
+    this.modalVisible = !this.modalVisible;
+  }
+
+  onCloseScreen(): void {
+    this.modalVisible = false;
   }
 
   loadExpenses(): void {

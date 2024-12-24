@@ -14,7 +14,7 @@
   </div>
 
   <div *ngIf="activeTab === 0">
-    <div class="p-grid p-mt-2">
+    <div class="p-grid p-2 mt-1">
       <!-- Custom Cards -->
       <div class="p-col-12 p-md-4">
         <app-custom-cards
@@ -66,3 +66,11 @@
     <!-- Sezione vuota -->
   </div>
 </div>
+
+<button class="add-button" mat-button (click)="onAddButtonClick()">+</button>
+@if (modalVisible) {
+<app-add-modal
+  [class.visible]="modalVisible"
+  (close)="onCloseScreen()"
+></app-add-modal>
+}

@@ -98,7 +98,7 @@ export class ThreeChartsComponent implements OnInit {
           data: dailyExpenses,
           fill: false,
           borderColor: primaryColor,
-          tension: 0.1,
+          tension: 0.2,
           borderWidth: 3,
           pointRadius: 0,
         },

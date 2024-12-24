@@ -19,7 +19,6 @@ export class CreateExpenseDTO {
   description?: string;
 
   @IsOptional()
-  @IsDate()
   date?: Date;
 
   @IsBoolean()
