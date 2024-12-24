@@ -20,10 +20,7 @@
     <div class="nav-items">
       <div class="nav-item" [class.closed]="isClosed">
         <mat-icon>home</mat-icon>
-        <span
-          *ngIf="!isClosed"
-          routerLink="/dashboard"
-          (click)="toggleSidebar()"
+        <span *ngIf="!isClosed" routerLink="/home" (click)="toggleSidebar()"
           >Home</span
         >
       </div>
@@ -42,16 +39,15 @@
     </div>
 
     <!-- Logout -->
-    <div class="logout" (click)="logout.emit()">
-      <button mat-icon-button>
-        <mat-icon>logout</mat-icon>
-      </button>
-      <span *ngIf="!isClosed">Logout</span>
+    <div class="logout-container">
+      <p (click)="logout.emit()" class="log-out-btn">
+        <mat-icon>logout</mat-icon> Logout
+      </p>
     </div>
-  </div>
 
-  <!-- Toggle button -->
-  <div class="toggle-button" (click)="toggleSidebar()">
-    <mat-icon>{{ isClosed ? "arrow_forward" : "arrow_back" }}</mat-icon>
+    <!-- Toggle button -->
+    <div class="toggle-button" (click)="toggleSidebar()">
+      <mat-icon>{{ isClosed ? "arrow_forward" : "arrow_back" }}</mat-icon>
+    </div>
   </div>
 </div>

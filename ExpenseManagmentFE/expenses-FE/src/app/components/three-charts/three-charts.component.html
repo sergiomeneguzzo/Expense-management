@@ -1,20 +1,4 @@
 <div class="p-grid p-3">
-  <!-- Pie Chart -->
-  <div class="p-col-12 p-md-4">
-    <div class="chart-card">
-      <div class="card-header">
-        <h3>DISTRIBUZIONE DELLE SPESE</h3>
-      </div>
-      <div class="card-body">
-        <p-chart
-          type="pie"
-          [data]="pieChartData"
-          [options]="pieChartOptions"
-        ></p-chart>
-      </div>
-    </div>
-  </div>
-
   <div class="p-col-12 p-md-8">
     <!-- Line Chart -->
     <div class="chart-card">
@@ -27,6 +11,38 @@
           [data]="lineChartData"
           [options]="lineChartOptions"
         ></p-chart>
+      </div>
+    </div>
+
+    <div class="calendar-container">
+      <div class="calendar-header">
+        <button (click)="changeMonth(-1)">&#8249;</button>
+        <h3>{{ currentMonthName }} {{ currentYear }}</h3>
+        <button (click)="changeMonth(1)">&#8250;</button>
+      </div>
+      <div class="calendar-grid">
+        <div class="day-cell" *ngFor="let day of daysInMonth">
+          <span class="day-number">{{ day.day }}</span>
+          <span class="day-amount" [ngClass]="{ highlight: day.amount > 0 }">
+            {{ day.amount }} €
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pie Chart -->
+    <div class="p-col-12 p-md-4">
+      <div class="chart-card">
+        <div class="card-header">
+          <h3>DISTRIBUZIONE DELLE SPESE</h3>
+        </div>
+        <div class="card-body">
+          <p-chart
+            type="pie"
+            [data]="pieChartData"
+            [options]="pieChartOptions"
+          ></p-chart>
+        </div>
       </div>
     </div>
 

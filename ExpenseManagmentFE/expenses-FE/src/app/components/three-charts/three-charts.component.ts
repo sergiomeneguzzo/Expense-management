@@ -13,6 +13,10 @@ export class ThreeChartsComponent implements OnInit {
   categories: Category[] = [];
   salaryUsedPercentage: number = 0;
 
+  currentYear: number = new Date().getFullYear();
+  currentMonth: number = new Date().getMonth();
+  daysInMonth: { day: number; amount: number }[] = [];
+
   pieChartData: any;
   pieChartOptions: any;
   lineChartData: any;
@@ -23,6 +27,7 @@ export class ThreeChartsComponent implements OnInit {
   ngOnInit(): void {
     this.loadExpenses();
     this.loadCategories();
+    this.generateCalendar();
   }
 
   //GRAFICO TORTA
@@ -194,6 +199,7 @@ export class ThreeChartsComponent implements OnInit {
         this.updatePieChart();
         this.updateLineChart();
         this.updateSalaryUsedPercentage();
+        this.generateCalendar();
       },
       (error) => {
         console.error('Errore nel recuperare le spese', error);
@@ -231,5 +237,44 @@ export class ThreeChartsComponent implements OnInit {
       .toString(16)
       .slice(1)
       .toUpperCase()}`;
+  }
+
+  get currentMonthName(): string {
+    return new Date(this.currentYear, this.currentMonth).toLocaleString(
+      'default',
+      { month: 'long' }
+    );
+  }
+
+  generateCalendar(): void {
+    this.daysInMonth = [];
+    const days = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
+
+    for (let i = 1; i <= days; i++) {
+      const dateStr = `${this.currentYear}-${String(
+        this.currentMonth + 1
+      ).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+      const expense = this.expenses.find(
+        (e) =>
+          new Date(e.date).toISOString().split('T')[0] === dateStr &&
+          !e.isIncome
+      );
+      this.daysInMonth.push({
+        day: i,
+        amount: expense ? expense.amount : 0,
+      });
+    }
+  }
+
+  changeMonth(direction: number): void {
+    this.currentMonth += direction;
+    if (this.currentMonth < 0) {
+      this.currentMonth = 11;
+      this.currentYear--;
+    } else if (this.currentMonth > 11) {
+      this.currentMonth = 0;
+      this.currentYear++;
+    }
+    this.generateCalendar();
   }
 }
