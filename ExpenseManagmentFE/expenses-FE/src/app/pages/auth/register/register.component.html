@@ -75,8 +75,22 @@
               class="p-password-input ng-invalid ng-dirty"
               formControlName="password"
               placeholder="Password"
+              promptLabel="Scegli una password"
+              weakLabel="Troppo debole"
+              mediumLabel="Password media"
+              strongLabel="Password sicura!"
               [toggleMask]="true"
-            ></p-password>
+            >
+              <ng-template pTemplate="footer">
+                <p-divider />
+                <p class="m-0">Suggerimenti</p>
+                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                  <li>Almeno una maiuscola</li>
+                  <li>Almeno un numero</li>
+                  <li>Minimo 8 caratteri</li>
+                </ul>
+              </ng-template></p-password
+            >
           </div>
           <div class="form-group mb-4 relative">
             <label
@@ -89,7 +103,11 @@
               class="p-password-input"
               formControlName="confirmPassword"
               placeholder="Conferma Password"
-              [toggleMask]="true"
+              promptLabel="Conferma la password"
+              weakLabel="Troppo debole"
+              mediumLabel="Password media"
+              strongLabel="Password sicura!"
+              [toggleMask]="false"
             ></p-password>
           </div>
           <p-button

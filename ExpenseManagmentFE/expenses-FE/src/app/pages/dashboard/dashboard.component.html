@@ -13,7 +13,8 @@
     </div>
   </div>
 
-  <div *ngIf="activeTab === 0">
+  @if(activeTab === 0) {
+  <div>
     <div class="p-grid p-2 mt-1">
       <!-- Custom Cards -->
       <div class="p-col-12 p-md-4">
@@ -57,14 +58,15 @@
       </div>
     </div>
   </div>
-
-  <div *ngIf="activeTab === 1">
+  } @if (activeTab===1) {
+  <div>
     <app-three-charts></app-three-charts>
   </div>
-
-  <div *ngIf="activeTab === 2">
-    <!-- Sezione vuota -->
+  } @if(activeTab === 2) {
+  <div>
+    <app-summary></app-summary>
   </div>
+  }
 </div>
 
 <button class="add-button" mat-button (click)="onAddButtonClick()">+</button>

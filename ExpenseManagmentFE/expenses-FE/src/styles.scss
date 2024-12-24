@@ -16,11 +16,6 @@ body {
   background: $white;
   font-family: "Poppins", sans-serif;
   overflow-x: hidden;
-  // background-image: linear-gradient(
-  //   to right,
-  //   $black,
-  //   var(--primary-color)
-  // ) !important;
   margin: 0;
   background-color: var(--primary-color);
   padding: 1rem;
@@ -31,11 +26,6 @@ body {
 }
 
 .p-button {
-  // background-image: linear-gradient(
-  //   to right,
-  //   $black,
-  //   var(--primary-color)
-  // ) !important;
   background-color: var(--primary-color) !important;
   border: 1px solid var(--primary-color) !important;
   &:focus,
