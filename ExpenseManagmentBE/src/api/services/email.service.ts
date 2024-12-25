@@ -20,8 +20,8 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
     subject: 'Email Confirmation',
     attachments: [
       {
-        filename: 'LogoPW1.png',
-        path: 'MONEYTRACK.png',
+        filename: 'SAVEUP.png',
+        path: 'SAVEUP.png',
         cid: 'logo',
       },
     ],
@@ -68,8 +68,11 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
         display: inline-block;
         padding: 10px 20px;
         font-size: 18px;
-        color: #f9fafb;
-        background-color: #f97316; /* Arancione */
+        color: #ffffff !important;
+        text-decoration: none;
+        border: none;
+        outline: none;
+        background-color: #a6ec4e; 
         text-decoration: none;
         border-radius: 6px;
         font-weight: bold;
@@ -77,7 +80,7 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
       }
 
       .btn-confirm:hover {
-        background-color: #ea580c; /* Arancione scuro */
+        background-color:rgb(14, 246, 68); 
       }
 
       .footer {
@@ -121,7 +124,7 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
       <p>Se non hai richiesto questo account, puoi ignorare questa email.</p>
 
       <div class="footer">
-        <p>Grazie,<br />Il Team di MoneyTrack</p>
+        <p>Grazie,<br />Il Team di SaveUp <3</p>
       </div>
     </div>
   </body>

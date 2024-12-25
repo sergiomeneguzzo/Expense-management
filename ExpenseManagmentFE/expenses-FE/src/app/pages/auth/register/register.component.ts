@@ -81,7 +81,9 @@ export class RegisterComponent {
         .subscribe({
           next: (res) => {
             this.isLoading = false;
-            this.notification.successMessage('Registration successful');
+            this.notification.successMessage(
+              'Registrazione avvenuta con successo'
+            );
             this.router.navigate([`/check-email`]);
           },
           error: (err) => {
@@ -89,20 +91,20 @@ export class RegisterComponent {
             if (err.error && err.error.message) {
               if (err.error.error === 'UserExistsError') {
                 this.notification.errorMessage(
-                  'Email already in use. Try a different one'
+                  "Email gia in uso. Prova con un'altra email"
                 );
               } else if (err.error.error === 'PasswordMismatch') {
                 this.notification.errorMessage(
-                  'Passwords do not match. Please try again.'
+                  'Password e conferma password non corrispondono'
                 );
               } else {
                 this.notification.errorMessage(
-                  'Registration failed. Please try again later'
+                  'Registrazione fallita. Riprova più tardi'
                 );
               }
             } else {
               this.notification.errorMessage(
-                'Registration failed. Please try again later'
+                'Registrazione fallita. Riprova più tardi'
               );
             }
           },

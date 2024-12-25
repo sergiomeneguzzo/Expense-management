@@ -15,7 +15,7 @@
           <h2>Registrati</h2>
         </div>
         <p class="text-secondary">
-          Registrati su Money Tracker e inizia a tracciare le tue finanze!
+          Registrati su SaveUp e metti in ordine le tue finanze!
         </p>
         <hr class="separator my-3" />
 
@@ -36,6 +36,10 @@
                   placeholder="Nome"
                   formControlName="firstName"
                 />
+                @if (registerForm.get('firstName')?.invalid &&
+                registerForm.get('firstName')?.touched) {
+                <small class="p-error">Il campo Nome è obbligatorio.</small>
+                }
               </div>
               <div class="form-group mb-4">
                 <label for="lastName">Cognome</label>
@@ -47,6 +51,10 @@
                   placeholder="Cognome"
                   formControlName="lastName"
                 />
+                @if (registerForm.get('lastName')?.invalid &&
+                registerForm.get('lastName')?.touched) {
+                <small class="p-error">Il campo Cognome è obbligatorio.</small>
+                }
               </div>
               <div class="form-group mb-4">
                 <label for="picture">Immagine del profilo (Facoltativo)</label>
@@ -58,6 +66,10 @@
                   placeholder="URL Immagine"
                   formControlName="picture"
                 />
+                @if (registerForm.get('picture')?.errors?.['invalidUrl'] &&
+                registerForm.get('picture')?.touched) {
+                <small class="p-error">Inserisci un URL valido.</small>
+                }
               </div>
             </div>
             <div class="col-12 md:col-6">
@@ -71,6 +83,10 @@
                   placeholder="Email"
                   formControlName="username"
                 />
+                @if (registerForm.get('username')?.invalid &&
+                registerForm.get('username')?.touched) {
+                <small class="p-error">Inserisci un'email valida.</small>
+                }
               </div>
               <div class="form-group mb-4 relative">
                 <label
@@ -99,6 +115,12 @@
                     </ul>
                   </ng-template>
                 </p-password>
+                @if (registerForm.get('password')?.invalid &&
+                registerForm.get('password')?.touched) {
+                <small class="p-error"
+                  >La password non è sufficientemente sicura.</small
+                >
+                }
               </div>
               <div class="form-group mb-4 relative">
                 <label
@@ -117,6 +139,11 @@
                   strongLabel="Password sicura!"
                   [toggleMask]="true"
                 ></p-password>
+                @if (registerForm.hasError('passwordMismatch',
+                ['confirmPassword']) &&
+                registerForm.get('confirmPassword')?.touched) {
+                <small class="p-error">Le password non coincidono.</small>
+                }
               </div>
             </div>
           </div>
