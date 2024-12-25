@@ -75,9 +75,6 @@ export class AuthService {
       },
       error: (err) => {
         this._loading$.next(false);
-        if (err.status === 401) {
-          this.logout();
-        }
         console.error('Error fetching user:', err);
       },
     });

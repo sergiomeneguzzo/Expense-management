@@ -9,9 +9,11 @@ export const homeGuard: CanActivateFn = () => {
   const isAuthenticated = authSrv.isLoggedIn();
 
   if (isAuthenticated) {
-    router.navigateByUrl('/home');
+    console.log('User is authenticated, redirecting to dashboard');
+    router.navigateByUrl('/dashboard');
     return false;
   } else {
+    console.log('User is not authenticated, allowing access');
     return true;
   }
 };

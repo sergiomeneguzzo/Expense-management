@@ -2,28 +2,30 @@
 <app-loader></app-loader>
 }
 
-<div class="expense-by-category">
-  <div class="header">
-    <button (click)="changeMonth(-1)">&#8249;</button>
-    <h3>{{ currentMonthName }} {{ currentYear }}</h3>
-    <button (click)="changeMonth(1)">&#8250;</button>
-  </div>
+<div class="expense-wrapper">
+  <div class="expense-by-category">
+    <div class="header">
+      <button (click)="changeMonth(-1)">&#8249;</button>
+      <h3>{{ currentMonthName }} {{ currentYear }}</h3>
+      <button (click)="changeMonth(1)">&#8250;</button>
+    </div>
 
-  @if(!loading && expensesByCategory.length > 0) { @for(group of
-  expensesByCategory; track $index) {
-  <div class="category-group">
-    <h4>{{ group.category }} ({{ group.total | currency : "EUR" }})</h4>
-    <ul>
-      @for( expense of group.items; track $index) {
-      <li>
-        <span>{{ expense.date | date : "dd/MM/yyyy" }}</span>
-        <span class="expense-description">{{ expense.description }}</span>
-        <span>{{ expense.amount | currency : "EUR" }}</span>
-      </li>
-      }
-    </ul>
+    @if(!loading && expensesByCategory.length > 0) { @for(group of
+    expensesByCategory; track $index) {
+    <div class="category-group">
+      <h4>{{ group.category }} ({{ group.total | currency : "EUR" }})</h4>
+      <ul>
+        @for( expense of group.items; track $index) {
+        <li>
+          <span>{{ expense.date | date : "dd MMM" }}</span>
+          <span class="expense-description">{{ expense.description }}</span>
+          <span>{{ expense.amount | currency : "EUR" }}</span>
+        </li>
+        }
+      </ul>
+    </div>
+    } } @else {
+    <p>Nessuna spesa trovata per questo mese</p>
+    }
   </div>
-  } } @else {
-  <p>Nessuna spesa trovata per questo mese</p>
-  }
 </div>

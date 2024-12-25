@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CardModule } from 'primeng/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -42,6 +42,10 @@ import { AddModalComponent } from './components/add-modal/add-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SummaryComponent } from './components/summary/summary.component';
 import { LoaderComponent } from './components/loader/loader.component';
+import { registerLocaleData } from '@angular/common';
+import localeIt from '@angular/common/locales/it';
+
+registerLocaleData(localeIt, 'it');
 
 @NgModule({
   declarations: [
@@ -96,6 +100,7 @@ import { LoaderComponent } from './components/loader/loader.component';
       useClass: AuthInterceptor,
       multi: true,
     },
+    { provide: LOCALE_ID, useValue: 'it' },
     DialogService,
   ],
   bootstrap: [AppComponent],

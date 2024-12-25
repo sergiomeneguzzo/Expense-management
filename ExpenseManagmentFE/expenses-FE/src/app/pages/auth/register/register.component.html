@@ -1,7 +1,3 @@
-@if (isLoading) {
-<app-loader></app-loader>
-}
-
 <div
   class="register-container flex justify-content-center align-items-center min-h-screen"
 >
@@ -24,95 +20,105 @@
         <hr class="separator my-3" />
 
         <form [formGroup]="registerForm" (ngSubmit)="register()">
-          <div class="form-group mb-4">
-            <label for="firstName" class="block text-left text-secondary mb-2"
-              >Nome</label
-            >
-            <input
-              pInputText
-              class="block email-input border-round"
-              id="firstName"
-              type="text"
-              placeholder="Nome"
-              formControlName="firstName"
-            />
-          </div>
-          <div class="form-group mb-4">
-            <label for="lastName">Cognome</label>
-            <input
-              pInputText
-              class="block email-input border-round"
-              id="lastName"
-              type="text"
-              placeholder="Cognome"
-              formControlName="lastName"
-            />
-          </div>
-          <div class="form-group mb-4">
-            <label for="picture">Immagine del profilo (URL)</label>
-            <input
-              pInputText
-              class="email-input"
-              id="picture"
-              type="text"
-              placeholder="URL Immagine"
-              formControlName="picture"
-            />
-          </div>
-          <div class="form-group mb-4">
-            <label for="username">Email</label>
-            <input
-              pInputText
-              class="email-input"
-              id="username"
-              type="email"
-              placeholder="Email"
-              formControlName="username"
-            />
-          </div>
-          <div class="form-group mb-4 relative">
-            <label for="password" class="block text-left text-secondary mb-2"
-              >Password</label
-            >
-            <p-password
-              id="password"
-              class="p-password-input ng-invalid ng-dirty"
-              formControlName="password"
-              placeholder="Password"
-              promptLabel="Scegli una password"
-              weakLabel="Troppo debole"
-              mediumLabel="Password media"
-              strongLabel="Password sicura!"
-              [toggleMask]="true"
-            >
-              <ng-template pTemplate="footer">
-                <p-divider />
-                <p class="m-0">Suggerimenti</p>
-                <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
-                  <li>Almeno una maiuscola</li>
-                  <li>Almeno un numero</li>
-                  <li>Minimo 8 caratteri</li>
-                </ul>
-              </ng-template></p-password
-            >
-          </div>
-          <div class="form-group mb-4 relative">
-            <label
-              for="confirmPassword"
-              class="block text-left text-secondary mb-2"
-              >Conferma Password</label
-            >
-            <p-password
-              id="confirmPassword"
-              class="p-password-input"
-              formControlName="confirmPassword"
-              placeholder="Conferma Password"
-              promptLabel="Conferma la password"
-              weakLabel="Troppo debole"
-              mediumLabel="Password media"
-              strongLabel="Password sicura!"
-              [toggleMask]="false"
-            ></p-password>
+          <div class="grid">
+            <div class="col-12 md:col-6">
+              <div class="form-group mb-4">
+                <label
+                  for="firstName"
+                  class="block text-left text-secondary mb-2"
+                  >Nome</label
+                >
+                <input
+                  pInputText
+                  class="block email-input border-round"
+                  id="firstName"
+                  type="text"
+                  placeholder="Nome"
+                  formControlName="firstName"
+                />
+              </div>
+              <div class="form-group mb-4">
+                <label for="lastName">Cognome</label>
+                <input
+                  pInputText
+                  class="block email-input border-round"
+                  id="lastName"
+                  type="text"
+                  placeholder="Cognome"
+                  formControlName="lastName"
+                />
+              </div>
+              <div class="form-group mb-4">
+                <label for="picture">Immagine del profilo (Facoltativo)</label>
+                <input
+                  pInputText
+                  class="email-input"
+                  id="picture"
+                  type="text"
+                  placeholder="URL Immagine"
+                  formControlName="picture"
+                />
+              </div>
+            </div>
+            <div class="col-12 md:col-6">
+              <div class="form-group mb-4">
+                <label for="username">Email</label>
+                <input
+                  pInputText
+                  class="email-input"
+                  id="username"
+                  type="email"
+                  placeholder="Email"
+                  formControlName="username"
+                />
+              </div>
+              <div class="form-group mb-4 relative">
+                <label
+                  for="password"
+                  class="block text-left text-secondary mb-2"
+                  >Password</label
+                >
+                <p-password
+                  id="password"
+                  class="p-password-input ng-invalid ng-dirty"
+                  formControlName="password"
+                  placeholder="Password"
+                  promptLabel="Scegli una password"
+                  weakLabel="Troppo debole"
+                  mediumLabel="Password media"
+                  strongLabel="Password sicura!"
+                  [toggleMask]="true"
+                >
+                  <ng-template pTemplate="footer">
+                    <p-divider />
+                    <p class="m-0">Suggerimenti</p>
+                    <ul class="pl-2 ml-2 mt-0" style="line-height: 1.5">
+                      <li>Almeno una maiuscola</li>
+                      <li>Almeno un numero</li>
+                      <li>Minimo 8 caratteri</li>
+                    </ul>
+                  </ng-template>
+                </p-password>
+              </div>
+              <div class="form-group mb-4 relative">
+                <label
+                  for="confirmPassword"
+                  class="block text-left text-secondary mb-2"
+                  >Conferma Password</label
+                >
+                <p-password
+                  id="confirmPassword"
+                  class="p-password-input"
+                  formControlName="confirmPassword"
+                  placeholder="Conferma Password"
+                  promptLabel="Conferma la password"
+                  weakLabel="Troppo debole"
+                  mediumLabel="Password media"
+                  strongLabel="Password sicura!"
+                  [toggleMask]="true"
+                ></p-password>
+              </div>
+            </div>
           </div>
           <p-button
             label="Registrati"

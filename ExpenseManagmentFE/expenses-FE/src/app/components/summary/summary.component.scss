@@ -1,11 +1,24 @@
 @import "../../../styles.scss";
 @import "../../../variables.scss";
 
+.expense-wrapper {
+  @media screen and (min-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 3rem;
+    min-height: 100vh;
+  }
+}
+
 .expense-by-category {
+  @media screen and (min-width: 768px) {
+    padding: 3rem;
+  }
   background-color: white;
   border-radius: 10px;
   padding: 1.25rem;
-  max-width: 900px;
+  width: 100%;
 
   .header {
     display: flex;
@@ -50,7 +63,6 @@
         color: $secondary-color;
 
         .expense-description {
-          margin-left: 5px;
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
