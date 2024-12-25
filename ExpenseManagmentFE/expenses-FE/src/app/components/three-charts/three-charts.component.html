@@ -39,7 +39,7 @@
   <div class="p-col-12 p-md-8 sm:m-0">
     <div class="progress-card">
       <div class="card-header">
-        <h3>STIPENDIO UTILIZZATO QUESTO MESE</h3>
+        <h3>REDDITO UTILIZZATO QUESTO MESE</h3>
       </div>
       <div class="card-body-progress">
         <div class="progress-bar-container">
@@ -65,12 +65,14 @@
         <button (click)="changeMonth(1)">&#8250;</button>
       </div>
       <div class="calendar-grid">
-        <div class="day-cell" *ngFor="let day of daysInMonth">
+        @for (day of daysInMonth; track $index) {
+        <div class="day-cell" [ngClass]="{ today: day.isToday }">
           <span class="day-number">{{ day.day }}</span>
           <span class="day-amount" [ngClass]="{ highlight: day.amount > 0 }">
-            {{ day.amount }} €
+            {{ abbreviateNumber(day.amount) }}€
           </span>
         </div>
+        }
       </div>
     </div>
   </div>

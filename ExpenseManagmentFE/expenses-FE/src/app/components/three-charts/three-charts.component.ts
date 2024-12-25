@@ -17,7 +17,7 @@ export class ThreeChartsComponent implements OnInit {
 
   currentYear: number = new Date().getFullYear();
   currentMonth: number = new Date().getMonth();
-  daysInMonth: { day: number; amount: number }[] = [];
+  daysInMonth: { day: number; amount: number; isToday: boolean }[] = [];
 
   pieChartData: any;
   pieChartOptions: any;
@@ -264,11 +264,23 @@ export class ThreeChartsComponent implements OnInit {
           new Date(e.date).toISOString().split('T')[0] === dateStr &&
           !e.isIncome
       );
+
+      const amount = expense ? expense.amount : 0;
+      const isToday = new Date().toISOString().split('T')[0] === dateStr;
+
       this.daysInMonth.push({
         day: i,
-        amount: expense ? expense.amount : 0,
+        amount: amount,
+        isToday: isToday,
       });
     }
+  }
+
+  abbreviateNumber(value: number): string {
+    if (value >= 1000) {
+      return (value / 1000).toFixed(1).replace('.0', '') + 'k';
+    }
+    return value.toString();
   }
 
   changeMonth(direction: number): void {

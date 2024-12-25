@@ -20,7 +20,10 @@
     <div class="nav-items">
       <div class="nav-item" [class.closed]="isClosed">
         <mat-icon>home</mat-icon>
-        <span *ngIf="!isClosed" routerLink="/home" (click)="toggleSidebar()"
+        <span
+          *ngIf="!isClosed"
+          routerLink="/dashboard"
+          (click)="toggleSidebar()"
           >Home</span
         >
       </div>

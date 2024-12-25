@@ -1,0 +1,77 @@
+@import "../../../styles.scss";
+@import "../../../variables.scss";
+
+.expense-by-category {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1.25rem;
+  max-width: 900px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    h3 {
+      text-transform: capitalize;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: black;
+    }
+
+    button {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--primary-color);
+    }
+  }
+
+  .category-group {
+    margin-bottom: 1.5rem;
+
+    h4 {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem;
+        border-bottom: 1px solid #ddd;
+        color: $secondary-color;
+
+        .expense-description {
+          margin-left: 5px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: inline-block;
+          max-width: 100px;
+        }
+
+        span {
+          flex: 1;
+          &:nth-child(1) {
+            flex: 0.3;
+          }
+          &:nth-child(2) {
+            flex: 1.2;
+          }
+          &:nth-child(3) {
+            flex: 0.5;
+            text-align: right;
+          }
+        }
+      }
+    }
+  }
+}

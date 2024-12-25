@@ -164,6 +164,11 @@
       border-radius: 5px;
       color: $secondary-color;
 
+      &.today {
+        background-color: rgba(62, 60, 60, 0.1);
+        border: 2px solid var(--primary-color);
+      }
+
       .day-number {
         font-size: 0.9rem;
         margin-bottom: 0.2rem;
@@ -171,6 +176,9 @@
 
       .day-amount {
         font-size: 0.8rem;
+        @media screen and (max-width: 768px) {
+          font-size: 0.7rem;
+        }
 
         &.highlight {
           color: var(--primary-color);
