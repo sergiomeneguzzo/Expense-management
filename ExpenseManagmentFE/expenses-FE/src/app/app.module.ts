@@ -25,7 +25,6 @@ import { MessageService } from 'primeng/api';
 import { DividerModule } from 'primeng/divider';
 import { AuthInterceptor } from './utils/auth.interceptor';
 import { TableModule } from 'primeng/table';
-import { NgApexchartsModule } from 'ng-apexcharts';
 import { ChartModule } from 'primeng/chart';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
@@ -87,7 +86,6 @@ registerLocaleData(localeIt, 'it');
     ToastModule,
     DividerModule,
     TableModule,
-    NgApexchartsModule,
     ChartModule,
     DialogModule,
     DropdownModule,
