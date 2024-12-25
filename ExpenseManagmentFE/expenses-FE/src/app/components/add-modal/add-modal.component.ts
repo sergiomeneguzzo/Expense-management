@@ -16,6 +16,7 @@ export class AddModalComponent {
   transactionForm!: FormGroup;
 
   private touchStartY: number = 0;
+  loading: boolean = false;
 
   isIncomeOptions = [
     { label: 'Reddito', value: true },
@@ -52,6 +53,7 @@ export class AddModalComponent {
 
   onSubmit() {
     if (this.transactionForm.valid) {
+      this.loading = true;
       const formValue = this.transactionForm.value;
       const expense = {
         amount: formValue.amount,
@@ -61,8 +63,6 @@ export class AddModalComponent {
         isIncome: formValue.isIncome,
       };
 
-      console.log('Valore del campo date:', formValue.date);
-
       this.expensesService.addExpense(expense).subscribe(
         (response) => {
           console.log('Spesa aggiunta con successo', response);
@@ -71,6 +71,8 @@ export class AddModalComponent {
             'Successo'
           );
           this.onClose();
+          this.loading = false;
+          window.location.reload();
         },
         (error) => {
           console.error("Errore nell'aggiungere la spesa", error);
@@ -78,6 +80,7 @@ export class AddModalComponent {
             'Errore nell’aggiungere la transazione. Riprova più tardi',
             'Errore'
           );
+          this.loading = false;
         }
       );
     } else {

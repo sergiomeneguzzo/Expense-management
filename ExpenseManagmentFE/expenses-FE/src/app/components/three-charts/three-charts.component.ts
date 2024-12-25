@@ -11,7 +11,9 @@ import { ExpensesService } from '../../services/expenses.service';
 export class ThreeChartsComponent implements OnInit {
   expenses: Expense[] = [];
   categories: Category[] = [];
+
   salaryUsedPercentage: number = 0;
+  loading: boolean = false;
 
   currentYear: number = new Date().getFullYear();
   currentMonth: number = new Date().getMonth();
@@ -191,8 +193,8 @@ export class ThreeChartsComponent implements OnInit {
     });
   }
 
-  //caricamento dati
   loadExpenses(): void {
+    this.loading = true;
     this.expensesService.getExpenses().subscribe(
       (data) => {
         this.expenses = data;
@@ -200,6 +202,7 @@ export class ThreeChartsComponent implements OnInit {
         this.updateLineChart();
         this.updateSalaryUsedPercentage();
         this.generateCalendar();
+        this.loading = false;
       },
       (error) => {
         console.error('Errore nel recuperare le spese', error);
@@ -207,6 +210,7 @@ export class ThreeChartsComponent implements OnInit {
     );
   }
   loadCategories(): void {
+    this.loading = true;
     this.expensesService.getCategoryExpenses().subscribe(
       (data) => {
         this.categories = data;
@@ -215,6 +219,7 @@ export class ThreeChartsComponent implements OnInit {
           this.updateLineChart();
           this.updateSalaryUsedPercentage();
         }
+        this.loading = false;
       },
       (error) => {
         console.error('Errore nel recuperare le categorie', error);

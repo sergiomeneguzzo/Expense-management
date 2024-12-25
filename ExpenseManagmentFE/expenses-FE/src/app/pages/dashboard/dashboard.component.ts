@@ -1,19 +1,7 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ExpensesService } from '../../services/expenses.service';
 import { Expense } from '../../entities/expense';
 import { Category } from '../../entities/category';
-import { DialogService } from 'primeng/dynamicdialog';
-import { MessageService } from 'primeng/api';
-import { AddModalComponent } from '../../components/add-modal/add-modal.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -45,11 +33,7 @@ export class DashboardComponent implements OnInit {
   ];
   activeTab = 0;
 
-  constructor(
-    private expensesService: ExpensesService,
-    private dialogService: DialogService,
-    private messageService: MessageService
-  ) {}
+  constructor(private expensesService: ExpensesService) {}
 
   ngOnInit(): void {
     this.loadExpenses();

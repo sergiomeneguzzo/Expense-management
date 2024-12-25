@@ -41,6 +41,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { AddModalComponent } from './components/add-modal/add-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SummaryComponent } from './components/summary/summary.component';
+import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { SummaryComponent } from './components/summary/summary.component';
     ThreeChartsComponent,
     AddModalComponent,
     SummaryComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
