@@ -1,5 +1,5 @@
 {
-  "name": "hotel-booking-backend",
+  "name": "expense-managment-api",
   "version": "1.0.0",
   "main": "src/index.ts",
   "scripts": {

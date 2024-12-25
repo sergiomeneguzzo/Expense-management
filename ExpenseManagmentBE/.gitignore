@@ -48,3 +48,4 @@ bower_components/
 # Temp files
 tmp/
 temp/
+.vercel
