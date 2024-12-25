@@ -53,14 +53,23 @@ export class AddModalComponent {
 
   onSubmit() {
     if (this.transactionForm.valid) {
-      this.loading = true;
       const formValue = this.transactionForm.value;
+
+      if (formValue.category.name === 'Stipendio' && !formValue.isIncome) {
+        this.notificationService.warningMessage(
+          'Hai selezionato la categoria "Stipendio" con il tipo di transazione "Spesa". Si consiglia di scegliere "Reddito" come tipo di transazione.',
+          'Attenzione'
+        );
+        return;
+      }
+      this.loading = true;
+
       const expense = {
         amount: formValue.amount,
         category: formValue.category.id,
         description: formValue.description,
         date: new Date(formValue.date) as Date,
-        isIncome: formValue.isIncome,
+        isIncome: formValue.isIncome.value,
       };
 
       this.expensesService.addExpense(expense).subscribe(

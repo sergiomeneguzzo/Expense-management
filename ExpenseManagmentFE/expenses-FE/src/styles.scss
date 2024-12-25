@@ -3,8 +3,6 @@
 
 :root {
   --primary-color: #0ddc86;
-  // --primary-color: #ff6b6b;
-  // --primary-color: #ff9a3d;
   --primary-color-darker: color-mix(
     in srgb,
     var(--primary-color) 90%,

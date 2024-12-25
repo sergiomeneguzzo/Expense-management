@@ -17,7 +17,9 @@
       <ul>
         @for( expense of group.items; track $index) {
         <li>
-          <span>{{ expense.date | date : "dd MMM" }}</span>
+          <span style="font-weight: bold">{{
+            expense.date | date : "dd MMM"
+          }}</span>
           <span class="expense-description">{{ expense.description }}</span>
           <span>{{ expense.amount | currency : "EUR" }}</span>
         </li>

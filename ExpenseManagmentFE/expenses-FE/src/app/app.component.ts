@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NotificationService } from './services/notification.service';
 import { AuthService } from './services/auth.service';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -18,13 +19,23 @@ export class AppComponent {
 
   constructor(
     public authSrv: AuthService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private themeService: ThemeService
   ) {
     this.currentUser$ = this.authSrv.currentUser$;
 
     this.authSrv.loading$.subscribe((loading) => {
       this.isLoading = loading;
     });
+  }
+
+  ngOnInit(): void {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      this.themeService.applyTheme(savedTheme);
+    } else {
+      this.themeService.applyTheme('#0ddc86');
+    }
   }
 
   logout(): void {

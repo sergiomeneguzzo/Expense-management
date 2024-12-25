@@ -1,0 +1,101 @@
+<app-header></app-header>
+<div class="settings-container">
+  <div class="settings-card">
+    <div class="header">
+      <mat-icon>settings</mat-icon>
+      <h1>Impostazioni</h1>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="settings-list">
+      <div class="settings-item">
+        <mat-icon>person</mat-icon>
+        <div class="item-content">
+          <div class="item-title">Profilo Utente</div>
+          <div class="item-description">
+            Gestisci le tue informazioni personali
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="settings-item">
+        <mat-icon>notifications</mat-icon>
+        <div class="item-content">
+          <div class="item-title">Notifiche</div>
+          <div class="item-description">
+            Configura le tue preferenze di notifica
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="settings-item">
+        <mat-icon>security</mat-icon>
+        <div class="item-content">
+          <div class="item-title">Privacy e Sicurezza</div>
+          <div class="item-description">
+            Gestisci le impostazioni di sicurezza
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="settings-item">
+        <mat-icon>language</mat-icon>
+        <div class="item-content">
+          <div class="item-title">Lingua</div>
+          <div class="item-description">Scegli la tua lingua preferita</div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="settings-item">
+        <mat-icon>palette</mat-icon>
+        <div class="item-content">
+          <div class="item-title">Tema</div>
+          <div class="item-description">
+            Personalizza il tema dell'applicazione
+          </div>
+          <div class="theme-options">
+            <button
+              class="theme-btn green-theme"
+              title="Tema Verde"
+              (click)="applyTheme('#0ddc86')"
+            ></button>
+            <button
+              class="theme-btn orange-theme"
+              title="Tema Arancione"
+              (click)="applyTheme('#f0a758')"
+            ></button>
+            <button
+              class="theme-btn pink-theme"
+              title="Tema Rosa"
+              (click)="applyTheme('#f07db5')"
+            ></button>
+            <button
+              class="theme-btn red-theme"
+              title="Tema Rosso"
+              (click)="applyTheme('#f04005')"
+            ></button>
+            <button
+              class="theme-btn blue-theme"
+              title="Tema Blu"
+              (click)="applyTheme('#3306d7')"
+            ></button>
+            <button
+              class="theme-btn purple-theme"
+              title="Tema Viola"
+              (click)="applyTheme('#e107c4')"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

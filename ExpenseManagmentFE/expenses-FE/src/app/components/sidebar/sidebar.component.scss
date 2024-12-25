@@ -89,7 +89,14 @@
         margin-right: 15px;
       }
 
-      &:hover {
+      @media screen and (min-width: 768px) {
+        &:hover {
+          color: var(--primary-color);
+          background-color: rgba($secondary-color, 0.1);
+        }
+      }
+
+      &.active {
         color: var(--primary-color);
         background-color: rgba($secondary-color, 0.1);
       }
@@ -104,6 +111,7 @@
   .logout-container {
     display: flex;
     justify-content: center;
+    align-items: center;
     margin-top: auto;
     padding: 1rem;
   }
@@ -120,9 +128,11 @@
     background-color: inherit;
     color: $secondary-color;
     text-align: center;
+    @media screen and (max-width: 768px) {
+      color: red;
+    }
 
     mat-icon {
-      margin-right: 0.5rem;
       font-size: 1.2rem;
     }
 

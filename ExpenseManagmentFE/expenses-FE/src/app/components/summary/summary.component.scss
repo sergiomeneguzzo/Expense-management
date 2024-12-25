@@ -62,14 +62,17 @@
         border-bottom: 1px solid #ddd;
         color: $secondary-color;
 
+        @media screen and (max-width: 768px) {
+          font-size: 0.8rem;
+        }
+
         .expense-description {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: inline-block;
-          max-width: 100px;
           @media screen and (max-width: 768px) {
             font-size: 0.8rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-block;
           }
         }
 

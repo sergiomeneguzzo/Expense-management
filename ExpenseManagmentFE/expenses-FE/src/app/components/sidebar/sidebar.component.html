@@ -5,7 +5,7 @@
       <div class="icon-container">
         <mat-icon>bar_chart_4_bars</mat-icon>
       </div>
-      <div class="logo">MoneyTracker</div>
+      <div class="logo">SaveUp</div>
     </div>
 
     <!-- Foto profilo e nome utente -->
@@ -18,7 +18,11 @@
 
     <!-- Menu -->
     <div class="nav-items">
-      <div class="nav-item" [class.closed]="isClosed">
+      <div
+        class="nav-item"
+        [class.closed]="isClosed"
+        [class.active]="isActive('/dashboard')"
+      >
         <mat-icon>home</mat-icon>
         <span
           *ngIf="!isClosed"
@@ -27,15 +31,23 @@
           >Home</span
         >
       </div>
-      <div class="nav-item" [class.closed]="isClosed">
+      <div
+        class="nav-item"
+        [class.closed]="isClosed"
+        [class.active]="isActive('/profile')"
+      >
         <mat-icon>person</mat-icon>
         <span *ngIf="!isClosed" routerLink="/profile" (click)="toggleSidebar()"
           >Profilo</span
         >
       </div>
-      <div class="nav-item" [class.closed]="isClosed">
+      <div
+        class="nav-item"
+        [class.closed]="isClosed"
+        [class.active]="isActive('/settings')"
+      >
         <mat-icon>settings</mat-icon>
-        <span *ngIf="!isClosed" routerLink="settings" (click)="toggleSidebar()"
+        <span *ngIf="!isClosed" routerLink="/settings" (click)="toggleSidebar()"
           >Impostazioni</span
         >
       </div>

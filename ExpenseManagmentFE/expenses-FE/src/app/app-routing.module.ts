@@ -7,6 +7,7 @@ import { CheckEmailComponent } from './pages/auth/check-email/check-email.compon
 import { EmailConfirmedComponent } from './pages/auth/email-confirmed/email-confirmed.component';
 import { homeGuard } from './guards/home.guard';
 import { authGuard } from './guards/auth.guard';
+import { SettingsComponent } from './pages/settings/settings.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -17,6 +18,11 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'settings',
+    component: SettingsComponent,
     canActivate: [authGuard],
   },
 ];
