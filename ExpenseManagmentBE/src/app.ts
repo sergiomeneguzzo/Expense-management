@@ -8,6 +8,13 @@ import './utils/auth/auth-handlers';
 const app = express();
 
 app.use(cors());
+app.use(
+  cors({
+    origin: 'https://saveupp.vercel.app',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  }),
+);
 app.use(morgan('tiny'));
 app.use(bodyParser.json());
 
