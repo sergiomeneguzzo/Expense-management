@@ -8,10 +8,7 @@ import './utils/auth/auth-handlers';
 const app = express();
 
 const corsOptions = {
-  origin: [
-    'http://localhost:3000',
-    'https://expense-management-m7iwel2ql-sergios-projects-c91d784c.vercel.app',
-  ],
+  origin: ['http://localhost:3000', 'https://saveupp.vercel.app'],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
