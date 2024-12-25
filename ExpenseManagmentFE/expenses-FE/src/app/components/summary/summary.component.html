@@ -13,7 +13,7 @@
     @if(!loading && expensesByCategory.length > 0) { @for(group of
     expensesByCategory; track $index) {
     <div class="category-group">
-      <h4>{{ group.category }} ({{ group.total | currency : "EUR" }})</h4>
+      <h4>{{ group.category }} - {{ group.total | currency : "EUR" }}</h4>
       <ul>
         @for( expense of group.items; track $index) {
         <li>
