@@ -13,5 +13,6 @@
     "strictPropertyInitialization": false,
     "experimentalDecorators": true
   },
-  "exclude": ["test"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "test"]
 }
