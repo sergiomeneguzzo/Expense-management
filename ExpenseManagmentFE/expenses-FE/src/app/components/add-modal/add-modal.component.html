@@ -8,7 +8,9 @@
     (click)="$event.stopPropagation()"
     [class.show]="close"
   >
-    <button class="close-button" (click)="onClose()">X</button>
+    <button class="close-button" (click)="onClose()">
+      <i class="pi pi-times"></i>
+    </button>
 
     <!-- Header con titolo -->
     <div class="header">
@@ -65,8 +67,9 @@
             <p-calendar
               id="date"
               formControlName="date"
-              [showTime]="true"
+              [showTime]="false"
               [dataType]="'date'"
+              dateFormat="dd/mm/yy"
             ></p-calendar>
           </div>
         </div>
@@ -80,7 +83,7 @@
               formControlName="isIncome"
               [options]="isIncomeOptions"
               optionLabel="label"
-              placeholder="Spesa"
+              placeholder="Seleziona"
             ></p-dropdown>
           </div>
         </div>
