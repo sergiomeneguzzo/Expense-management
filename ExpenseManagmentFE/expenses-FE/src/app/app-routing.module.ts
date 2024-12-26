@@ -9,6 +9,7 @@ import { homeGuard } from './guards/home.guard';
 import { authGuard } from './guards/auth.guard';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -31,6 +32,7 @@ const routes: Routes = [
     component: ProfileComponent,
     canActivate: [authGuard],
   },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({

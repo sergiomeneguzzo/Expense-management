@@ -45,6 +45,7 @@ import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
 import { SettingsComponent } from './pages/settings/settings.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -67,6 +68,7 @@ registerLocaleData(localeIt, 'it');
     LoaderComponent,
     SettingsComponent,
     ProfileComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

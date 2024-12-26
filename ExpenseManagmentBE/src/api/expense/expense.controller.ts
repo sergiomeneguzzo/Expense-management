@@ -17,8 +17,8 @@ export const getExpenses = async (
     const userId: string = req.user.id;
     const expenses = await expenseService.getAllExpenses(userId);
 
-    logService.add(`Fetched expenses for user ID: ${userId}`, true);
-    res.json(expenses);
+    // logService.add(`Fetched expenses for user ID: ${userId}`, true);
+    // res.json(expenses);
   } catch (error) {
     logService.add(
       `Error fetching expenses: ${(error as Error).message}`,
