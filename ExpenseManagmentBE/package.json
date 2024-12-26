@@ -6,7 +6,6 @@
     "start": "ts-node src/index.ts",
     "dev": "nodemon",
     "build": "tsc",
-    "vercel-build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sergio Meneguzzo",
