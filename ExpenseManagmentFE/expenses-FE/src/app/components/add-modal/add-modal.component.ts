@@ -54,7 +54,10 @@ export class AddModalComponent {
     if (this.transactionForm.valid) {
       const formValue = this.transactionForm.value;
 
-      if (formValue.category.name === 'Stipendio' && !formValue.isIncome) {
+      if (
+        formValue.category.name === 'Stipendio' &&
+        !formValue.isIncome.value
+      ) {
         this.notificationService.warningMessage(
           'Hai selezionato la categoria "Stipendio" con il tipo di transazione "Spesa". Si consiglia di scegliere "Reddito" come tipo di transazione.',
           'Attenzione'
@@ -74,21 +77,21 @@ export class AddModalComponent {
       this.expensesService.addExpense(expense).subscribe(
         (response) => {
           console.log('Spesa aggiunta con successo', response);
+          this.onClose();
+          window.location.reload();
+          this.loading = false;
           this.notificationService.successMessage(
             'Transazione aggiunta con successo',
             'Successo'
           );
-          this.onClose();
-          this.loading = false;
-          window.location.reload();
         },
         (error) => {
           console.error("Errore nell'aggiungere la spesa", error);
+          this.loading = false;
           this.notificationService.errorMessage(
             'Errore nell’aggiungere la transazione. Riprova più tardi',
             'Errore'
           );
-          this.loading = false;
         }
       );
     } else {
