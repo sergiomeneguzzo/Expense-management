@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "src/index.ts",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "ts-node src/index.ts",
     "dev": "nodemon",
     "build": "tsc",
-    "vercel-build": "npm run build",
+    "buildDeploy": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sergio Meneguzzo",
@@ -15,6 +15,7 @@
   "dependencies": {
     "@types/mongoose": "^5.11.96",
     "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "cors": "^2.8.5",
