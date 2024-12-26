@@ -6,7 +6,6 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    padding: 3rem;
     min-height: 100vh;
   }
 }
@@ -42,6 +41,43 @@
     }
   }
 
+  .summary-container {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .financial-summary {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+
+    .summary-item {
+      color: var(--primary-color);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      .amount {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+        @media screen and (max-width: 768px) {
+          font-size: 1.2rem;
+        }
+      }
+
+      .label {
+        font-size: 0.875rem;
+        color: var(--primary-color);
+        text-transform: uppercase;
+      }
+    }
+  }
+
   .category-group {
     margin-bottom: 1.5rem;
 
@@ -61,6 +97,20 @@
         padding: 0.5rem;
         border-bottom: 1px solid #ddd;
         color: $secondary-color;
+
+        .income {
+          color: #28a745;
+          font-weight: bold;
+        }
+
+        .expense {
+          color: #dc3545;
+          font-weight: bold;
+        }
+
+        .amount {
+          font-weight: bold;
+        }
 
         @media screen and (max-width: 768px) {
           font-size: 0.8rem;

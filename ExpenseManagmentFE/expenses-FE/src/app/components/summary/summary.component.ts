@@ -54,13 +54,36 @@ export class SummaryComponent {
     );
   }
 
+  getMonthlySummary(): { income: number; expenses: number; balance: number } {
+    const monthExpenses = this.expenses.filter((expense) => {
+      const expenseDate = new Date(expense.date);
+      return (
+        expenseDate.getMonth() === this.currentMonth &&
+        expenseDate.getFullYear() === this.currentYear
+      );
+    });
+
+    const income = monthExpenses
+      .filter((expense) => expense.isIncome)
+      .reduce((sum, expense) => sum + expense.amount, 0);
+
+    const expenses = monthExpenses
+      .filter((expense) => !expense.isIncome)
+      .reduce((sum, expense) => sum + expense.amount, 0);
+
+    return {
+      income,
+      expenses,
+      balance: income - expenses,
+    };
+  }
+
   updateExpensesByCategory(): void {
     const filteredExpenses = this.expenses.filter((expense) => {
       const expenseDate = new Date(expense.date);
       return (
         expenseDate.getMonth() === this.currentMonth &&
-        expenseDate.getFullYear() === this.currentYear &&
-        !expense.isIncome
+        expenseDate.getFullYear() === this.currentYear
       );
     });
 
@@ -74,7 +97,7 @@ export class SummaryComponent {
         acc[categoryName] = { total: 0, items: [] };
       }
 
-      acc[categoryName].total += expense.amount;
+      acc[categoryName].total += expense.amount * (expense.isIncome ? 1 : 1);
       acc[categoryName].items.push(expense);
 
       return acc;
