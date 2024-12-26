@@ -7,7 +7,6 @@
     "dev": "nodemon",
     "build": "tsc",
     "vercel-build": "npm run build",
-    "buildDeploy": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sergio Meneguzzo",
