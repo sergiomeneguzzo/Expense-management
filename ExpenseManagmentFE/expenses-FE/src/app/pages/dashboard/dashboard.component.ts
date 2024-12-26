@@ -178,7 +178,7 @@ export class DashboardComponent implements OnInit {
     });
 
     const primaryColor = getComputedStyle(document.documentElement)
-      .getPropertyValue('--primary-color')
+      .getPropertyValue('--primary-color-light')
       .trim();
     this.chartData = {
       labels: months,
@@ -252,7 +252,7 @@ export class DashboardComponent implements OnInit {
     });
 
     const primaryColor = getComputedStyle(document.documentElement)
-      .getPropertyValue('--primary-color')
+      .getPropertyValue('--primary-color-light')
       .trim();
 
     this.chartData = {

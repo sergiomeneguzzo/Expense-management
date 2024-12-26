@@ -83,7 +83,7 @@ export class ThreeChartsComponent implements OnInit {
     const primaryColor = getComputedStyle(document.documentElement)
       .getPropertyValue('--primary-color')
       .trim();
-    const primaryColorLight = this.adjustColorBrightness(primaryColor, 20);
+    const primaryColorLight = this.adjustColorBrightness(primaryColor, 30);
     const primaryColorDark = this.adjustColorBrightness(primaryColor, -40);
     const primaryColorDarker = this.adjustColorBrightness(primaryColor, -70);
     this.pieChartData = {
@@ -92,8 +92,8 @@ export class ThreeChartsComponent implements OnInit {
         {
           data: data,
           backgroundColor: [
-            primaryColorLight,
             primaryColor,
+            primaryColorLight,
             primaryColorDark,
             primaryColorDarker,
           ],
@@ -131,7 +131,7 @@ export class ThreeChartsComponent implements OnInit {
     });
 
     const primaryColor = getComputedStyle(document.documentElement)
-      .getPropertyValue('--primary-color')
+      .getPropertyValue('--primary-color-light')
       .trim();
     this.lineChartData = {
       labels: daysOfMonth.map((day) => `${day}`),
@@ -142,7 +142,7 @@ export class ThreeChartsComponent implements OnInit {
           fill: false,
           borderColor: primaryColor,
           tension: 0.2,
-          borderWidth: 3,
+          borderWidth: 4,
           pointRadius: 0,
         },
       ],
@@ -156,8 +156,16 @@ export class ThreeChartsComponent implements OnInit {
       },
       plugins: {
         tooltip: {
+          enabled: true,
           callbacks: {
             label: (context: any) => `€${context.raw}`,
+          },
+          intersect: false,
+          position: 'nearest',
+          mode: 'nearest',
+          caretSize: 6,
+          bodyFont: {
+            size: 12,
           },
         },
         legend: {

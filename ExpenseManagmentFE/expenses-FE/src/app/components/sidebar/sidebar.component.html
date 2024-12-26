@@ -22,34 +22,31 @@
         class="nav-item"
         [class.closed]="isClosed"
         [class.active]="isActive('/dashboard')"
+        routerLink="/dashboard"
+        (click)="toggleSidebar()"
       >
         <mat-icon>home</mat-icon>
-        <span
-          *ngIf="!isClosed"
-          routerLink="/dashboard"
-          (click)="toggleSidebar()"
-          >Home</span
-        >
+        <span *ngIf="!isClosed">Home</span>
       </div>
       <div
         class="nav-item"
+        routerLink="/profile"
         [class.closed]="isClosed"
         [class.active]="isActive('/profile')"
+        (click)="toggleSidebar()"
       >
         <mat-icon>person</mat-icon>
-        <span *ngIf="!isClosed" routerLink="/profile" (click)="toggleSidebar()"
-          >Profilo</span
-        >
+        <span *ngIf="!isClosed">Profilo</span>
       </div>
       <div
         class="nav-item"
         [class.closed]="isClosed"
         [class.active]="isActive('/settings')"
+        routerLink="/settings"
+        (click)="toggleSidebar()"
       >
         <mat-icon>settings</mat-icon>
-        <span *ngIf="!isClosed" routerLink="/settings" (click)="toggleSidebar()"
-          >Impostazioni</span
-        >
+        <span *ngIf="!isClosed">Impostazioni</span>
       </div>
     </div>
 

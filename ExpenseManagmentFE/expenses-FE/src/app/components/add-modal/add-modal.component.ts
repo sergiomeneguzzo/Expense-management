@@ -34,7 +34,7 @@ export class AddModalComponent {
       category: [null, Validators.required],
       description: [''],
       date: [null, Validators.required],
-      isIncome: [false, Validators.required],
+      isIncome: [null, Validators.required],
     });
     this.loadCategories();
   }
