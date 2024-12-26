@@ -11,7 +11,8 @@
     "noImplicitAny": false,
     "resolveJsonModule": true,
     "strictPropertyInitialization": false,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "typeRoots": ["./node_modules/@types", "./@types"]
   },
   "exclude": ["test"]
 }
