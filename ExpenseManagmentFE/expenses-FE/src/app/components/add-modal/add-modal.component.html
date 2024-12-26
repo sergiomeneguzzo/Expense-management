@@ -2,12 +2,7 @@
 <app-loader></app-loader>
 }
 
-<div
-  class="modal-wrapper"
-  (click)="onClose()"
-  (touchstart)="onTouchStart($event)"
-  (touchend)="onTouchEnd($event)"
->
+<div class="modal-wrapper" (click)="onClose()">
   <div
     class="bottom-screen"
     (click)="$event.stopPropagation()"

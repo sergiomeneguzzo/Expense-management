@@ -15,7 +15,6 @@ export class AddModalComponent {
 
   transactionForm!: FormGroup;
 
-  private touchStartY: number = 0;
   loading: boolean = false;
 
   isIncomeOptions = [
@@ -104,16 +103,16 @@ export class AddModalComponent {
     this.close.emit();
   }
 
-  onTouchStart(event: TouchEvent): void {
-    this.touchStartY = event.touches[0].clientY;
-  }
+  // onTouchStart(event: TouchEvent): void {
+  //   this.touchStartY = event.touches[0].clientY;
+  // }
 
-  onTouchEnd(event: TouchEvent): void {
-    const touchEndY = event.changedTouches[0].clientY;
-    const swipeDistance = touchEndY - this.touchStartY;
+  // onTouchEnd(event: TouchEvent): void {
+  //   const touchEndY = event.changedTouches[0].clientY;
+  //   const swipeDistance = touchEndY - this.touchStartY;
 
-    if (swipeDistance > 50) {
-      this.onClose();
-    }
-  }
+  //   if (swipeDistance > 50) {
+  //     this.onClose();
+  //   }
+  // }
 }
