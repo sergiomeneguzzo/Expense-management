@@ -20,6 +20,7 @@ body {
   overflow-x: hidden;
   margin: 0;
   background: var(--primary-color);
+  background: linear-gradient(to right, var(--primary-color), black);
   padding: 1rem;
 }
 

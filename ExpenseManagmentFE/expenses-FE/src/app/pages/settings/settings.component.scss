@@ -2,7 +2,6 @@
 @import "../../../variables.scss";
 .settings-container {
   margin: 0 auto;
-  padding: 1rem;
 
   @media screen and (min-width: 768px) {
     padding: 1.25rem;
@@ -133,16 +132,6 @@
 
 /* Responsività */
 @media screen and (max-width: 768px) {
-  .settings-card {
-    padding: 1rem;
-  }
-
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px;
-  }
-
   .header mat-icon {
     font-size: 24px;
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Category } from '../../entities/category';
 import { Expense } from '../../entities/expense';
 import { ExpensesService } from '../../services/expenses.service';
@@ -9,6 +9,10 @@ import { ExpensesService } from '../../services/expenses.service';
   styleUrl: './three-charts.component.scss',
 })
 export class ThreeChartsComponent implements OnInit {
+  @ViewChild('chartElement', { static: false }) chartElement!: ElementRef;
+  @ViewChild('lineChart', { static: false }) lineChart: any;
+  @ViewChild('pieChart', { static: false }) pieChart: any;
+
   expenses: Expense[] = [];
   categories: Category[] = [];
 
@@ -30,6 +34,34 @@ export class ThreeChartsComponent implements OnInit {
     this.loadExpenses();
     this.loadCategories();
     this.generateCalendar();
+  }
+
+  ngAfterViewInit(): void {
+    this.initIntersectionObserver();
+  }
+
+  private initIntersectionObserver() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          this.triggerChartAnimations();
+        }
+      });
+    });
+
+    const charts = document.querySelectorAll('.chart-card');
+    charts.forEach((chart) => {
+      observer.observe(chart);
+    });
+  }
+
+  private triggerChartAnimations() {
+    if (this.lineChart) {
+      this.lineChart.chart.update();
+    }
+    if (this.pieChart) {
+      this.pieChart.chart.update();
+    }
   }
 
   //GRAFICO TORTA
@@ -70,6 +102,10 @@ export class ThreeChartsComponent implements OnInit {
     };
     this.pieChartOptions = {
       responsive: true,
+      animation: {
+        duration: 1500,
+        easing: 'easeInOutQuart',
+      },
       plugins: {
         legend: {
           position: 'top',
@@ -114,6 +150,10 @@ export class ThreeChartsComponent implements OnInit {
 
     this.lineChartOptions = {
       responsive: true,
+      animation: {
+        duration: 1500,
+        easing: 'easeInOutQuart',
+      },
       plugins: {
         tooltip: {
           callbacks: {
