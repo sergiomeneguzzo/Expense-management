@@ -310,19 +310,36 @@ export class ThreeChartsComponent implements OnInit {
     for (let i = 1; i <= days; i++) {
       const dateStr = `${this.currentYear}-${String(
         this.currentMonth + 1
-      ).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
-      const expense = this.expenses.find(
-        (e) =>
-          new Date(e.date).toISOString().split('T')[0] === dateStr &&
-          !e.isIncome
+      ).padStart(2, '0')}-${String(i).padStart(2, '0')}T12:00:00`;
+
+      const dayExpenses = this.expenses.filter((expense) => {
+        const expenseDate = new Date(expense.date);
+        const expenseDay = expenseDate.getDate();
+        const expenseMonth = expenseDate.getMonth();
+        const expenseYear = expenseDate.getFullYear();
+
+        return (
+          expenseDay === i &&
+          expenseMonth === this.currentMonth &&
+          expenseYear === this.currentYear &&
+          !expense.isIncome
+        );
+      });
+
+      const totalAmount = dayExpenses.reduce(
+        (sum, expense) => sum + expense.amount,
+        0
       );
 
-      const amount = expense ? expense.amount : 0;
-      const isToday = new Date().toISOString().split('T')[0] === dateStr;
+      const today = new Date();
+      const isToday =
+        today.getDate() === i &&
+        today.getMonth() === this.currentMonth &&
+        today.getFullYear() === this.currentYear;
 
       this.daysInMonth.push({
         day: i,
-        amount: amount,
+        amount: totalAmount,
         isToday: isToday,
       });
     }
