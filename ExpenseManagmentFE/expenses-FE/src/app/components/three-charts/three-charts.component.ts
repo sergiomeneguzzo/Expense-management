@@ -68,7 +68,7 @@ export class ThreeChartsComponent implements OnInit {
   private updatePieChart(): void {
     const currentMonthExpenses = this.filterExpensesByCurrentMonth();
     const groupedByCategory = currentMonthExpenses.reduce((acc, expense) => {
-      const categoryId = expense.category.id!;
+      const categoryId = expense.category?.id || 'Sconosciuto';
       acc[categoryId] = (acc[categoryId] || 0) + expense.amount;
       return acc;
     }, {} as Record<string, number>);

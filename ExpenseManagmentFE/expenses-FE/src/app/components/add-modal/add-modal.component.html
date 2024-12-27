@@ -12,17 +12,14 @@
       <i class="pi pi-times"></i>
     </button>
 
-    <!-- Header con titolo -->
     <div class="header">
       <h2>NUOVA TRANSAZIONE</h2>
     </div>
 
     <hr />
 
-    <!-- Form per l'inserimento dei dati -->
     <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()">
       <div class="p-grid">
-        <!-- Colonna 1: Importo e Categoria -->
         <div class="p-col-12 p-md-6">
           <div class="form-group">
             <label style="margin-right: 10px" for="amount">Importo(€)</label>
@@ -47,7 +44,6 @@
           </div>
         </div>
 
-        <!-- Colonna 2: Descrizione, Data e Tipo di Transazione -->
         <div class="p-col-12 p-md-6">
           <div class="form-group">
             <label for="description" style="margin-right: 5px"
@@ -67,8 +63,8 @@
             <p-calendar
               id="date"
               formControlName="date"
-              [showTime]="false"
-              [dataType]="'date'"
+              [showIcon]="true"
+              [showOnFocus]="false"
               dateFormat="dd/mm/yy"
             ></p-calendar>
           </div>
@@ -88,7 +84,6 @@
           </div>
         </div>
 
-        <!-- Colonna 3: Pulsante di invio -->
         <div class="p-col-12">
           <div class="form-group">
             <button

@@ -11,6 +11,8 @@ import { NotificationService } from '../../services/notification.service';
 })
 export class AddModalComponent {
   @Output() close = new EventEmitter<void>();
+  @Input() isOpen: boolean = false;
+
   categories: Category[] = [];
 
   transactionForm!: FormGroup;
@@ -76,14 +78,15 @@ export class AddModalComponent {
 
       this.expensesService.addExpense(expense).subscribe(
         (response) => {
-          console.log('Spesa aggiunta con successo', response);
           this.onClose();
-          window.location.reload();
           this.loading = false;
           this.notificationService.successMessage(
             'Transazione aggiunta con successo',
             'Successo'
           );
+          setTimeout(() => {
+            window.location.reload();
+          }, 1500);
         },
         (error) => {
           console.error("Errore nell'aggiungere la spesa", error);
@@ -102,20 +105,10 @@ export class AddModalComponent {
     }
   }
 
-  onClose(): void {
-    this.close.emit();
+  onClose() {
+    this.isOpen = false;
+    setTimeout(() => {
+      this.close.emit();
+    }, 100);
   }
-
-  // onTouchStart(event: TouchEvent): void {
-  //   this.touchStartY = event.touches[0].clientY;
-  // }
-
-  // onTouchEnd(event: TouchEvent): void {
-  //   const touchEndY = event.changedTouches[0].clientY;
-  //   const swipeDistance = touchEndY - this.touchStartY;
-
-  //   if (swipeDistance > 50) {
-  //     this.onClose();
-  //   }
-  // }
 }
