@@ -7,9 +7,11 @@
   *ngIf="currentUser$ | async"
   (logout)="logout()"
 ></app-sidebar>
+
 <div class="content" [ngClass]="{ 'sidebar-closed': isClosed }">
   <router-outlet></router-outlet>
 </div>
+
 <div class="card flex justify-content-center">
   <p-toast />
 </div>
