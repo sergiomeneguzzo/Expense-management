@@ -47,6 +47,8 @@ import { SettingsComponent } from './pages/settings/settings.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { FormatAmountPipe } from './pipes/format-amount.pipe';
+import { ExpenseDetailComponent } from './components/expense-detail/expense-detail.component';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 registerLocaleData(localeIt, 'it');
 
@@ -71,6 +73,7 @@ registerLocaleData(localeIt, 'it');
     ProfileComponent,
     NotFoundComponent,
     FormatAmountPipe,
+    ExpenseDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,6 +101,7 @@ registerLocaleData(localeIt, 'it');
     TabMenuModule,
     MatDialogModule,
     ProgressBarModule,
+    InputNumberModule,
   ],
   providers: [
     MessageService,

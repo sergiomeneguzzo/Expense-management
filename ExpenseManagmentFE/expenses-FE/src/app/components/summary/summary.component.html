@@ -39,7 +39,7 @@
       <h4>{{ group.category }} - {{ group.total | currency : "EUR" }}</h4>
       <ul>
         @for(expense of group.items; track $index) {
-        <li>
+        <li class="list-expense" (click)="openExpenseDialog(expense)">
           <span style="font-weight: bold">{{
             expense.date | date : "dd MMM"
           }}</span>
@@ -62,3 +62,9 @@
     }
   </div>
 </div>
+
+<app-expense-detail
+  [(visible)]="showExpenseDialog"
+  [expense]="selectedExpense!"
+  (expenseUpdated)="onExpenseUpdated($event)"
+></app-expense-detail>

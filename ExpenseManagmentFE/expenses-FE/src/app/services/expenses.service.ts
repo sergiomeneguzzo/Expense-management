@@ -19,6 +19,14 @@ export class ExpensesService {
     return this.http.post<Expense>(`${apiUrl}/expenses`, expense);
   }
 
+  updateExpense(id: string, expense: Partial<Expense>): Observable<Expense> {
+    return this.http.patch<Expense>(`${apiUrl}/expenses/${id}`, expense);
+  }
+
+  deleteExpense(id: string): Observable<void> {
+    return this.http.delete<void>(`${apiUrl}/expenses/${id}`);
+  }
+
   getCategoryExpenses(): Observable<Category[]> {
     return this.http.get<Category[]>(`${apiUrl}/categories`);
   }

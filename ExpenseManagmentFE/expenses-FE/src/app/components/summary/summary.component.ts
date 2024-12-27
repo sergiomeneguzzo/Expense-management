@@ -15,6 +15,9 @@ export class SummaryComponent {
   currentMonth: number = new Date().getMonth();
   expensesByCategory: { category: string; total: number; items: Expense[] }[] =
     [];
+
+  selectedExpense: Expense | null = null;
+  showExpenseDialog: boolean = false;
   loading: boolean = false;
 
   constructor(private expensesService: ExpensesService) {}
@@ -24,34 +27,45 @@ export class SummaryComponent {
     this.loadCategories();
   }
 
+  openExpenseDialog(expense: Expense): void {
+    this.selectedExpense = expense;
+    this.showExpenseDialog = true;
+  }
+
+  onExpenseUpdated(updatedExpense: Expense) {
+    this.loadExpenses();
+  }
+
   loadExpenses(): void {
     this.loading = true;
-    this.expensesService.getExpenses().subscribe(
-      (data) => {
+    this.expensesService.getExpenses().subscribe({
+      next: (data) => {
         this.expenses = data;
         this.updateExpensesByCategory();
         this.loading = false;
       },
-      (error) => {
+      error: (error) => {
         console.error('Errore nel recuperare le spese', error);
-      }
-    );
+        this.loading = false;
+      },
+    });
   }
 
   loadCategories(): void {
     this.loading = true;
-    this.expensesService.getCategoryExpenses().subscribe(
-      (data) => {
+    this.expensesService.getCategoryExpenses().subscribe({
+      next: (data) => {
         this.categories = data;
         if (this.expenses.length > 0) {
           this.updateExpensesByCategory();
         }
         this.loading = false;
       },
-      (error) => {
+      error: (error) => {
         console.error('Errore nel recuperare le categorie', error);
-      }
-    );
+        this.loading = false;
+      },
+    });
   }
 
   getMonthlySummary(): { income: number; expenses: number; balance: number } {
@@ -88,16 +102,17 @@ export class SummaryComponent {
     });
 
     const groupedByCategory = filteredExpenses.reduce((acc, expense) => {
-      const category = this.categories.find(
-        (cat) => cat.id === expense.category.id
-      );
-      const categoryName = category ? category.name : 'Sconosciuto';
+      const categoryId = expense.category?.id;
+      const category = categoryId
+        ? this.categories.find((cat) => cat.id === categoryId)
+        : null;
+      const categoryName = category?.name || 'Sconosciuto';
 
       if (!acc[categoryName]) {
         acc[categoryName] = { total: 0, items: [] };
       }
 
-      acc[categoryName].total += expense.amount * (expense.isIncome ? 1 : 1);
+      acc[categoryName].total += expense.amount;
       acc[categoryName].items.push(expense);
 
       return acc;

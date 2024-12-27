@@ -1,0 +1,40 @@
+::ng-deep .p-dialog {
+  border-radius: 8px;
+}
+
+::ng-deep .field {
+  margin: 1rem 0;
+}
+
+::ng-deep .modal-header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.5rem 1rem;
+}
+
+::ng-deep .modal-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+::ng-deep .delete-icon {
+  font-size: 1.5em;
+  color: red;
+  cursor: pointer;
+}
+
+::ng-deep .p-dialog-content {
+  padding: 1rem;
+}
+
+@media (max-width: 576px) {
+  ::ng-deep .p-dialog {
+    width: 90% !important;
+    max-width: none;
+  }
+
+  ::ng-deep .modal-title {
+    font-size: 1.2rem;
+  }
+}
