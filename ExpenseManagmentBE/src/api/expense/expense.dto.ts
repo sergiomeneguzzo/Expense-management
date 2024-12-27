@@ -39,7 +39,6 @@ export class UpdateExpenseDTO {
   description?: string;
 
   @IsOptional()
-  @IsDate()
   date?: Date;
 
   @IsOptional()

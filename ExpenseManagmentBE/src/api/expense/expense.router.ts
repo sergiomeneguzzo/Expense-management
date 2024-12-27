@@ -13,7 +13,12 @@ const router = Router();
 
 router.get('/', isAuthenticated, getExpenses);
 router.post('/', isAuthenticated, validate(CreateExpenseDTO), createExpense);
-router.put('/:id', isAuthenticated, validate(UpdateExpenseDTO), updateExpense);
+router.patch(
+  '/:id',
+  isAuthenticated,
+  validate(UpdateExpenseDTO),
+  updateExpense,
+);
 router.delete('/:id', isAuthenticated, deleteExpense);
 
 export default router;
