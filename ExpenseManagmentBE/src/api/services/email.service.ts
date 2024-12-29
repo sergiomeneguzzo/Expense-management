@@ -4,9 +4,7 @@ import path from 'path';
 
 export const sendConfirmationEmail = async (email: string, userId: string) => {
   const port = process.env.SECRET_MAIL_KEY;
-  if (!port) throw new Error('SECRET_MAIL_KEY non è definito');
   const token = jwt.sign({ userId }, port!, { expiresIn: '1h' });
-  console.log('Token generato:', token);
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -14,11 +12,7 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
-    debug: true,
-    logger: true,
   });
-
-  console.log('Transporter creato.');
 
   const mailOptions = {
     from: 'noreply.fifthpocket@gmail.com',
@@ -26,7 +20,7 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
     subject: 'Email Confirmation',
     attachments: [
       {
-        filename: 'SAVEUP',
+        filename: 'SAVEUP.png',
         path: 'https://res.cloudinary.com/dtizmgqqa/image/upload/v1735496822/SAVEUP_ukrmgj.png',
         cid: 'logo',
       },
@@ -138,13 +132,5 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
 `,
   };
 
-  console.log('Mail options preparate.');
-
-  try {
-    await transporter.sendMail(mailOptions);
-    console.log('Email inviata con successo.');
-  } catch (error) {
-    console.error("Errore durante l'invio dell'email:", error);
-    throw error;
-  }
+  await transporter.sendMail(mailOptions);
 };
