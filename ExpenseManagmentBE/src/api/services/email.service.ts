@@ -20,8 +20,8 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
     subject: 'Email Confirmation',
     attachments: [
       {
-        filename: 'SAVEUP.png',
-        path: 'SAVEUP.png',
+        filename: 'SAVEUP',
+        path: 'https://res.cloudinary.com/dtizmgqqa/image/upload/v1735496822/SAVEUP_ukrmgj.png',
         cid: 'logo',
       },
     ],
