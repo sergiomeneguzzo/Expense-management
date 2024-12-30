@@ -118,6 +118,10 @@
   background-color: #b0c4de;
 }
 
+.darkblue-theme {
+  background-color: #1e3a8a;
+}
+
 .red-theme {
   background-color: #f01505;
 }
@@ -130,7 +134,6 @@
   background-color: #5d1a77;
 }
 
-/* Responsività */
 @media screen and (max-width: 768px) {
   .header mat-icon {
     font-size: 24px;

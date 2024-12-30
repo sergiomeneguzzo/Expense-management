@@ -83,7 +83,7 @@ export class ThreeChartsComponent implements OnInit {
     const primaryColor = getComputedStyle(document.documentElement)
       .getPropertyValue('--primary-color')
       .trim();
-    const primaryColorLight = this.adjustColorBrightness(primaryColor, 30);
+    const primaryColorLight = this.adjustColorBrightness(primaryColor, 20);
     const primaryColorDark = this.adjustColorBrightness(primaryColor, -40);
     const primaryColorDarker = this.adjustColorBrightness(primaryColor, -70);
     this.pieChartData = {
