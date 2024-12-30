@@ -112,7 +112,9 @@ export class SummaryComponent {
         acc[categoryName] = { total: 0, items: [] };
       }
 
-      acc[categoryName].total += expense.amount;
+      acc[categoryName].total += expense.isIncome
+        ? expense.amount
+        : -expense.amount;
       acc[categoryName].items.push(expense);
 
       return acc;
