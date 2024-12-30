@@ -12,6 +12,8 @@ export const sendConfirmationEmail = async (email: string, userId: string) => {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS,
     },
+    logger: true,
+    debug: true,
   });
 
   const mailOptions = {
