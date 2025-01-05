@@ -12,4 +12,8 @@ export class SettingsComponent {
   applyTheme(color: string) {
     this.themeService.applyTheme(color);
   }
+
+  toggleDarkMode() {
+    // this.themeService.toggleDarkMode();
+  }
 }

@@ -47,9 +47,7 @@
       <ul>
         @for(expense of group.items; track $index) {
         <li class="list-expense" (click)="openExpenseDialog(expense)">
-          <span style="font-weight: bold">{{
-            expense.date | date : "dd MMM"
-          }}</span>
+          <span class="date-expense">{{ expense.date | date : "dd MMM" }}</span>
           <span class="expense-description">{{ expense.description }}</span>
           <span
             [ngClass]="{ income: expense.isIncome, expense: !expense.isIncome }"

@@ -124,6 +124,13 @@
           font-size: 0.8rem;
         }
 
+        .date-expense {
+          font-weight: bold;
+          @media screen and (max-width: 768px) {
+            font-size: 0.7rem;
+          }
+        }
+
         .expense-description {
           @media screen and (max-width: 768px) {
             font-size: 0.8rem;

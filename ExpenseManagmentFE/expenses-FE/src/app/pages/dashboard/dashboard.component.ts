@@ -10,6 +10,7 @@ import { Category } from '../../entities/category';
 })
 export class DashboardComponent implements OnInit {
   expenses: Expense[] = [];
+  currentYearExpenses: Expense[] = [];
   recentExpenses: Expense[] = [];
   categories: Category[] = [];
 
@@ -54,17 +55,26 @@ export class DashboardComponent implements OnInit {
 
   loadExpenses(): void {
     this.loading = true;
+    const currentYear = new Date().getFullYear();
+
     this.expensesService.getExpenses().subscribe(
       (data) => {
         this.expenses = data;
+
+        this.currentYearExpenses = this.expenses.filter(
+          (expense) => new Date(expense.date).getFullYear() === currentYear
+        );
+
         this.recentExpenses = [...this.expenses]
           .sort(
             (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
           )
           .slice(0, 4);
         this.calculateTotals();
+
         this.updateChart();
-        console.log('Spese recuperate', this.expenses);
+        console.log('Spese recuperate:', this.expenses);
+        console.log("Spese dell'anno corrente:", this.currentYearExpenses);
         this.loading = false;
       },
       (error) => {
@@ -160,7 +170,7 @@ export class DashboardComponent implements OnInit {
 
     let monthlyData = new Array(12).fill(0);
 
-    const monthlyExpenses = this.groupExpensesByMonth();
+    const monthlyExpenses = this.groupExpensesByMonth(this.currentYearExpenses);
     Object.keys(monthlyExpenses).forEach((month, index) => {
       const monthIndex = months.indexOf(month);
       if (monthIndex !== -1) {
@@ -217,7 +227,7 @@ export class DashboardComponent implements OnInit {
   }
 
   private updateChart(): void {
-    const monthlyExpenses = this.groupExpensesByMonth();
+    const monthlyExpenses = this.groupExpensesByMonth(this.currentYearExpenses);
     const months = [
       'GEN',
       'FEB',
@@ -259,8 +269,8 @@ export class DashboardComponent implements OnInit {
     };
   }
 
-  private groupExpensesByMonth(): Record<string, number> {
-    return this.expenses
+  private groupExpensesByMonth(expenses: Expense[]): Record<string, number> {
+    return expenses
       .filter((expense) => !expense.isIncome)
       .reduce((acc, expense) => {
         const month = new Date(expense.date)

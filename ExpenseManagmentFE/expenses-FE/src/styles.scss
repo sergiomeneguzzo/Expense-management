@@ -28,6 +28,10 @@ body {
   padding: 1rem;
 }
 
+img {
+  pointer-events: none;
+}
+
 .p-progressbar .p-progressbar-value {
   background-color: var(--primary-color-light) !important;
 }
