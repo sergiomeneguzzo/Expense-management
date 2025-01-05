@@ -8,4 +8,6 @@ import { Component, Input } from '@angular/core';
 export class BarChartComponent {
   @Input() chartData: any;
   @Input() chartOptions: any;
+
+  currentYear: number = new Date().getFullYear();
 }
