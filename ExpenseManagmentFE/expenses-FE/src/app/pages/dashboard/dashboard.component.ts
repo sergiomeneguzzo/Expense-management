@@ -148,8 +148,17 @@ export class DashboardComponent implements OnInit {
       .reduce((acc, expense) => acc + expense.amount, 0);
   }
   private calculatePercentageChange(current: number, previous: number): number {
-    if (previous === 0) return current > 0 ? 100 : 0;
-    return ((current - previous) / previous) * 100;
+    if (previous === 0) {
+      return current > 0 ? 100 : 0;
+    }
+    let percentage = ((current - previous) / previous) * 100;
+    if (percentage > 100) {
+      return 100;
+    }
+    if (percentage < 0) {
+      return 0;
+    }
+    return percentage;
   }
 
   private initializeChart(): void {

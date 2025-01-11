@@ -13,6 +13,8 @@ export class ThreeChartsComponent implements OnInit {
   @ViewChild('lineChart', { static: false }) lineChart: any;
   @ViewChild('pieChart', { static: false }) pieChart: any;
 
+  daysOfWeek: string[] = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
+
   expenses: Expense[] = [];
   categories: Category[] = [];
 
@@ -21,7 +23,8 @@ export class ThreeChartsComponent implements OnInit {
 
   currentYear: number = new Date().getFullYear();
   currentMonth: number = new Date().getMonth();
-  daysInMonth: { day: number; amount: number; isToday: boolean }[] = [];
+  daysInMonth: Array<{ day: number; amount: number; isToday: boolean } | null> =
+    [];
 
   pieChartData: any;
   pieChartOptions: any;
@@ -306,6 +309,12 @@ export class ThreeChartsComponent implements OnInit {
   generateCalendar(): void {
     this.daysInMonth = [];
     const days = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
+    const firstDayOfWeek =
+      (new Date(this.currentYear, this.currentMonth, 1).getDay() + 6) % 7;
+
+    for (let i = 0; i < firstDayOfWeek; i++) {
+      this.daysInMonth.push(null);
+    }
 
     for (let i = 1; i <= days; i++) {
       const dateStr = `${this.currentYear}-${String(
@@ -325,7 +334,6 @@ export class ThreeChartsComponent implements OnInit {
           !expense.isIncome
         );
       });
-
       const totalAmount = dayExpenses.reduce(
         (sum, expense) => sum + expense.amount,
         0

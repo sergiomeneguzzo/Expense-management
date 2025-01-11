@@ -57,23 +57,29 @@
   </div>
 
   <!-- Calendar -->
-  <div class="p-col-12 p-md-4 sm:m-0">
-    <div class="calendar-container">
-      <div class="calendar-header">
-        <button (click)="changeMonth(-1)">&#8249;</button>
-        <h3>{{ currentMonthName }} {{ currentYear }}</h3>
-        <button (click)="changeMonth(1)">&#8250;</button>
+  <div class="calendar-container">
+    <div class="calendar-header">
+      <button (click)="changeMonth(-1)">&#8249;</button>
+      <h3>{{ currentMonthName }} {{ currentYear }}</h3>
+      <button (click)="changeMonth(1)">&#8250;</button>
+    </div>
+
+    <div class="calendar-weekdays">
+      <div class="day-header" *ngFor="let weekday of daysOfWeek">
+        <span>{{ weekday }}</span>
       </div>
-      <div class="calendar-grid">
-        @for (day of daysInMonth; track $index) {
-        <div class="day-cell" [ngClass]="{ today: day.isToday }">
+    </div>
+
+    <div class="calendar-grid">
+      <ng-container *ngFor="let day of daysInMonth">
+        <div *ngIf="day" class="day-cell" [ngClass]="{ today: day.isToday }">
           <span class="day-number">{{ day.day }}</span>
           <span class="day-amount" [ngClass]="{ highlight: day.amount > 0 }">
             {{ abbreviateNumber(day.amount) }}€
           </span>
         </div>
-        }
-      </div>
+        <div *ngIf="!day" class="day-cell empty"></div>
+      </ng-container>
     </div>
   </div>
 </div>
