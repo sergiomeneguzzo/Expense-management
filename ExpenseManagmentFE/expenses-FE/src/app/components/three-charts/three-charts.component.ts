@@ -220,9 +220,11 @@ export class ThreeChartsComponent implements OnInit {
       (acc, expense) => acc + expense.amount,
       0
     );
-    const totalExpenses = this.expenses
-      .filter((expense) => !expense.isIncome)
-      .reduce((acc, expense) => acc + expense.amount, 0);
+    const currentMonthExpenses = this.filterExpensesByCurrentMonth();
+    const totalExpenses = currentMonthExpenses.reduce(
+      (acc, expense) => acc + expense.amount,
+      0
+    );
 
     if (totalSalary > 0) {
       this.salaryUsedPercentage = Math.round(
