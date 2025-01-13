@@ -5,6 +5,7 @@ import { BehaviorSubject, tap, map, Observable } from 'rxjs';
 import { JwtService } from './jwt.service';
 import { User } from '../entities/user';
 import { apiUrl } from '../../../secrets';
+import { SessionService } from './session.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,9 +20,11 @@ export class AuthService {
   constructor(
     private jwtSrv: JwtService,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private authEventService: SessionService
   ) {
     this.fetchUser();
+    this.authEventService.logout$.subscribe(() => this.handleLogout());
   }
 
   isLoggedIn() {
@@ -63,6 +66,10 @@ export class AuthService {
     this.jwtSrv.removeToken();
     this._currentUser$.next(null);
     this.router.navigate(['/']);
+  }
+
+  private handleLogout(): void {
+    this.logout();
   }
 
   public fetchUser() {
