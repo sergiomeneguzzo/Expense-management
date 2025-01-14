@@ -34,7 +34,8 @@ export class AuthInterceptor implements HttpInterceptor {
         if (
           error.status === 401 &&
           req.url.includes(apiUrl) &&
-          !req.url.endsWith('/me')
+          !req.url.endsWith('/me') &&
+          !req.url.endsWith('/login')
         ) {
           this.authEventService.emitLogout();
           this.notificationService.errorMessage(
