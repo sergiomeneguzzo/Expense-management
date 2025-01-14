@@ -6,7 +6,7 @@
     <h3>{{ title }}</h3>
   </div>
   <div class="card-body">
-    <h2>{{ amount }}€</h2>
+    <h2>{{ amount | number : "1.2-2" }}€</h2>
     <p>
       <span
         [ngClass]="{

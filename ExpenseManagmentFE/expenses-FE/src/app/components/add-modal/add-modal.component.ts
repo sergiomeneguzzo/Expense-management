@@ -52,9 +52,19 @@ export class AddModalComponent {
     );
   }
 
+  roundAmount() {
+    const amountControl = this.transactionForm.get('amount');
+    if (amountControl && amountControl.value !== null) {
+      const roundedValue = parseFloat(amountControl.value).toFixed(2);
+      amountControl.setValue(roundedValue, { emitEvent: false });
+    }
+  }
+
   onSubmit() {
     if (this.transactionForm.valid) {
       const formValue = this.transactionForm.value;
+
+      formValue.amount = parseFloat(formValue.amount).toFixed(2);
 
       if (
         formValue.category.name === 'Stipendio' &&
@@ -69,7 +79,7 @@ export class AddModalComponent {
       this.loading = true;
 
       const expense = {
-        amount: formValue.amount,
+        amount: parseFloat(formValue.amount),
         category: formValue.category.id,
         description: formValue.description,
         date: new Date(formValue.date) as Date,
