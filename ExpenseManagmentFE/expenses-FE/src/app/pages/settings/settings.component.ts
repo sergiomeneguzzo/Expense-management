@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ThemeService } from '../../services/theme.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -7,7 +8,7 @@ import { ThemeService } from '../../services/theme.service';
   styleUrl: './settings.component.scss',
 })
 export class SettingsComponent {
-  constructor(private themeService: ThemeService) {}
+  constructor(private themeService: ThemeService, private router: Router) {}
 
   applyTheme(color: string) {
     this.themeService.applyTheme(color);
@@ -15,5 +16,9 @@ export class SettingsComponent {
 
   toggleDarkMode() {
     // this.themeService.toggleDarkMode();
+  }
+
+  redirectToProfile() {
+    this.router.navigate(['/profile']);
   }
 }

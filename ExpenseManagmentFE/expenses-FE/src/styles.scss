@@ -25,6 +25,7 @@ body {
   overflow-x: hidden;
   margin: 0;
   background: var(--primary-color);
+  //background-image: linear-gradient(to right, $black, var(--primary-color));
   padding: 1rem;
 }
 
@@ -72,15 +73,6 @@ img {
 
 .p-card {
   border-radius: 10px;
-  //cursor: pointer;
-  // transition: background-image 1s ease-in-out, color 1s ease-in-out;
-  // &:hover {
-  //   background-image: linear-gradient(
-  //     to right,
-  //     $black,
-  //     var(--primary-color)
-  //   ) !important;
-  // }
 }
 
 @media screen and (max-width: 600px) {
