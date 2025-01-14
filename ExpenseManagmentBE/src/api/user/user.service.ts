@@ -45,7 +45,6 @@ export class UserService {
     newPassword: string,
     confirmPassword: string,
   ) {
-    //TODO: aggiungere il confronto con i valori nel database
     if (newPassword !== confirmPassword) {
       throw new PasswordMismatchError();
     }
@@ -61,7 +60,17 @@ export class UserService {
     ) {
       throw new SamePasswordError();
     }
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    existingIdentity!.credentials.hashedPassword = hashedPassword;
+
+    existingIdentity!.save();
+
+    return await this._getById(user.id!);
   }
+  private async _getById(userId: string) {
+    return await UserModel.findOne({ _id: userId });
+  }
+
   private async _comparePassword(notEncripted: string, enrcripted: string) {
     const match = await bcrypt.compare(notEncripted, enrcripted);
     return match;

@@ -6,7 +6,7 @@ import { list as userList } from '../user/user.controller';
 const router = Router();
 
 router.get('/me', isAuthenticated, me);
-router.get('/users', userList);
+router.get('/users', isAuthenticated, userList);
 router.post('/email-confirmation', (req, res, next) => {
   confirmEmail(req, res, next).catch(next);
 });

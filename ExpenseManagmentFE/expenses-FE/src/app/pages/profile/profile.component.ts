@@ -12,10 +12,7 @@ export class ProfileComponent {
   user: User | null = null;
   isLoading = false;
 
-  constructor(
-    private authService: AuthService,
-    private notify: NotificationService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.isLoading = true;

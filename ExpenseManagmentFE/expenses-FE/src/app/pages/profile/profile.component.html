@@ -11,12 +11,12 @@
     />
     <h2 class="profile-name">{{ user?.firstName }} {{ user?.lastName }}</h2>
   </div>
-  <div class="profile-details">
-    <p><strong>Nome:</strong> {{ user?.firstName }}</p>
-    <p><strong>Cognome:</strong> {{ user?.lastName }}</p>
-  </div>
+  <div class="profile-details"></div>
 
-  <!-- <button color="primary" (click)="openChangePasswordDialog()" class="cta-btn">
-    Change Password
-  </button> -->
+  <app-change-password #changePassword></app-change-password>
+  <button
+    pButton
+    label="Modifica Password"
+    (click)="changePassword.openDialog()"
+  ></button>
 </div>

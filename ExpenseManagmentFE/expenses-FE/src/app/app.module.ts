@@ -49,6 +49,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { FormatAmountPipe } from './pipes/format-amount.pipe';
 import { ExpenseDetailComponent } from './components/expense-detail/expense-detail.component';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
 
 registerLocaleData(localeIt, 'it');
 
@@ -74,6 +75,7 @@ registerLocaleData(localeIt, 'it');
     NotFoundComponent,
     FormatAmountPipe,
     ExpenseDetailComponent,
+    ChangePasswordComponent,
   ],
   imports: [
     BrowserModule,
