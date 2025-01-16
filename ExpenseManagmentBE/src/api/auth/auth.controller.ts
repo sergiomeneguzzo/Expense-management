@@ -74,7 +74,7 @@ export const add = async (
 
     const user = {
       ...omit(userDto, 'password', 'confirmPassword'),
-      isConfirmed: false,
+      isConfirmed: true, //change to false to require email confirmation
       picture: userDto.picture,
     };
 
