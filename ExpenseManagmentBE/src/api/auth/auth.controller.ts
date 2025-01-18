@@ -43,7 +43,7 @@ export const login = async (
         return;
       }
 
-      const token = jwt.sign(user, JWT_SECRET, { expiresIn: '7 days' });
+      const token = jwt.sign(user, JWT_SECRET, { expiresIn: '1 days' });
       logService.add('Login', true);
 
       res.status(200);

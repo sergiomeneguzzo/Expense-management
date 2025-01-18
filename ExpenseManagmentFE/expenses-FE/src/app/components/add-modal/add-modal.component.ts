@@ -34,7 +34,7 @@ export class AddModalComponent {
     this.transactionForm = this.fb.group({
       amount: [null, [Validators.required, Validators.min(1)]],
       category: [null, Validators.required],
-      description: [''],
+      description: ['', Validators.required],
       date: [null, Validators.required],
       isIncome: [null, Validators.required],
     });
