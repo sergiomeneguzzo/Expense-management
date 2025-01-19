@@ -8,7 +8,7 @@ SaveUp is a web application designed to help users track expenses and learn how 
 - **Angular 18**: The frontend is built using Angular 18 for a dynamic and responsive user interface.
 - **PrimeNG**: Advanced UI components are integrated using PrimeNG.
 - **PrimeFlex**: The layout is implemented using PrimeFlex's grid system.
-- **Theme Switching & Dark Mode**: Users can toggle between light and dark themes for a personalized experience.
+- **Theme Switching & Dark Mode**: Users can toggle between multiple colors themes for a personalized experience.
 
 ### Backend:
 - **Node.js with TypeScript**: The backend API is developed using Node.js and TypeScript for type safety and scalability.
@@ -23,7 +23,8 @@ SaveUp is a web application designed to help users track expenses and learn how 
 - **Savings Insights**: Get personalized suggestions on how to save money based on spending habits.
 - **Interactive Dashboard**: Visualize expenses with charts and graphs.
 - **Secure Authentication**: Includes registration, login, and email confirmation for account activation.
-- **Theme Customization**: Switch between light and dark modes.
+- **Theme Customization**: Switch between multiple colors.
+- **Profile Picture Uploads**: Users can upload profile pictures using **Cloudinary**, ensuring fast, secure, and optimized image storage and delivery.
 
 ## Frontend Structure
 
