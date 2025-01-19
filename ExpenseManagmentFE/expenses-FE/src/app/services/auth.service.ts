@@ -102,9 +102,9 @@ export class AuthService {
     return this.http.post(`${apiUrl}/users/email-confirmation`, { token });
   }
 
-  updateUserPicture(url: string): Observable<any> {
-    return this.http.patch(`${apiUrl}/users/update-profile-picture`, {
-      url,
+  updateProfilePicture(pictureUrl: string): Observable<User> {
+    return this.http.patch<User>(`${apiUrl}/users/update-profile-picture`, {
+      url: pictureUrl,
     });
   }
 }

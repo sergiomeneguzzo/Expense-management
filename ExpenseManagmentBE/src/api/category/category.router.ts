@@ -5,9 +5,11 @@ import {
   updateCategory,
   deleteCategory,
 } from './category.controller';
+import { isAuthenticated } from '../../utils/auth/authenticated-middleware';
 
 const router = Router();
 
+router.use(isAuthenticated);
 router.get('/', getCategories);
 router.post('/', createCategory);
 router.patch('/:id', updateCategory);

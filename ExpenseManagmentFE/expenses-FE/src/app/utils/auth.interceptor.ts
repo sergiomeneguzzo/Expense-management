@@ -21,6 +21,10 @@ export class AuthInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
+    if (req.url.includes('https://api.cloudinary.com/v1_1')) {
+      return next.handle(req);
+    }
+
     const authToken = this.jwtSrv.getToken();
     const router = new Router();
     const authReq = authToken
@@ -28,7 +32,7 @@ export class AuthInterceptor implements HttpInterceptor {
           headers: req.headers.set('Authorization', `Bearer ${authToken}`),
         })
       : req;
-    //return next.handle(authReq);
+
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
         if (

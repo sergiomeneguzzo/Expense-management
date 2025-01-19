@@ -21,7 +21,7 @@ export const confirmEmail = async (
   const { token } = req.body;
 
   if (!token) {
-    return res.status(400).send('Missing token');
+    res.status(400).send('Missing token');
   }
 
   try {
@@ -30,14 +30,14 @@ export const confirmEmail = async (
 
     const user = await UserModel.findById(userId);
     if (!user) {
-      return res.status(404).send('User not found');
+      res.status(404).send('User not found');
     }
 
-    user.isConfirmed = true;
-    await user.save();
-    return res.status(200).send('Email confirmed successfully');
+    user!.isConfirmed = true;
+    await user!.save();
+    res.status(200).send('Email confirmed successfully');
   } catch (err) {
-    return res.status(400).send('Invalid or expired token');
+    res.status(400).send('Invalid or expired token');
   }
 };
 
@@ -59,6 +59,27 @@ export const updatePassword = async (
 
     res.json(updatedUser);
     res.status(200);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const updateProfilePicture = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  try {
+    const user = req.user! as User;
+    const { url } = req.body;
+
+    if (!url) {
+      res.status(400).send('Profile picture URL is required');
+    }
+
+    const updatedUser = await userService.updateProfilePicture(user.id!, url);
+
+    res.status(200).json(updatedUser);
   } catch (err) {
     next(err);
   }

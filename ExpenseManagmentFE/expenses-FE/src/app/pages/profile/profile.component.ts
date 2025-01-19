@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { User } from '../../entities/user';
 import { AuthService } from '../../services/auth.service';
 import { NotificationService } from '../../services/notification.service';
+import { HttpClient } from '@angular/common/http';
+import { ExpensesService } from '../../services/expenses.service';
 
 @Component({
   selector: 'app-profile',
@@ -10,9 +12,14 @@ import { NotificationService } from '../../services/notification.service';
 })
 export class ProfileComponent {
   user: User | null = null;
+  selectedFile: File | null = null;
   isLoading = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private notificationService: NotificationService,
+    private expenseSrv: ExpensesService
+  ) {}
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -20,5 +27,44 @@ export class ProfileComponent {
       this.user = user;
       this.isLoading = false;
     });
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
+  onUpload(): void {
+    if (this.selectedFile) {
+      this.isLoading = true;
+      this.expenseSrv.uploadFile(this.selectedFile).subscribe({
+        next: (response) => {
+          const imageUrl = response.secure_url;
+          this.authService.updateProfilePicture(imageUrl).subscribe({
+            next: (updatedUser) => {
+              this.user = updatedUser;
+              this.isLoading = false;
+              this.notificationService.successMessage(
+                'Foto aggiornata con successo!'
+              );
+            },
+            error: () => {
+              this.isLoading = false;
+              this.notificationService.errorMessage(
+                'Errore durante il salvataggio!'
+              );
+            },
+          });
+        },
+        error: () => {
+          this.isLoading = false;
+          this.notificationService.errorMessage(
+            'Errore durante il caricamento!'
+          );
+        },
+      });
+    }
   }
 }

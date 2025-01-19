@@ -1,16 +1,33 @@
-@if(isLoading) {
-<app-loader></app-loader>
-}
-
 <div class="profile-card">
   <div class="profile-header">
-    <img
-      [src]="user?.picture || 'apiurl/default.png'"
-      alt="Profile Picture"
-      class="profile-image"
-    />
+    <div class="profile-image-container">
+      <img
+        [src]="user?.picture || 'apiurl/default.png'"
+        alt="Profile Picture"
+        class="profile-image"
+      />
+      <div class="upload-overlay" [class.disabled]="isLoading">
+        <label for="fileInput" class="upload-button">
+          @if(isLoading) {
+          <i class="pi pi-spinner pi-spin"></i>
+          } @else {
+          <i class="pi pi-camera"></i>
+          }
+        </label>
+        <input
+          type="file"
+          id="fileInput"
+          (change)="onFileSelected($event); onUpload()"
+          accept="image/*"
+          class="hidden-input"
+          [disabled]="isLoading"
+        />
+      </div>
+    </div>
+
     <h2 class="profile-name">{{ user?.firstName }} {{ user?.lastName }}</h2>
   </div>
+
   <div class="profile-details"></div>
 
   <app-change-password #changePassword></app-change-password>

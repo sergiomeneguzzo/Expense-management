@@ -11,14 +11,10 @@ import { validate } from '../../utils/validation-middleware';
 
 const router = Router();
 
-router.get('/', isAuthenticated, getExpenses);
-router.post('/', isAuthenticated, validate(CreateExpenseDTO), createExpense);
-router.patch(
-  '/:id',
-  isAuthenticated,
-  validate(UpdateExpenseDTO),
-  updateExpense,
-);
-router.delete('/:id', isAuthenticated, deleteExpense);
+router.use(isAuthenticated);
+router.get('/', getExpenses);
+router.post('/', validate(CreateExpenseDTO), createExpense);
+router.patch('/:id', validate(UpdateExpenseDTO), updateExpense);
+router.delete('/:id', deleteExpense);
 
 export default router;

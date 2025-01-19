@@ -75,6 +75,18 @@ export class UserService {
     const match = await bcrypt.compare(notEncripted, enrcripted);
     return match;
   }
+
+  async updateProfilePicture(userId: string, url: string): Promise<User> {
+    const user = await UserModel.findById(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    user.picture = url;
+    await user.save();
+
+    return user;
+  }
 }
 
 export default new UserService();
