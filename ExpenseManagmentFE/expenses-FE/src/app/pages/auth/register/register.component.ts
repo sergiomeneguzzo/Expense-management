@@ -7,6 +7,7 @@ import { customEmailValidator } from '../../../validators/email-validator';
 import { strongPasswordValidator } from '../../../validators/strongpassword-validator';
 import { urlValidator } from '../../../validators/url-validator';
 import { Router } from '@angular/router';
+import { ExpensesService } from '../../../services/expenses.service';
 
 @Component({
   selector: 'app-register',
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  selectedFile: File | null = null;
   hide = true;
   isLoading = false;
 
@@ -24,12 +26,13 @@ export class RegisterComponent {
     protected fb: FormBuilder,
     private authSrv: AuthService,
     private router: Router,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private expenseSrv: ExpensesService
   ) {
     this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      picture: ['', [urlValidator()]],
+      // picture: ['', [urlValidator()]],
       username: [
         '',
         [Validators.required, Validators.email, customEmailValidator()],
@@ -51,67 +54,84 @@ export class RegisterComponent {
     this.destroyed$.complete();
   }
 
-  register() {
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
+  clearFile(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.selectedFile = null;
+    this.registerForm.get('picture')?.reset();
+  }
+
+  async register(): Promise<void> {
     if (this.registerForm.valid) {
       this.isLoading = true;
-      let {
-        firstName,
-        lastName,
-        username,
-        picture,
-        password,
-        confirmPassword,
-      } = this.registerForm.value;
+      const { firstName, lastName, username, password, confirmPassword } =
+        this.registerForm.value;
 
-      if (!picture) {
-        picture =
+      try {
+        let picture =
           'https://static.vecteezy.com/ti/vettori-gratis/p1/2318271-icona-profilo-utente-vettoriale.jpg';
-      }
 
-      console.log('Credenziali', this.registerForm.value);
-      this.authSrv
-        .register(
-          firstName!,
-          lastName!,
-          username!,
-          picture!,
-          password!,
-          confirmPassword!
-        )
-        .subscribe({
-          next: (res) => {
-            this.isLoading = false;
-            this.notification.successMessage(
-              'Registrazione avvenuta con successo'
-            );
-            this.router.navigate([`/check-email`]);
-          },
-          error: (err) => {
-            this.isLoading = false;
-            if (err.error && err.error.message) {
-              if (err.error.error === 'UserExistsError') {
-                this.notification.errorMessage(
-                  "Email gia in uso. Prova con un'altra email"
-                );
-              } else if (err.error.error === 'PasswordMismatch') {
-                this.notification.errorMessage(
-                  'Password e conferma password non corrispondono'
-                );
-              } else {
-                this.notification.errorMessage(
-                  'Registrazione fallita. Riprova più tardi'
-                );
-              }
-            } else {
-              this.notification.errorMessage(
-                'Registrazione fallita. Riprova più tardi'
-              );
-            }
-          },
-        });
+        if (this.selectedFile) {
+          const response = await this.expenseSrv
+            .uploadFile(this.selectedFile)
+            .toPromise();
+          picture = response.secure_url;
+        }
+
+        await this.authSrv
+          .register(
+            firstName,
+            lastName,
+            username,
+            picture,
+            password,
+            confirmPassword
+          )
+          .toPromise();
+
+        this.notification.successMessage(
+          'Registrazione avvenuta con successo!'
+        );
+        this.router.navigate(['/check-email']);
+      } catch (err: any) {
+        this.isLoading = false;
+        this.handleRegistrationError(err);
+      }
     } else {
-      this.isLoading = false;
       this.notification.errorMessage('Compila tutti i campi correttamente');
+    }
+  }
+
+  private handleRegistrationError(err: any): void {
+    if (err.error && err.error.message) {
+      switch (err.error.error) {
+        case 'UserExistsError':
+          this.notification.errorMessage(
+            "L'email è già in uso. Prova con un'altra."
+          );
+          break;
+        case 'PasswordMismatch':
+          this.notification.errorMessage(
+            'Le password non coincidono. Riprova.'
+          );
+          break;
+        default:
+          this.notification.errorMessage(
+            'Registrazione fallita. Riprova più tardi.'
+          );
+          break;
+      }
+    } else {
+      this.notification.errorMessage(
+        'Si è verificato un errore imprevisto. Contatta il supporto.'
+      );
     }
   }
 

@@ -58,18 +58,28 @@
               </div>
               <div class="form-group mb-4">
                 <label for="picture">Immagine del profilo (Facoltativo)</label>
-                <input
-                  pInputText
-                  class="email-input"
-                  id="picture"
-                  type="text"
-                  placeholder="URL Immagine"
-                  formControlName="picture"
-                />
-                @if (registerForm.get('picture')?.errors?.['invalidUrl'] &&
-                registerForm.get('picture')?.touched) {
-                <small class="p-error">Inserisci un URL valido.</small>
-                }
+                <div class="file-upload">
+                  <input
+                    type="file"
+                    id="picture"
+                    (change)="onFileSelected($event)"
+                    class="hidden-input"
+                    accept="image/*"
+                  />
+                  <label for="picture" class="upload-icon">
+                    <i class="pi pi-paperclip"></i>
+                  </label>
+                  @if (selectedFile) {
+                  <span class="file-preview">
+                    <i class="pi pi-file mr-2"></i>
+                    {{ selectedFile.name }}
+                    <i
+                      class="pi pi-times remove-file"
+                      (click)="clearFile($event)"
+                    ></i>
+                  </span>
+                  }
+                </div>
               </div>
             </div>
             <div class="col-12 md:col-6">

@@ -50,6 +50,62 @@
   position: relative;
   margin-bottom: 1.5rem;
 
+  .file-upload {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 0.5rem;
+
+    .hidden-input {
+      display: none;
+    }
+
+    .upload-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background-color: var(--primary-color);
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      i {
+        font-size: 1.2rem;
+      }
+    }
+
+    .file-preview {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      background-color: #f8f9fa;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      .remove-file {
+        margin-left: 0.5rem;
+        color: #dc3545;
+        cursor: pointer;
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: darken(#dc3545, 10%);
+        }
+      }
+    }
+  }
+
   label {
     display: block;
     text-align: left;
