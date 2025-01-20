@@ -19,6 +19,12 @@
   scroll-behavior: smooth !important;
 }
 
+.p-password-panel {
+  transform-origin: top !important;
+  top: 100% !important;
+  bottom: auto !important;
+}
+
 body {
   background: $white;
   font-family: "Poppins", sans-serif;
