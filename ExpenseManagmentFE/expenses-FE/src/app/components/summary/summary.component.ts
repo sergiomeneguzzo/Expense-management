@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Expense } from '../../entities/expense';
 import { Category } from '../../entities/category';
 import { ExpensesService } from '../../services/expenses.service';
@@ -6,16 +6,15 @@ import { ExpensesService } from '../../services/expenses.service';
 @Component({
   selector: 'app-summary',
   templateUrl: './summary.component.html',
-  styleUrl: './summary.component.scss',
+  styleUrls: ['./summary.component.scss'],
 })
-export class SummaryComponent {
+export class SummaryComponent implements OnInit {
   expenses: Expense[] = [];
   categories: Category[] = [];
   currentYear: number = new Date().getFullYear();
   currentMonth: number = new Date().getMonth();
   expensesByCategory: { category: string; total: number; items: Expense[] }[] =
     [];
-
   selectedExpense: Expense | null = null;
   showExpenseDialog: boolean = false;
   loading: boolean = false;
@@ -23,32 +22,16 @@ export class SummaryComponent {
   constructor(private expensesService: ExpensesService) {}
 
   ngOnInit(): void {
-    this.loadExpenses();
-    this.loadCategories();
-  }
-
-  openExpenseDialog(expense: Expense): void {
-    this.selectedExpense = expense;
-    this.showExpenseDialog = true;
-  }
-
-  onExpenseUpdated(updatedExpense: Expense) {
-    this.loadExpenses();
-  }
-
-  loadExpenses(): void {
-    this.loading = true;
-    this.expensesService.getExpenses().subscribe({
+    this.expensesService.expenses$.subscribe({
       next: (data) => {
         this.expenses = data;
         this.updateExpensesByCategory();
-        this.loading = false;
       },
-      error: (error) => {
-        console.error('Errore nel recuperare le spese', error);
-        this.loading = false;
-      },
+      error: (error) => console.error('Errore nel recuperare le spese', error),
     });
+
+    this.expensesService.loadExpenses();
+    this.loadCategories();
   }
 
   loadCategories(): void {
@@ -56,9 +39,7 @@ export class SummaryComponent {
     this.expensesService.getCategoryExpenses().subscribe({
       next: (data) => {
         this.categories = data;
-        if (this.expenses.length > 0) {
-          this.updateExpensesByCategory();
-        }
+        this.updateExpensesByCategory();
         this.loading = false;
       },
       error: (error) => {
@@ -66,6 +47,15 @@ export class SummaryComponent {
         this.loading = false;
       },
     });
+  }
+
+  openExpenseDialog(expense: Expense): void {
+    this.selectedExpense = expense;
+    this.showExpenseDialog = true;
+  }
+
+  onExpenseUpdated(): void {
+    this.expensesService.loadExpenses();
   }
 
   getMonthlySummary(): { income: number; expenses: number; balance: number } {

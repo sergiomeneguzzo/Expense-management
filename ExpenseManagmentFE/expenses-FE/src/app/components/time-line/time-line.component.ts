@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Expense } from '../../entities/expense';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-time-line',
@@ -7,5 +8,5 @@ import { Expense } from '../../entities/expense';
   styleUrl: './time-line.component.scss',
 })
 export class TimeLineComponent {
-  @Input() expenses: Expense[] = [];
+  @Input() expenses$: Observable<Expense[]> = new Observable();
 }

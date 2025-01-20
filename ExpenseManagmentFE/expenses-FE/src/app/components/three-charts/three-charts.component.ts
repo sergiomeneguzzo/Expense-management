@@ -2,11 +2,13 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Category } from '../../entities/category';
 import { Expense } from '../../entities/expense';
 import { ExpensesService } from '../../services/expenses.service';
+import { Observable, combineLatest } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-three-charts',
   templateUrl: './three-charts.component.html',
-  styleUrl: './three-charts.component.scss',
+  styleUrls: ['./three-charts.component.scss'],
 })
 export class ThreeChartsComponent implements OnInit {
   @ViewChild('chartElement', { static: false }) chartElement!: ElementRef;
@@ -15,8 +17,8 @@ export class ThreeChartsComponent implements OnInit {
 
   daysOfWeek: string[] = ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'];
 
-  expenses: Expense[] = [];
-  categories: Category[] = [];
+  expenses$: Observable<Expense[]>;
+  categories$: Observable<Category[]>;
 
   salaryUsedPercentage: number = 0;
   loading: boolean = false;
@@ -31,12 +33,15 @@ export class ThreeChartsComponent implements OnInit {
   lineChartData: any;
   lineChartOptions: any;
 
-  constructor(private expensesService: ExpensesService) {}
+  constructor(private expensesService: ExpensesService) {
+    this.expenses$ = this.expensesService.expenses$;
+    this.categories$ = this.expensesService.getCategoryExpenses();
+  }
 
   ngOnInit(): void {
-    this.loadExpenses();
-    this.loadCategories();
-    this.generateCalendar();
+    this.expensesService.loadExpenses();
+    this.expenses$.subscribe((expenses) => this.generateCalendar(expenses));
+    this.updateCharts();
   }
 
   ngAfterViewInit(): void {
@@ -67,28 +72,42 @@ export class ThreeChartsComponent implements OnInit {
     }
   }
 
-  //GRAFICO TORTA
-  private updatePieChart(): void {
-    const currentMonthExpenses = this.filterExpensesByCurrentMonth();
+  private updateCharts(): void {
+    combineLatest([this.expenses$, this.categories$]).subscribe(
+      ([expenses, categories]) => {
+        this.updatePieChart(expenses, categories);
+        this.updateLineChart(expenses);
+        this.updateSalaryUsedPercentage(expenses);
+        this.generateCalendar(expenses);
+      }
+    );
+  }
+
+  private updatePieChart(expenses: Expense[], categories: Category[]): void {
+    const currentMonthExpenses = this.filterExpensesByCurrentMonth(expenses);
     const groupedByCategory = currentMonthExpenses.reduce((acc, expense) => {
       const categoryId = expense.category?.id || 'Sconosciuto';
       acc[categoryId] = (acc[categoryId] || 0) + expense.amount;
       return acc;
     }, {} as Record<string, number>);
+
     const topCategories = Object.entries(groupedByCategory)
       .sort(([, amountA], [, amountB]) => amountB - amountA)
       .slice(0, 4);
-    const labels = topCategories.map(([categoryId, _]) => {
-      const category = this.categories.find((cat) => cat.id === categoryId);
+
+    const labels = topCategories.map(([categoryId]) => {
+      const category = categories.find((cat) => cat.id === categoryId);
       return category ? category.name : 'Sconosciuto';
     });
     const data = topCategories.map(([_, amount]) => amount);
+
     const primaryColor = getComputedStyle(document.documentElement)
       .getPropertyValue('--primary-color')
       .trim();
     const primaryColorLight = this.adjustColorBrightness(primaryColor, 20);
     const primaryColorDark = this.adjustColorBrightness(primaryColor, -40);
     const primaryColorDarker = this.adjustColorBrightness(primaryColor, -70);
+
     this.pieChartData = {
       labels: labels,
       datasets: [
@@ -103,6 +122,7 @@ export class ThreeChartsComponent implements OnInit {
         },
       ],
     };
+
     this.pieChartOptions = {
       responsive: true,
       animation: {
@@ -122,10 +142,10 @@ export class ThreeChartsComponent implements OnInit {
     };
   }
 
-  //GRAFICO LINEARE
-  private updateLineChart(): void {
-    const currentMonthExpenses = this.filterExpensesByCurrentMonth();
+  private updateLineChart(expenses: Expense[]): void {
+    const currentMonthExpenses = this.filterExpensesByCurrentMonth(expenses);
     const daysOfMonth = Array.from({ length: 31 }, (_, i) => i + 1);
+
     const dailyExpenses = daysOfMonth.map((day) => {
       const dailyTotal = currentMonthExpenses
         .filter((expense) => new Date(expense.date).getDate() === day)
@@ -136,6 +156,7 @@ export class ThreeChartsComponent implements OnInit {
     const primaryColor = getComputedStyle(document.documentElement)
       .getPropertyValue('--primary-color-light')
       .trim();
+
     this.lineChartData = {
       labels: daysOfMonth.map((day) => `${day}`),
       datasets: [
@@ -159,16 +180,8 @@ export class ThreeChartsComponent implements OnInit {
       },
       plugins: {
         tooltip: {
-          enabled: true,
           callbacks: {
             label: (context: any) => `€${context.raw}`,
-          },
-          intersect: false,
-          position: 'nearest',
-          mode: 'nearest',
-          caretSize: 6,
-          bodyFont: {
-            size: 12,
           },
         },
         legend: {
@@ -181,29 +194,37 @@ export class ThreeChartsComponent implements OnInit {
             display: true,
             text: 'Giorni',
           },
-          grid: {
-            display: false,
-          },
-          ticks: {
-            maxRotation: 0,
-            minRotation: 0,
-          },
         },
         y: {
           title: {
             display: true,
             text: 'Importo (€)',
           },
-          grid: {
-            display: false,
-          },
         },
       },
     };
   }
-  private filterExpensesByCurrentMonth(): Expense[] {
+
+  private updateSalaryUsedPercentage(expenses: Expense[]): void {
+    const salaryExpenses = this.filterSalaryExpensesByMonth(expenses);
+    const totalSalary = salaryExpenses.reduce(
+      (acc, expense) => acc + expense.amount,
+      0
+    );
+    const currentMonthExpenses = this.filterExpensesByCurrentMonth(expenses);
+    const totalExpenses = currentMonthExpenses.reduce(
+      (acc, expense) => acc + expense.amount,
+      0
+    );
+
+    this.salaryUsedPercentage = totalSalary
+      ? Math.min(Math.round((totalExpenses / totalSalary) * 100), 100)
+      : 0;
+  }
+
+  private filterExpensesByCurrentMonth(expenses: Expense[]): Expense[] {
     const currentDate = new Date();
-    return this.expenses.filter((expense) => {
+    return expenses.filter((expense) => {
       const expenseDate = new Date(expense.date);
       return (
         expenseDate.getMonth() === currentDate.getMonth() &&
@@ -213,34 +234,9 @@ export class ThreeChartsComponent implements OnInit {
     });
   }
 
-  //PROGRESS BAR
-  private updateSalaryUsedPercentage(): void {
-    const salaryExpenses = this.filterSalaryExpensesByMonth();
-    const totalSalary = salaryExpenses.reduce(
-      (acc, expense) => acc + expense.amount,
-      0
-    );
-    const currentMonthExpenses = this.filterExpensesByCurrentMonth();
-    const totalExpenses = currentMonthExpenses.reduce(
-      (acc, expense) => acc + expense.amount,
-      0
-    );
-
-    if (totalSalary > 0) {
-      this.salaryUsedPercentage = Math.round(
-        (totalExpenses / totalSalary) * 100
-      );
-      if (this.salaryUsedPercentage > 100) {
-        this.salaryUsedPercentage = 100;
-      }
-    } else {
-      this.salaryUsedPercentage = 0;
-    }
-  }
-
-  private filterSalaryExpensesByMonth(): Expense[] {
+  private filterSalaryExpensesByMonth(expenses: Expense[]): Expense[] {
     const currentDate = new Date();
-    return this.expenses.filter((expense) => {
+    return expenses.filter((expense) => {
       const expenseDate = new Date(expense.date);
       return (
         expense.isIncome &&
@@ -250,39 +246,6 @@ export class ThreeChartsComponent implements OnInit {
     });
   }
 
-  loadExpenses(): void {
-    this.loading = true;
-    this.expensesService.getExpenses().subscribe(
-      (data) => {
-        this.expenses = data;
-        this.updatePieChart();
-        this.updateLineChart();
-        this.updateSalaryUsedPercentage();
-        this.generateCalendar();
-        this.loading = false;
-      },
-      (error) => {
-        console.error('Errore nel recuperare le spese', error);
-      }
-    );
-  }
-  loadCategories(): void {
-    this.loading = true;
-    this.expensesService.getCategoryExpenses().subscribe(
-      (data) => {
-        this.categories = data;
-        if (this.expenses.length > 0) {
-          this.updatePieChart();
-          this.updateLineChart();
-          this.updateSalaryUsedPercentage();
-        }
-        this.loading = false;
-      },
-      (error) => {
-        console.error('Errore nel recuperare le categorie', error);
-      }
-    );
-  }
   private adjustColorBrightness(color: string, percent: number): string {
     let r: any, g: any, b: any;
     color = color.replace('#', '');
@@ -292,23 +255,16 @@ export class ThreeChartsComponent implements OnInit {
     r = Math.round((r * (100 + percent)) / 100);
     g = Math.round((g * (100 + percent)) / 100);
     b = Math.round((b * (100 + percent)) / 100);
-    r = r > 255 ? 255 : r < 0 ? 0 : r;
-    g = g > 255 ? 255 : g < 0 ? 0 : g;
-    b = b > 255 ? 255 : b < 0 ? 0 : b;
+    r = Math.min(255, Math.max(0, r));
+    g = Math.min(255, Math.max(0, g));
+    b = Math.min(255, Math.max(0, b));
     return `#${((1 << 24) | (r << 16) | (g << 8) | b)
       .toString(16)
       .slice(1)
       .toUpperCase()}`;
   }
 
-  get currentMonthName(): string {
-    return new Date(this.currentYear, this.currentMonth).toLocaleString(
-      'default',
-      { month: 'long' }
-    );
-  }
-
-  generateCalendar(): void {
+  generateCalendar(expenses: Expense[]): void {
     this.daysInMonth = [];
     const days = new Date(this.currentYear, this.currentMonth + 1, 0).getDate();
     const firstDayOfWeek =
@@ -319,23 +275,16 @@ export class ThreeChartsComponent implements OnInit {
     }
 
     for (let i = 1; i <= days; i++) {
-      const dateStr = `${this.currentYear}-${String(
-        this.currentMonth + 1
-      ).padStart(2, '0')}-${String(i).padStart(2, '0')}T12:00:00`;
-
-      const dayExpenses = this.expenses.filter((expense) => {
+      const dayExpenses = expenses.filter((expense) => {
         const expenseDate = new Date(expense.date);
-        const expenseDay = expenseDate.getDate();
-        const expenseMonth = expenseDate.getMonth();
-        const expenseYear = expenseDate.getFullYear();
-
         return (
-          expenseDay === i &&
-          expenseMonth === this.currentMonth &&
-          expenseYear === this.currentYear &&
+          expenseDate.getDate() === i &&
+          expenseDate.getMonth() === this.currentMonth &&
+          expenseDate.getFullYear() === this.currentYear &&
           !expense.isIncome
         );
       });
+
       const totalAmount = dayExpenses.reduce(
         (sum, expense) => sum + expense.amount,
         0
@@ -355,13 +304,6 @@ export class ThreeChartsComponent implements OnInit {
     }
   }
 
-  abbreviateNumber(value: number): string {
-    if (value >= 1000) {
-      return (value / 1000).toFixed(1).replace('.0', '') + 'k';
-    }
-    return value.toString();
-  }
-
   changeMonth(direction: number): void {
     this.currentMonth += direction;
     if (this.currentMonth < 0) {
@@ -371,6 +313,13 @@ export class ThreeChartsComponent implements OnInit {
       this.currentMonth = 0;
       this.currentYear++;
     }
-    this.generateCalendar();
+    this.expenses$.subscribe((expenses) => this.generateCalendar(expenses));
+  }
+
+  abbreviateNumber(value: number): string {
+    if (value >= 1000) {
+      return (value / 1000).toFixed(1).replace('.0', '') + 'k';
+    }
+    return value.toString();
   }
 }

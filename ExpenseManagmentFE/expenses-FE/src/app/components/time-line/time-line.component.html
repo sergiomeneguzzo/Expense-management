@@ -5,38 +5,42 @@
   <div class="timeline-container">
     <div class="timeline-line"></div>
     <div class="expense-items">
-      @if (expenses && expenses.length) {
-      <ng-container>
-        @for (expense of expenses; track $index) {
-        <div class="expense-item">
-          <div class="timeline-dot"></div>
-          <div class="expense-content">
-            <div class="expense-card">
-              <div class="expense-details">
-                <h4 class="expense-title">{{ expense.description }}</h4>
-                <p class="expense-date">
-                  {{ expense.date | date : "dd MMMM, yyyy" }}
-                </p>
+      <ng-container *ngIf="(expenses$ | async)?.length as expensesLength">
+        <ng-container *ngIf="expensesLength > 0">
+          <ng-container>
+            <div *ngFor="let expense of expenses$ | async; let i = index">
+              <div class="expense-item">
+                <div class="timeline-dot"></div>
+                <div class="expense-content">
+                  <div class="expense-card">
+                    <div class="expense-details">
+                      <h4 class="expense-title">{{ expense.description }}</h4>
+                      <p class="expense-date">
+                        {{ expense.date | date : "dd MMMM, yyyy" }}
+                      </p>
+                    </div>
+                    <span
+                      class="expense-amount"
+                      [ngClass]="{
+                        income: expense.isIncome,
+                        expense: !expense.isIncome
+                      }"
+                    >
+                      {{ expense.isIncome ? "+" : "-" }}€{{ expense.amount }}
+                    </span>
+                  </div>
+                </div>
               </div>
-              <span
-                class="expense-amount"
-                [ngClass]="{
-                  income: expense.isIncome,
-                  expense: !expense.isIncome
-                }"
-              >
-                {{ expense.isIncome ? "+" : "-" }}€{{ expense.amount }}
-              </span>
             </div>
-          </div>
-        </div>
-        }
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="!(expenses$ | async)?.length"> </ng-container>
+        <ng-container *ngIf="expensesLength === 0">
+          <ng-template #noExpenses>
+            <p>Nessuna spesa trovata :(</p>
+          </ng-template>
+        </ng-container>
       </ng-container>
-      } @else {
-      <ng-template #noExpenses>
-        <p>Nessuna spesa trovata :(</p>
-      </ng-template>
-      }
     </div>
   </div>
 </div>
