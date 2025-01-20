@@ -2,7 +2,7 @@ import { CategoryModel } from './category.model';
 import { Category } from './category.entity';
 
 const getAllCategories = async () => {
-  return CategoryModel.find();
+  return CategoryModel.find().sort({ name: 1 });
 };
 
 const createCategory = async (category: Category) => {
