@@ -71,14 +71,15 @@ export class ThreeChartsComponent implements OnInit {
       this.pieChart.chart.update();
     }
   }
-
   private updateCharts(): void {
+    this.loading = true;
     combineLatest([this.expenses$, this.categories$]).subscribe(
       ([expenses, categories]) => {
         this.updatePieChart(expenses, categories);
         this.updateLineChart(expenses);
         this.updateSalaryUsedPercentage(expenses);
         this.generateCalendar(expenses);
+        this.loading = false;
       }
     );
   }
