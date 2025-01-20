@@ -49,6 +49,9 @@ export class ProfileComponent {
               this.notificationService.successMessage(
                 'Foto aggiornata con successo!'
               );
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000);
             },
             error: () => {
               this.isLoading = false;

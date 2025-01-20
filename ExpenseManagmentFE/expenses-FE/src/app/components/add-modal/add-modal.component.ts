@@ -96,7 +96,7 @@ export class AddModalComponent {
           );
           setTimeout(() => {
             window.location.reload();
-          }, 1500);
+          }, 1000);
         },
         (error) => {
           console.error("Errore nell'aggiungere la spesa", error);
