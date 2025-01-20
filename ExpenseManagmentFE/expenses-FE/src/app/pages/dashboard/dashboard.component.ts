@@ -14,7 +14,6 @@ export class DashboardComponent implements OnInit {
   expenses$: Observable<Expense[]>;
   currentYearExpenses$: Observable<Expense[]>;
   recentExpenses$: Observable<Expense[]>;
-  categories: Category[] = [];
 
   totalIncome: number = 0;
   totalExpenses: number = 0;
@@ -47,14 +46,13 @@ export class DashboardComponent implements OnInit {
         )
       )
     );
-
     this.recentExpenses$ = this.expenses$.pipe(
       map((expenses) =>
-        [...expenses]
+        expenses
           .sort(
             (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
           )
-          .slice(0, 4)
+          .slice(0, 5)
       )
     );
   }
@@ -177,7 +175,9 @@ export class DashboardComponent implements OnInit {
     if (previous === 0) {
       return current > 0 ? 100 : 0;
     }
-    return ((current - previous) / previous) * 100;
+    const percentage = ((current - previous) / previous) * 100;
+
+    return Math.min(Math.max(percentage, 0), 100);
   }
 
   private initializeChart(): void {
@@ -259,10 +259,6 @@ export class DashboardComponent implements OnInit {
 
   private updateChart(expenses: Expense[]): void {
     const monthlyExpenses = this.groupExpensesByMonth(expenses);
-    this.updateChartData(monthlyExpenses);
-  }
-
-  private updateChartData(monthlyExpenses: Record<string, number>): void {
     const months = [
       'GEN',
       'FEB',
@@ -280,19 +276,30 @@ export class DashboardComponent implements OnInit {
 
     let monthlyData = new Array(12).fill(0);
 
-    Object.keys(monthlyExpenses).forEach((month) => {
+    const currentYear = new Date().getFullYear();
+    const currentYearMonthlyExpenses = this.groupExpensesByMonth(
+      expenses.filter(
+        (expense) => new Date(expense.date).getFullYear() === currentYear
+      )
+    );
+
+    Object.keys(currentYearMonthlyExpenses).forEach((month) => {
       const monthIndex = months.indexOf(month);
       if (monthIndex !== -1) {
-        monthlyData[monthIndex] = monthlyExpenses[month];
+        monthlyData[monthIndex] = currentYearMonthlyExpenses[month];
       }
     });
+
+    const primaryColor = getComputedStyle(document.documentElement)
+      .getPropertyValue('--primary-color-light')
+      .trim();
 
     this.chartData = {
       labels: months,
       datasets: [
         {
           label: 'Spese Mensili',
-          backgroundColor: '#42A5F5',
+          backgroundColor: primaryColor,
           borderRadius: 5,
           data: monthlyData,
         },
