@@ -183,6 +183,13 @@ export class ThreeChartsComponent implements OnInit {
           callbacks: {
             label: (context: any) => `€${context.raw}`,
           },
+          intersect: false,
+          position: 'nearest',
+          mode: 'nearest',
+          caretSize: 6,
+          bodyFont: {
+            size: 12,
+          },
         },
         legend: {
           display: false,
@@ -194,11 +201,21 @@ export class ThreeChartsComponent implements OnInit {
             display: true,
             text: 'Giorni',
           },
+          grid: {
+            display: false,
+          },
+          ticks: {
+            maxRotation: 0,
+            minRotation: 0,
+          },
         },
         y: {
           title: {
             display: true,
             text: 'Importo (€)',
+          },
+          grid: {
+            display: false,
           },
         },
       },
@@ -275,16 +292,23 @@ export class ThreeChartsComponent implements OnInit {
     }
 
     for (let i = 1; i <= days; i++) {
+      const dateStr = `${this.currentYear}-${String(
+        this.currentMonth + 1
+      ).padStart(2, '0')}-${String(i).padStart(2, '0')}T12:00:00`;
+
       const dayExpenses = expenses.filter((expense) => {
         const expenseDate = new Date(expense.date);
+        const expenseDay = expenseDate.getDate();
+        const expenseMonth = expenseDate.getMonth();
+        const expenseYear = expenseDate.getFullYear();
+
         return (
-          expenseDate.getDate() === i &&
-          expenseDate.getMonth() === this.currentMonth &&
-          expenseDate.getFullYear() === this.currentYear &&
+          expenseDay === i &&
+          expenseMonth === this.currentMonth &&
+          expenseYear === this.currentYear &&
           !expense.isIncome
         );
       });
-
       const totalAmount = dayExpenses.reduce(
         (sum, expense) => sum + expense.amount,
         0
@@ -302,6 +326,15 @@ export class ThreeChartsComponent implements OnInit {
         isToday: isToday,
       });
     }
+  }
+
+  get currentMonthName(): string {
+    return new Date(this.currentYear, this.currentMonth).toLocaleString(
+      'it-IT',
+      {
+        month: 'long',
+      }
+    );
   }
 
   changeMonth(direction: number): void {
