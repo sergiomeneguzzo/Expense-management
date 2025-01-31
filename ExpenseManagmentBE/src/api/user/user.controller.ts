@@ -4,13 +4,26 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { TypedRequest } from '../../utils/typed-request';
 import { UserModel } from './user.model';
 import { User } from './user.entity';
+import cache from '../../cache';
 
 export const me = async (
   req: TypedRequest,
   res: Response,
   next: NextFunction,
 ) => {
-  res.json(req.user!);
+  const userId = req.user?.id;
+  const cacheKey = `user:${userId}`;
+
+  const cachedUser = cache.get(cacheKey);
+  if (cachedUser) {
+    res.json(cachedUser);
+    return;
+  }
+
+  const user = req.user;
+  cache.set(cacheKey, user, 300);
+
+  res.json(user);
 };
 
 export const confirmEmail = async (
@@ -57,6 +70,9 @@ export const updatePassword = async (
       confirmPassword,
     );
 
+    const cacheKey = `user:${user.id}`;
+    cache.del(cacheKey);
+
     res.json(updatedUser);
     res.status(200);
   } catch (err) {
@@ -78,6 +94,9 @@ export const updateProfilePicture = async (
     }
 
     const updatedUser = await userService.updateProfilePicture(user.id!, url);
+
+    const cacheKey = `user:${user.id}`;
+    cache.del(cacheKey);
 
     res.status(200).json(updatedUser);
   } catch (err) {

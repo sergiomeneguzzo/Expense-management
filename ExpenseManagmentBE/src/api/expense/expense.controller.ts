@@ -3,6 +3,7 @@ import expenseService from './expense.service';
 import { Expense } from './expense.entity';
 import logService from '../services/logs/log.service';
 import { CreateExpenseDTO, UpdateExpenseDTO } from './expense.dto';
+import cache from '../../cache';
 
 export const getExpenses = async (
   req: Request,
@@ -15,9 +16,18 @@ export const getExpenses = async (
     }
 
     const userId: string = req.user.id;
+    const cacheKey = `expenses:${userId}`;
+
+    const cachedExpenses = cache.get(cacheKey);
+    if (cachedExpenses) {
+      res.json(cachedExpenses);
+      return;
+    }
+
     const expenses = await expenseService.getAllExpenses(userId);
 
-    // logService.add(`Fetched expenses for user ID: ${userId}`, true);
+    cache.set(cacheKey, expenses, 300);
+
     res.json(expenses);
   } catch (error) {
     logService.add(
@@ -52,6 +62,8 @@ export const createExpense = async (
 
     const newExpense = await expenseService.createExpense(expenseData);
 
+    clearExpensesCache(userId);
+
     res.status(201).json(newExpense);
   } catch (error) {
     next(error);
@@ -75,6 +87,8 @@ export const updateExpense = async (
       req.body,
     );
 
+    clearExpensesCache(req.user?.id!);
+
     res.json(updatedExpense);
   } catch (error) {
     next(error);
@@ -96,6 +110,9 @@ export const deleteExpense = async (
     await expenseService.deleteExpense(expenseId);
 
     logService.add(`Deleted expense ID: ${expenseId}`, true);
+
+    clearExpensesCache(req.user?.id!);
+
     res.status(204).send();
   } catch (error) {
     logService.add(
@@ -104,4 +121,9 @@ export const deleteExpense = async (
     );
     next(error);
   }
+};
+
+const clearExpensesCache = (userId: string) => {
+  const cacheKey = `expenses:${userId}`;
+  cache.del(cacheKey);
 };
