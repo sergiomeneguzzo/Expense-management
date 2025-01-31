@@ -14,7 +14,7 @@ SaveUp is a web application designed to help users track expenses and learn how 
 - **🔐 Passport Authentication**: Secure user authentication with Passport.js.
 - **📧 Email Confirmation**: Email verification implemented using Nodemailer.
 - **🗄️ MongoDB Atlas**: A cloud-hosted NoSQL database for data storage.
-- **💨 Cache Implementation: A custom cache system is implemented to improve the performance of the backend.
+- **💨 Cache Implementation**: A custom cache system is implemented to improve the performance of the backend.
 
 ## ✨ Key Features
 - **📊 Expense Tracking**: Add, edit, and track your daily expenses.
@@ -23,7 +23,7 @@ SaveUp is a web application designed to help users track expenses and learn how 
 - **🔒 Secure Authentication**: Includes registration, login, and email confirmation for account activation.
 - **🎨 Theme Customization**: Switch between multiple colors.
 - **🖼️ Profile Picture Uploads**: Users can upload profile pictures using **Cloudinary**, ensuring fast, secure, and optimized image storage and delivery.
-- **⚡ Fast User Data Retrieval: User data, such as profile information, is cached for faster retrieval. Cache is cleared when user profile information is updated.
+- **⚡ Fast User Data Retrieval**: User data, such as profile information, is cached for faster retrieval. Cache is cleared when user profile information is updated.
 
 ## 📁 Frontend Structure
 ```plaintext
