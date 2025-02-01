@@ -50,16 +50,19 @@
       </div>
     </div>
 
-    <!-- Logout -->
-    <div class="logout-container">
-      <p (click)="logout.emit()" class="log-out-btn">
-        <mat-icon>logout</mat-icon> Logout
-      </p>
+    <!-- Logout Section -->
+    <div class="logout-section">
+      <div class="logout-container">
+        <button (click)="logout.emit()" class="log-out-btn">
+          <mat-icon>logout</mat-icon>
+          <span *ngIf="!isClosed">Logout</span>
+        </button>
+      </div>
     </div>
 
     <!-- Toggle button -->
     <div class="toggle-button" (click)="toggleSidebar()">
-      <mat-icon>{{ isClosed ? "arrow_forward" : "arrow_back" }}</mat-icon>
+      <mat-icon>{{ isClosed ? "arrow_forward" : "close" }}</mat-icon>
     </div>
   </div>
 </div>
