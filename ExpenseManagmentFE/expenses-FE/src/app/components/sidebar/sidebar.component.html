@@ -1,6 +1,5 @@
 <div class="sidebar" [class.closed]="isClosed">
   <div class="sidebar-content">
-    <!-- Header con il logo -->
     <div class="sidebar-header">
       <div class="icon-container">
         <mat-icon>bar_chart_4_bars</mat-icon>
@@ -8,7 +7,6 @@
       <div class="logo">SaveUp</div>
     </div>
 
-    <!-- Foto profilo e nome utente -->
     <div class="user-profile" *ngIf="user">
       <img [src]="user.picture" alt="Profile Picture" class="profile-pic" />
       <div class="user-info">
@@ -16,7 +14,6 @@
       </div>
     </div>
 
-    <!-- Menu -->
     <div class="nav-items">
       <div
         class="nav-item"
@@ -50,7 +47,6 @@
       </div>
     </div>
 
-    <!-- Logout Section -->
     <div class="logout-section">
       <div class="logout-container">
         <button (click)="logout.emit()" class="log-out-btn">
@@ -60,7 +56,6 @@
       </div>
     </div>
 
-    <!-- Toggle button -->
     <div class="toggle-button" (click)="toggleSidebar()">
       <mat-icon>{{ isClosed ? "arrow_forward" : "close" }}</mat-icon>
     </div>
